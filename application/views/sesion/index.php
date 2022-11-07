@@ -1,8 +1,16 @@
+<script src="<?php echo base_url('resources/js/sesion_nueva.js'); ?>" type="text/javascript"></script>
+
+<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
+
 <div class="box-header">
     <h3 class="box-title">Generar Sesiones</h3>
     <div class="box-tools">
-        <a href="<?php echo site_url('registro/add'); ?>" class="btn btn-success btn-sm">Nuevas Sesiones</a> 
+        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevasesion" onclick="cargarmodal_nuevasesion()">
+            <span class="fa fa-pencil-square-o"></span> Nuevas Sesiones </a>
     </div>
+</div>
+<div class="col-md-12 text-center" id="loader" style="display:none;">
+    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -19,32 +27,7 @@
                         <th>COSTO SESION</th>
                     </tr>
                     </thead>
-                    <tbody class="buscar" id="tablaresultados">
-                    <?php
-                    for ($i = 1; $i <= 13; $i++) {
-                    ?>
-                        <tr>
-                            <td class="text-center"><?php echo $i; ?></td>
-                            <td>
-                                <input type="date" name="sesion<?php echo $i; ?>" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="sesion<?php echo $i; ?>" />
-                            </td>
-                            <td>
-                                <input type="date" name="sesion<?php echo $i; ?>" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="sesion<?php echo $i; ?>" />
-                            </td>
-                            <td>
-                                <input type="date" name="sesion<?php echo $i; ?>" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="sesion<?php echo $i; ?>" />
-                            </td>
-                            <td>
-                                <input type="date" name="sesion<?php echo $i; ?>" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="sesion<?php echo $i; ?>" />
-                            </td>
-                            <td>
-                                <input type="date" name="sesion<?php echo $i; ?>" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="sesion<?php echo $i; ?>" />
-                            </td>
-                        </tr>
-                    <?php 
-                    }
-                    ?>
-                    </tbody>
+                    <tbody class="buscar" id="tablaresultados"></tbody>
                 </table>
             </div>
 
@@ -53,80 +36,60 @@
 </div>
 
 <!------------------------ INICIO modal para Generar nuevas sesiones ------------------->
-<div class="modal fade" id="modalanular_noenviada" tabindex="-1" role="dialog" aria-labelledby="modalanularlabel" style="font-family: Arial; font-size: 10pt;">
+<div class="modal fade" id="modal_nuevasesion" tabindex="-1" role="dialog" aria-labelledby="modalanularlabel" style="font-family: Arial; font-size: 10pt;">
     <div class="modal-dialog" role="document">
         <br><br>
         <div class="modal-content">
-            <div class="modal-header text-center" style="background: #edb62b">
-                <b style="color: white;">ANULAR FACTURA NO ENVIADA</b>
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">GENERAR SESIONES NUEVAS</b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
             </div>
             <div class="modal-body">
-                <div class="col-md-12">
-                    <label for="factura_numero" class="control-label">ADVERTENCIA: Esta a punto de anular la factura no enviada!.</label>
-                </div>
-                <div class="col-md-12 text-center" id="loadermal" style="display:none;">
+                <div class="col-md-12 text-center" id="loadernuevo" style="display:none;">
                     <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
                 </div>
-                  <input type="hidden" name="facturamal_id" value="00" class="form-control" id="facturamal_id" readonly="true" />
-                  <input type="hidden" name="ventamal_id" value="00" class="form-control" id="ventamal_id" readonly="true" />
-
                 <div class="col-md-4">
-                    <label for="facturamal_numero" class="control-label">Factura Nº</label>
+                    <label for="sesion_numero" class="control-label">Nº Sesiones</label>
                     <div class="form-group">
-                        <input type="input" name="facturamal_numero" value="00" class="form-control" id="facturamal_numero" readonly="true"/>
+                        <input type="number" min="0" name="sesion_numero" value="0" class="form-control" id="sesion_numero" onclick="this.select();" />
                     </div>
                 </div>
-
                 <div class="col-md-4">
-                    <label for="facturamal_monto" class="control-label">Monto</label>
+                    <label for="sesion_fechainicio" class="control-label">Fecha Inicio de Sesion</label>
                     <div class="form-group">
-                        <input type="input" name="facturamal_monto" value="0.00" class="form-control" id="facturamal_monto" readonly="true"/>
+                        <input type="date" name="sesion_fechainicio" class="form-control" id="sesion_fechainicio" />
                     </div>
                 </div>
-
                 <div class="col-md-4">
-                    <label for="facturamal_fecha" class="control-label">Fecha</label>
+                    <label for="sesion_eritropoyetina" class="control-label">Eritropoyetina</label>
                     <div class="form-group">
-                        <input type="input" name="facturamal_fecha" value="0.00" class="form-control" id="facturamal_fecha" readonly="true"/>
+                        <input type="input" name="sesion_eritropoyetina" class="form-control" id="sesion_eritropoyetina" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
-
-                <div class="col-md-12">
-                    <label for="facturamal_cliente" class="control-label">Cliente</label>
+                <div class="col-md-4">
+                    <label for="sesion_hierroev" class="control-label">Hierro E.V.</label>
                     <div class="form-group">
-                        <input type="input" name="facturamal_cliente" value="-" class="form-control" id="facturamal_cliente" readonly="true"  />
+                        <input type="input" name="sesion_hierroev" class="form-control" id="sesion_hierroev" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" onclick="this.select();" />
                     </div>
                 </div>
-                <!--<div class="col-md-12">
-                    <label for="facturamal_correo" class="control-label">Correo Electrónico</label>
+                <div class="col-md-4">
+                    <label for="sesion_complejobampolla" class="control-label">Complejo B</label>
                     <div class="form-group">
-                        <input type="input" name="facturamal_correo" value="-" class="form-control" id="facturamal_correo" />
+                        <input type="input" name="sesion_complejobampolla" class="form-control" id="sesion_complejobampolla" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" onclick="this.select();" />
                     </div>
                 </div>
-
-                <div class="col-md-12">
-                    <label for="dosificacion_nitemisor" class="control-label">Motivo Anulación</label>
+                <div class="col-md-4">
+                    <label for="sesion_costosesion" class="control-label">Costo Sesión</label>
                     <div class="form-group">
-
-                        <select id="motivo_anulacion" class="form-control">
-
-                            <?php /* foreach ($motivos as $motivo) {?>
-
-                                <option value="<?= $motivo['cma_id']; ?>"><?= $motivo['cma_descripcion']; ?></option>
-
-                            <?php } */ ?>
-
-                        </select>
-
+                        <input type="number" min="0" step="any" name="sesion_costosesion" class="form-control" id="sesion_costosesion" onclick="this.select();" />
                     </div>
-                </div>-->
+                </div>
             </div>
             <div class="modal-footer" style="text-align: center">
-                <button type="button" class="btn btn-success" onclick="anular_factura_electronica_malemitida()"><fa class="fa fa-floppy-o"></fa> Anular Factura</button>
+                <button type="button" class="btn btn-success" onclick="generar_sesiones()"><fa class="fa fa-floppy-o"></fa> Registrar Sesiones</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmal"><fa class="fa fa-times"></fa> Cerrar</button>
             </div>
         </div>
     </div>
 </div>
-<!------------------------ F I N  modal para confirmar anulacion de factura no enviada------------------->
+<!------------------------ F I N  modal para Generar nuevas sesiones ------------------->

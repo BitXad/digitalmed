@@ -5,10 +5,40 @@
 */
 class Sesion_model extends CI_Model 
 { 
-     function __construct()
-      {
-          parent::__construct();
-      }
+    function __construct()
+    {
+        parent::__construct();
+    }
+      
+    
+    /*
+       * function to add new sesion 
+    */
+    function add_sesion($params)
+    {
+        try{
+            $this->db->insert('sesion',$params);
+            return $this->db->insert_id();
+        }catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in add_sesion function - ' . $ex);
+        }  
+    }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       /*
         * Get sesion by sesion_id 
       */ 
@@ -74,18 +104,7 @@ class Sesion_model extends CI_Model
              throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
            }  
       } 
-      /*
-         * function to add new sesion 
-      */
-      function add_sesion($params)
-      {
-        try{
-          $this->db->insert('sesion',$params);
-        return $this->db->insert_id();
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in add_sesion function - ' . $ex);
-           }  
-      }
+      
       /* 
           * function to update sesion 
       */
