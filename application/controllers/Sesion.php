@@ -26,39 +26,42 @@ class Sesion extends CI_Controller{
                 $sesion_fechainicio = $this->input->post('sesion_fechainicio');
                 // 0=>Domingo, 1=>Lunes, 2=>Martes, 3=>Miercoles, 4=>Jueves, 5=>Viernes, 6=>Sabado
                 $dia = date("w", strtotime($sesion_fechainicio));
-                $lmv = 0;  //0==>false;  1==>true
-                if($dia == 1 || $dia == 3 || $dia == 5){
-                    $lmv = 1;
-                }
-                for($i = 1; $i <= $sesion_numero; $i++){
-                    $params = array(
-                        'sesion_numerosesionhd' => $i,
-                        'sesion_fecha' => $sesion_fechainicio,
-                        'sesion_eritropoyetina' => $this->input->post('sesion_eritropoyetina'),
-                        'sesion_hierroeve' => $this->input->post('sesion_hierroev'),
-                        'sesion_complejobampolla' => $this->input->post('sesion_complejobampolla'),
-                        'sesion_costosesion' => $this->input->post('sesion_costosesion'),
-                    );
-                    $sesion_id = $this->Sesion_model->add_sesion($params);
-                    
-                    $dia = date("w", strtotime($sesion_fechainicio));
-                    
-                    if($lmv == 1){
-                        if($dia == 1 || $dia == 3){
-                            $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+2 days"));
-                        }elseif($dia == 5){
-                            $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+3 days"));
-                        }
-                    }else{
-                        if($dia == 2 || $dia == 4){
-                            $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+2 days"));
-                        }elseif($dia == 6){
-                            $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+3 days"));
+                if($dia >0){
+                    $lmv = 0;  //0==>false;  1==>true
+                    if($dia == 1 || $dia == 3 || $dia == 5){
+                        $lmv = 1;
+                    }
+                    for($i = 1; $i <= $sesion_numero; $i++){
+                        $params = array(
+                            'sesion_numerosesionhd' => $i,
+                            'sesion_fecha' => $sesion_fechainicio,
+                            'sesion_eritropoyetina' => $this->input->post('sesion_eritropoyetina'),
+                            'sesion_hierroeve' => $this->input->post('sesion_hierroev'),
+                            'sesion_complejobampolla' => $this->input->post('sesion_complejobampolla'),
+                            'sesion_costosesion' => $this->input->post('sesion_costosesion'),
+                        );
+                        $sesion_id = $this->Sesion_model->add_sesion($params);
+
+                        $dia = date("w", strtotime($sesion_fechainicio));
+
+                        if($lmv == 1){
+                            if($dia == 1 || $dia == 3){
+                                $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+2 days"));
+                            }elseif($dia == 5){
+                                $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+3 days"));
+                            }
+                        }else{
+                            if($dia == 2 || $dia == 4){
+                                $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+2 days"));
+                            }elseif($dia == 6){
+                                $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+3 days"));
+                            }
                         }
                     }
+                    echo json_encode("ok");
+                }else{
+                    echo json_encode("no");
                 }
-                echo json_encode("ok");
-                
             }else{                 
                 show_404();
             }

@@ -23,12 +23,13 @@ function generar_sesiones()
     var sesion_costosesion = document.getElementById("sesion_costosesion").value;
     
     if(sesion_numero > 0){
-        let d = new Date(sesion_fechainicio);
-        if(d.getDay() > 0){
+        //let d = new Date(sesion_fechainicio);
+        //alert(sesion_fechainicio);
+        //alert(d.getDay());
+        //if(d.getDay() > 0){
             var base_url = document.getElementById('base_url').value;
             var controlador = base_url+'sesion/generar_sesion';
             document.getElementById('loadernuevo').style.display = 'block';
-    
             $.ajax({url:controlador,
                     type:"POST",
                     data:{sesion_numero:sesion_numero, sesion_fechainicio:sesion_fechainicio,
@@ -37,15 +38,21 @@ function generar_sesiones()
                     },
                     success:function(result){
                         res = JSON.parse(result);
-                        alert("Sesiones generadas correctamente");
-                        $('#modal_nuevasesion').show("hide");
-                        mostrar_tablas();
+                        if(res == "no"){
+                            alert("Debe elegir otro dia que no sea Domingo.");
+                            document.getElementById('loadernuevo').style.display = 'none';
+                        }else{
+                            alert("Sesiones generadas correctamente");
+                            $('#boton_cerrarmodal').click();
+                            mostrar_tablas();
+                            
+                        }
                     },
             });
             
-        }else{
+        /*}else{
             alert("Debe elegir otro dia que no sea Domingo.");
-        }
+        }*/
     }else{
         alert("El Numero de Sesiones debe ser mayor a 0; por favor verifique sus datos!.");
     }

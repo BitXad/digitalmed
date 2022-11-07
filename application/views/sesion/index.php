@@ -63,7 +63,7 @@
                 <div class="col-md-4">
                     <label for="sesion_eritropoyetina" class="control-label">Eritropoyetina</label>
                     <div class="form-group">
-                        <input type="input" name="sesion_eritropoyetina" class="form-control" id="sesion_eritropoyetina" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                        <input type="number" min="0" name="sesion_eritropoyetina" class="form-control" id="sesion_eritropoyetina" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -87,7 +87,7 @@
             </div>
             <div class="modal-footer" style="text-align: center">
                 <button type="button" class="btn btn-success" onclick="generar_sesiones()"><fa class="fa fa-floppy-o"></fa> Registrar Sesiones</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmal"><fa class="fa fa-times"></fa> Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodal"><fa class="fa fa-times"></fa> Cerrar</button>
             </div>
         </div>
     </div>
