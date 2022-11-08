@@ -19,6 +19,37 @@ class Sesion extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
     
+    /*
+    * Listing of sesiones de un tratamiento
+    */
+    public function sesiones($tratamiento = 0)
+    {
+        
+        $data['tratamiento_id'] = $tratamiento;
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento);
+        /*$sesion = $this->Sesion_model->get_all_sesion();
+        $data['hay_sesiones']  = 0;
+        if(count($sesion)>0){
+            $data['hay_sesiones']  = 1;
+        }*/
+        $data['_view'] = 'sesion/sesiones';
+        $this->load->view('layouts/main',$data);
+    }
+    
+    function mostrar_sesiones(){
+        try{
+            if($this->input->is_ajax_request()){
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $sesion = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+                echo json_encode($sesion);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
     function generar_sesion(){
         try{
             if($this->input->is_ajax_request()){
@@ -33,6 +64,7 @@ class Sesion extends CI_Controller{
                     }
                     for($i = 1; $i <= $sesion_numero; $i++){
                         $params = array(
+                            'tratamiento_id' => $this->input->post('tratamiento_id'),
                             'sesion_numerosesionhd' => $i,
                             'sesion_fecha' => $sesion_fechainicio,
                             'sesion_eritropoyetina' => $this->input->post('sesion_eritropoyetina'),
@@ -70,18 +102,63 @@ class Sesion extends CI_Controller{
         }
     }
     
-    function mostrar_sesiones(){
+    /*
+    * modificar una sesión
+    */
+    public function modificar($sesion_id)
+    {   
         try{
-            if($this->input->is_ajax_request()){
-                $sesion = $this->Sesion_model->get_all_sesion();
-                echo json_encode($sesion);
-            }else{                 
-                show_404();
-            }
-        }catch (Exception $e){
-            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+            //$data['tratamiento_id'] = $tratamiento_id;
+            $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
+            
+            $this->load->library('upload');
+            $this->load->library('form_validation');
+            if(isset($data['sesion']['sesion_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {
+                    $params = array(
+                        'sesion_eritropoyetina'=> $this->input->post('sesion_eritropoyetina'),
+                        'sesion_hierroeve'=> $this->input->post('sesion_hierroeve'),
+                        'sesion_complejobampolla'=> $this->input->post('sesion_complejobampolla'),
+                        'sesion_costosesion'=> $this->input->post('sesion_costosesion'),
+                        'sesion_omeprazol'=> $this->input->post('sesion_omeprazol'),
+                        'sesion_acidofolico'=> $this->input->post('sesion_acidofolico'),
+                        'sesion_calcio'=> $this->input->post('sesion_calcio'),
+                        'sesion_amlodipina'=> $this->input->post('sesion_amlodipina'),
+                        'sesion_enalpril'=> $this->input->post('sesion_enalpril'),
+                        'sesion_losartan'=> $this->input->post('sesion_losartan'),
+                        'sesion_atorvastina'=> $this->input->post('sesion_atorvastina'),
+                        'sesion_asa'=> $this->input->post('sesion_asa'),
+                        'sesion_complejob'=> $this->input->post('sesion_complejob'),
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                    $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
+                    redirect('sesion/sesiones/'.$data['sesion']['tratamiento_id']);
+                }else{
+                    $data['_view'] = 'sesion/modificar';
+                    $this->load->view('layouts/main',$data);
+                }
+            }else
+                show_error('La sesion que intentas modifcar no existe!.');
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

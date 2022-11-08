@@ -1,3 +1,8 @@
+$(document).on("ready",inicio);
+function inicio(){
+    mostrar_tablas();
+} 
+
 /* carga modal de nueva sesion  en limpio */
 function cargarmodal_nuevasesion()
 {
@@ -21,6 +26,7 @@ function generar_sesiones()
     var sesion_hierroev = document.getElementById("sesion_hierroev").value;
     var sesion_complejobampolla = document.getElementById("sesion_complejobampolla").value;
     var sesion_costosesion = document.getElementById("sesion_costosesion").value;
+    var tratamiento_id = document.getElementById("tratamiento_id").value;
     
     if(sesion_numero > 0){
         //let d = new Date(sesion_fechainicio);
@@ -34,7 +40,8 @@ function generar_sesiones()
                     type:"POST",
                     data:{sesion_numero:sesion_numero, sesion_fechainicio:sesion_fechainicio,
                         sesion_eritropoyetina:sesion_eritropoyetina, sesion_hierroev:sesion_hierroev,
-                        sesion_complejobampolla:sesion_complejobampolla, sesion_costosesion:sesion_costosesion
+                        sesion_complejobampolla:sesion_complejobampolla, sesion_costosesion:sesion_costosesion,
+                        tratamiento_id:tratamiento_id
                     },
                     success:function(result){
                         res = JSON.parse(result);
@@ -61,15 +68,19 @@ function generar_sesiones()
 function mostrar_tablas()
 {
     let base_url = document.getElementById('base_url').value;
+    let tratamiento_id = document.getElementById('tratamiento_id').value;
     let controlador = base_url+'sesion/mostrar_sesiones';
     document.getElementById('loader').style.display = 'block'; //muestra el bloque del loader
     $.ajax({url: controlador,
             type:"POST",
-            data:{},
+            data:{tratamiento_id:tratamiento_id},
             success:function(respuesta){
                var registros =  JSON.parse(respuesta);
                if (registros != null){
                     let n = registros.length;
+                    if(n >0){
+                        document.getElementById('nuevas_sesiones').style.display = 'none';
+                    }
                     let html = "";
                     let total_sesion = 0;
                     let total_hierroev = 0;
@@ -92,6 +103,9 @@ function mostrar_tablas()
                         html += "<td class='text-center'>"+registros[i]['sesion_hierroeve']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_complejobampolla']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_costosesion']+"</td>";
+                        html += "<td class='text-center'>";
+                        html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar información de la sesión'><span class='fa fa-pencil'></span></a></td>";
+                        html += "</td>";
                         html += "</tr>";
                     }
                    html += "<tr>";

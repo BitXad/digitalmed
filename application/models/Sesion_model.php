@@ -23,33 +23,93 @@ class Sesion_model extends CI_Model
             throw new Exception('Sesion_model model : Error in add_sesion function - ' . $ex);
         }  
     }
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /*
-        * Get sesion by sesion_id 
-      */ 
-      function get_sesion($sesion_id)
-      {
+    
+    /*
+     * Get all sesion 
+    */ 
+    function get_all_sesiontratamiento($tratamiento_id)
+    {
         try{
-           return $this->db->get_where('sesion',array('sesion_id'=>$sesion_id))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model Model : Error in get_sesion function - ' . $ex);
-           }  
-      }
+            $sesion = $this->db->query("
+                SELECT
+                    s.*
+                FROM
+                    sesion s
+                WHERE
+                    s.tratamiento_id = $tratamiento_id
+            ")->result_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
+    }
+    
+    /*
+     * Obtiene informacion del pasiente, dado un tratamiento
+    */ 
+    function get_pacientetratamiento($tratamiento_id)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    p.*
+                FROM
+                    paciente p
+                    left join registro r on p.paciente_id = r.paciente_id
+                    left join tratamiento t on r.registro_id = t.registro_id
+                WHERE
+                    t.tratamiento_id = $tratamiento_id
+            ")->row_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
+    }
+    
+    /*
+    * Get sesion by sesion_id 
+    */ 
+    function get_sesion($sesion_id)
+    {
+        try{
+            return $this->db->get_where('sesion',array('sesion_id'=>$sesion_id))->row_array();
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model Model : Error in get_sesion function - ' . $ex);
+        }  
+    }
+    
+    /* 
+    * function to update sesion 
+    */
+    function update_sesion($sesion_id,$params)
+    {
+        try{
+            $this->db->where('sesion_id',$sesion_id);
+            return $this->db->update('sesion',$params);
+        }catch (Exception $ex){
+            throw new Exception('Sesion_model model : Error in update_sesion function - ' . $ex);
+        }
+    }
+    
+      
+    
+    
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       /*
         * Get sesion by  column name
       */ 
@@ -105,18 +165,7 @@ class Sesion_model extends CI_Model
            }  
       } 
       
-      /* 
-          * function to update sesion 
-      */
-      function update_sesion($sesion_id,$params)
-      {
-        try{
-            $this->db->where('sesion_id',$sesion_id);
-        return $this->db->update('sesion',$params);
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in update_sesion function - ' . $ex);
-           }  
-       }
+      
      /* 
           * function to delete sesion 
       */
