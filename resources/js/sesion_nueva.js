@@ -80,6 +80,8 @@ function mostrar_tablas()
                     let n = registros.length;
                     if(n >0){
                         document.getElementById('nuevas_sesiones').style.display = 'none';
+                    }else{
+                        document.getElementById('nuevas_sesiones').style.display = 'block';
                     }
                     let html = "";
                     let total_sesion = 0;
@@ -96,15 +98,19 @@ function mostrar_tablas()
                         }
                         total_costosesion += Number(registros[i]["sesion_costosesion"]);
                         
-                        html += "<tr>"; 
+                        html += "<tr style='background-color: #"+registros[i]['estado_color']+"'>"; 
                         html += "<td class='text-center'>"+(i+1)+"</td>";
                         html += "<td class='text-center'>"+moment(registros[i]["sesion_fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_eritropoyetina']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_hierroeve']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_complejobampolla']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_costosesion']+"</td>";
+                        html += "<td class='text-center'>"+registros[i]['estado_descripcion']+"</td>";
                         html += "<td class='text-center'>";
-                        html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar información de la sesión'><span class='fa fa-pencil'></span></a></td>";
+                        html += "<a href='"+base_url+"sesion/detalle_procedimiento/"+registros[i]['sesion_id']+"' class='btn btn-facebook btn-xs' title='Detalle de procedimiento de hemodialisis'><span class='fa fa-file-text'></span></a>";
+                        html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar información de la sesión'><span class='fa fa-pencil'></span></a>";
+                        //html += "<a href='"+base_url+"sesion/concluido/"+registros[i]['sesion_id']+"' class='btn btn-warning btn-xs' title='Concluir'><span class='fa fa-mail-reply'></span></a>";
+                        //html += "<a href='"+base_url+"sesion/concluido/"+registros[i]['sesion_id']+"' class='btn btn-warning btn-xs' title='Concluir'><span class='fa fa-mail-forward'></span></a>";
                         html += "</td>";
                         html += "</tr>";
                     }

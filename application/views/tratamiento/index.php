@@ -34,7 +34,8 @@
                     <td><?php echo $t['tratamiento_gestion']; ?></td>
                     <td><?php echo $t['tratamiento_fecha']; ?></td>
                     <td><?php echo $t['tratamiento_hora']; ?></td>
-                     <td><a href="<?php echo site_url('tratamiento/edit/'.$t['tratamiento_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
+                     <td><a href="<?php echo site_url('tratamiento/edit/'.$t['tratamiento_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
+                         <a href="<?php echo site_url('sesion/sesiones/'.$t['tratamiento_id']); ?>" class="btn btn-facebook btn-xs"><span class="fa fa-file-text"></span> Sesion</a> 
                          <a
                             onclick="return confirm('Are you sure You want to delete?')"
                              href="<?php echo site_url('tratamiento/remove/'.$t['tratamiento_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>

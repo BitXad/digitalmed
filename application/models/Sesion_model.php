@@ -32,9 +32,10 @@ class Sesion_model extends CI_Model
         try{
             $sesion = $this->db->query("
                 SELECT
-                    s.*
+                    s.*, e.estado_color, e.estado_descripcion
                 FROM
                     sesion s
+                left join estado e on s.estado_id = e.estado_id
                 WHERE
                     s.tratamiento_id = $tratamiento_id
             ")->result_array();

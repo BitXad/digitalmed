@@ -9,7 +9,7 @@
 
 <div class="box-header">
     <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"] ?></span>
-    <div class="box-tools" id="nuevas_sesiones" style="display: block;">
+    <div class="box-tools" id="nuevas_sesiones" style="display: none;">
         <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevasesion" onclick="cargarmodal_nuevasesion()">
             <span class="fa fa-pencil-square-o"></span> Nuevas Sesiones </a>
     </div>
@@ -31,6 +31,7 @@
                         <th>HIERRO E.V.</th>
                         <th>COMPEJO B</th>
                         <th>COSTO SESION</th>
+                        <th>ESTADO</th>
                         <th></th>
                     </tr>
                     </thead>

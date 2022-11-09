@@ -8,6 +8,7 @@ class Sesion extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Sesion_model');
+        $this->load->model('Estado_model');
     }
     
     /*
@@ -62,6 +63,7 @@ class Sesion extends CI_Controller{
                     if($dia == 1 || $dia == 3 || $dia == 5){
                         $lmv = 1;
                     }
+                    $estado_id = 1; // estado pendiente
                     for($i = 1; $i <= $sesion_numero; $i++){
                         $params = array(
                             'tratamiento_id' => $this->input->post('tratamiento_id'),
@@ -71,6 +73,7 @@ class Sesion extends CI_Controller{
                             'sesion_hierroeve' => $this->input->post('sesion_hierroev'),
                             'sesion_complejobampolla' => $this->input->post('sesion_complejobampolla'),
                             'sesion_costosesion' => $this->input->post('sesion_costosesion'),
+                            'estado_id' => $estado_id,
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
 
@@ -106,11 +109,13 @@ class Sesion extends CI_Controller{
     * modificar una sesión
     */
     public function modificar($sesion_id)
-    {   
+    {
         try{
             //$data['tratamiento_id'] = $tratamiento_id;
             $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
             $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
+            $tipo = 1;
+            $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
             
             $this->load->library('upload');
             $this->load->library('form_validation');
@@ -132,6 +137,7 @@ class Sesion extends CI_Controller{
                         'sesion_atorvastina'=> $this->input->post('sesion_atorvastina'),
                         'sesion_asa'=> $this->input->post('sesion_asa'),
                         'sesion_complejob'=> $this->input->post('sesion_complejob'),
+                        'estado_id'=> $this->input->post('estado_id'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
@@ -147,7 +153,53 @@ class Sesion extends CI_Controller{
         }
     }
     
-    
+    /*
+    * modificar una sesión
+    */
+    public function detalle_procedimiento($sesion_id)
+    {
+        try{
+            //$data['tratamiento_id'] = $tratamiento_id;
+            $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
+            $tipo = 1;
+            $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
+            
+            $this->load->library('upload');
+            $this->load->library('form_validation');
+            if(isset($data['sesion']['sesion_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {
+                    $params = array(
+                        'sesion_eritropoyetina'=> $this->input->post('sesion_eritropoyetina'),
+                        'sesion_hierroeve'=> $this->input->post('sesion_hierroeve'),
+                        'sesion_complejobampolla'=> $this->input->post('sesion_complejobampolla'),
+                        'sesion_costosesion'=> $this->input->post('sesion_costosesion'),
+                        'sesion_omeprazol'=> $this->input->post('sesion_omeprazol'),
+                        'sesion_acidofolico'=> $this->input->post('sesion_acidofolico'),
+                        'sesion_calcio'=> $this->input->post('sesion_calcio'),
+                        'sesion_amlodipina'=> $this->input->post('sesion_amlodipina'),
+                        'sesion_enalpril'=> $this->input->post('sesion_enalpril'),
+                        'sesion_losartan'=> $this->input->post('sesion_losartan'),
+                        'sesion_atorvastina'=> $this->input->post('sesion_atorvastina'),
+                        'sesion_asa'=> $this->input->post('sesion_asa'),
+                        'sesion_complejob'=> $this->input->post('sesion_complejob'),
+                        'estado_id'=> $this->input->post('estado_id'),
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                    $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
+                    redirect('sesion/sesiones/'.$data['sesion']['tratamiento_id']);
+                }else{
+                    $data['_view'] = 'sesion/detalle_procedimiento';
+                    $this->load->view('layouts/main',$data);
+                }
+            }else
+                show_error('La sesion que intentas modifcar no existe!.');
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
+    }
     
     
     
