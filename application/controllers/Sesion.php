@@ -67,7 +67,7 @@ class Sesion extends CI_Controller{
                     for($i = 1; $i <= $sesion_numero; $i++){
                         $params = array(
                             'tratamiento_id' => $this->input->post('tratamiento_id'),
-                            'sesion_numerosesionhd' => $i,
+                            'sesion_numero' => $i,
                             'sesion_fecha' => $sesion_fechainicio,
                             'sesion_eritropoyetina' => $this->input->post('sesion_eritropoyetina'),
                             'sesion_hierroeve' => $this->input->post('sesion_hierroev'),

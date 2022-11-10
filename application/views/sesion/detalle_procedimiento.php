@@ -9,134 +9,132 @@
                 <?php echo form_open('sesion/modificar/'.$sesion['sesion_id']); ?>
                     <div class="box-body">
                         <div class="row clearfix">
-                            <div class="col-md-3">
-                                <label for="sesion_eritropoyetina" class="control-label">  <span class="text-danger"></span>ERITROPOYETINA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_horaingreso" class="control-label">  <span class="text-danger"></span>HORA DE INGRESO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_eritropoyetina" value="<?php echo ($this->input->post('sesion_eritropoyetina') ? $this->input->post('sesion_eritropoyetina') : $sesion['sesion_eritropoyetina']); ?>" class="form-control" id="sesion_eritropoyetina" />
-                                    <span class="text-danger"><?php echo form_error('sesion_eritropoyetina');?></span>
+                                    <input type="time" step="any" name="sesion_horaingreso" value="<?php echo ($this->input->post('sesion_horaingreso') ? $this->input->post('sesion_horaingreso') : $sesion['sesion_horaingreso']); ?>" class="form-control" id="sesion_horaingreso" autofocus="true" />
+                                    <span class="text-danger"><?php echo form_error('sesion_horaingreso');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_hierroeve" class="control-label">  <span class="text-danger"></span>HIERRO E.V.</label>
+                            <div class="col-md-2">
+                                <label for="sesion_horasalida" class="control-label">  <span class="text-danger"></span>HORA DE SALIDA</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_hierroeve" value="<?php echo ($this->input->post('sesion_hierroeve') ? $this->input->post('sesion_hierroeve') : $sesion['sesion_hierroeve']); ?>" class="form-control" id="sesion_hierroeve" />
-                                    <span class="text-danger"><?php echo form_error('sesion_hierroeve');?></span>
+                                    <input type="time" step="any" name="sesion_horasalida" value="<?php echo ($this->input->post('sesion_horasalida') ? $this->input->post('sesion_horasalida') : $sesion['sesion_horasalida']); ?>" class="form-control" id="sesion_horasalida" />
+                                    <span class="text-danger"><?php echo form_error('sesion_horasalida');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_complejobampolla" class="control-label">  <span class="text-danger"></span>COMPLEJO B</label>
+                            <div class="col-md-2">
+                                <label for="sesion_numerosesionhd" class="control-label">  <span class="text-danger"></span>N° Ses HD</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_complejobampolla" value="<?php echo ($this->input->post('sesion_complejobampolla') ? $this->input->post('sesion_complejobampolla') : $sesion['sesion_complejobampolla']); ?>" class="form-control" id="sesion_complejobampolla" />
-                                    <span class="text-danger"><?php echo form_error('sesion_complejobampolla');?></span>
+                                    <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_complejobampolla" />
+                                    <span class="text-danger"><?php echo form_error('sesion_numerosesionhd');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_costosesion" class="control-label">  <span class="text-danger"></span>COSTO SESION</label>
+                            <div class="col-md-2">
+                                <label for="sesion_fecha" class="control-label">  <span class="text-danger"></span>FECHA</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_costosesion" value="<?php echo ($this->input->post('sesion_costosesion') ? $this->input->post('sesion_costosesion') : $sesion['sesion_costosesion']); ?>" class="form-control" id="sesion_costosesion" />
-                                    <span class="text-danger"><?php echo form_error('sesion_costosesion');?></span>
+                                    <input type="date" name="sesion_fecha" value="<?php echo ($this->input->post('sesion_fecha') ? $this->input->post('sesion_fecha') : $sesion['sesion_fecha']); ?>" class="form-control" id="sesion_fecha" />
+                                    <span class="text-danger"><?php echo form_error('sesion_fecha');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_omeprazol" class="control-label">  <span class="text-danger"></span>OMEPRAZOL</label>
+                            <div class="col-md-2">
+                                <label for="sesion_paingreso" class="control-label">  <span class="text-danger"></span>P/A INGRESO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_omeprazol" value="<?php echo ($this->input->post('sesion_omeprazol') ? $this->input->post('sesion_omeprazol') : $sesion['sesion_omeprazol']); ?>" class="form-control" id="sesion_omeprazol" />
-                                    <span class="text-danger"><?php echo form_error('sesion_omeprazol');?></span>
+                                    <input type="text" name="sesion_paingreso" value="<?php echo ($this->input->post('sesion_paingreso') ? $this->input->post('sesion_paingreso') : $sesion['sesion_paingreso']); ?>" class="form-control" id="sesion_paingreso" />
+                                    <span class="text-danger"><?php echo form_error('sesion_paingreso');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_acidofolico" class="control-label">  <span class="text-danger"></span>ACIDO FOLICO</label>
+                            <div class="col-md-2">
+                                <label for="sesion_ingest" class="control-label">  <span class="text-danger"></span>INGEST</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_acidofolico" value="<?php echo ($this->input->post('sesion_acidofolico') ? $this->input->post('sesion_acidofolico') : $sesion['sesion_acidofolico']); ?>" class="form-control" id="sesion_acidofolico" />
-                                    <span class="text-danger"><?php echo form_error('sesion_acidofolico');?></span>
+                                    <input type="number" min="0" name="sesion_ingest" value="<?php echo ($this->input->post('sesion_ingest') ? $this->input->post('sesion_ingest') : $sesion['sesion_ingest']); ?>" class="form-control" id="sesion_ingest" readonly />
+                                    <span class="text-danger"><?php echo form_error('sesion_ingest');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_calcio" class="control-label">  <span class="text-danger"></span>CALCIO CARBONATO/CALCITROL</label>
+                            <div class="col-md-2">
+                                <label for="sesion_pesoseco" class="control-label">  <span class="text-danger"></span>PESO SECO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_calcio" value="<?php echo ($this->input->post('sesion_calcio') ? $this->input->post('sesion_calcio') : $sesion['sesion_calcio']); ?>" class="form-control" id="sesion_calcio" />
-                                    <span class="text-danger"><?php echo form_error('sesion_calcio');?></span>
+                                    <input type="number" min="0" step="any" name="sesion_pesoseco" value="<?php echo ($this->input->post('sesion_pesoseco') ? $this->input->post('sesion_pesoseco') : $sesion['sesion_pesoseco']); ?>" class="form-control" id="sesion_pesoseco" />
+                                    <span class="text-danger"><?php echo form_error('sesion_pesoseco');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_amlodipina" class="control-label">  <span class="text-danger"></span>AMLODIPINA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_pesoingreso" class="control-label">  <span class="text-danger"></span>PESO INGRESO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_amlodipina" value="<?php echo ($this->input->post('sesion_amlodipina') ? $this->input->post('sesion_amlodipina') : $sesion['sesion_amlodipina']); ?>" class="form-control" id="sesion_amlodipina" />
-                                    <span class="text-danger"><?php echo form_error('sesion_amlodipina');?></span>
+                                    <input type="number" min="0" step="any" name="sesion_pesoingreso" value="<?php echo ($this->input->post('sesion_pesoingreso') ? $this->input->post('sesion_pesoingreso') : $sesion['sesion_pesoingreso']); ?>" class="form-control" id="sesion_pesoingreso" />
+                                    <span class="text-danger"><?php echo form_error('sesion_pesoingreso');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_enalpril" class="control-label">  <span class="text-danger"></span>ENALAPRIL</label>
+                            <div class="col-md-2">
+                                <label for="sesion_pesoegreso" class="control-label">  <span class="text-danger"></span>PESO EGRESO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_enalpril" value="<?php echo ($this->input->post('sesion_enalpril') ? $this->input->post('sesion_enalpril') : $sesion['sesion_enalpril']); ?>" class="form-control" id="sesion_enalpril" />
-                                    <span class="text-danger"><?php echo form_error('sesion_enalpril');?></span>
+                                    <input type="number" min="0" step="any" name="sesion_pesoegreso" value="<?php echo ($this->input->post('sesion_pesoegreso') ? $this->input->post('sesion_pesoegreso') : $sesion['sesion_pesoegreso']); ?>" class="form-control" id="sesion_pesoegreso" />
+                                    <span class="text-danger"><?php echo form_error('sesion_pesoegreso');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_losartan" class="control-label">  <span class="text-danger"></span>LOSARTAN</label>
+                            <div class="col-md-2">
+                                <label for="sesion_nummaquina" class="control-label">  <span class="text-danger"></span>MAQUINA N°</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_losartan" value="<?php echo ($this->input->post('sesion_losartan') ? $this->input->post('sesion_losartan') : $sesion['sesion_losartan']); ?>" class="form-control" id="sesion_losartan" />
-                                    <span class="text-danger"><?php echo form_error('sesion_losartan');?></span>
+                                    <input type="number" min="0" name="sesion_nummaquina" value="<?php echo ($this->input->post('sesion_nummaquina') ? $this->input->post('sesion_nummaquina') : $sesion['sesion_nummaquina']); ?>" class="form-control" id="sesion_nummaquina" />
+                                    <span class="text-danger"><?php echo form_error('sesion_nummaquina');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_atorvastina" class="control-label">  <span class="text-danger"></span>ATORVASTATINA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_ultrafilsesion" class="control-label">  <span class="text-danger"></span>ULTRAFIL. SESION</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_atorvastina" value="<?php echo ($this->input->post('sesion_atorvastina') ? $this->input->post('sesion_atorvastina') : $sesion['sesion_atorvastina']); ?>" class="form-control" id="sesion_atorvastina" />
-                                    <span class="text-danger"><?php echo form_error('sesion_atorvastina');?></span>
+                                    <input type="number" min="0" name="sesion_ultrafilsesion" value="<?php echo ($this->input->post('sesion_ultrafilsesion') ? $this->input->post('sesion_ultrafilsesion') : $sesion['sesion_ultrafilsesion']); ?>" class="form-control" id="sesion_ultrafilsesion" />
+                                    <span class="text-danger"><?php echo form_error('sesion_ultrafilsesion');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_asa" class="control-label">  <span class="text-danger"></span>ASA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_ultrafilfinal" class="control-label">  <span class="text-danger"></span>ULTRAFILIACION FINAL</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_asa" value="<?php echo ($this->input->post('sesion_asa') ? $this->input->post('sesion_asa') : $sesion['sesion_asa']); ?>" class="form-control" id="sesion_asa" />
-                                    <span class="text-danger"><?php echo form_error('sesion_asa');?></span>
+                                    <input type="number" min="0" name="sesion_ultrafilfinal" value="<?php echo ($this->input->post('sesion_ultrafilfinal') ? $this->input->post('sesion_ultrafilfinal') : $sesion['sesion_ultrafilfinal']); ?>" class="form-control" id="sesion_ultrafilfinal" />
+                                    <span class="text-danger"><?php echo form_error('sesion_ultrafilfinal');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="sesion_complejob" class="control-label">  <span class="text-danger"></span>COMPLEJO B</label>
+                            <div class="col-md-2">
+                                <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_complejob" value="<?php echo ($this->input->post('sesion_complejob') ? $this->input->post('sesion_complejob') : $sesion['sesion_complejob']); ?>" class="form-control" id="sesion_complejob" />
-                                    <span class="text-danger"><?php echo form_error('sesion_complejob');?></span>
+                                    <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" />
+                                    <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="estado_id" class="control-label">Estado</label>
+                            <div class="col-md-2">
+                                <label for="sesion_reutlizacionfiltro" class="control-label">  <span class="text-danger"></span>REUTILIZACION FILTRO</label>
                                 <div class="form-group">
-                                    <select name="estado_id" class=" form-control" id="estado_id">
-                                        <?php 
-                                        foreach($all_estado as $estado)
-                                        {
-                                            $selected = ($estado['estado_id'] == $sesion['estado_id']) ? ' selected="selected"' : "";
-                                            echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
-                                        } 
-                                        ?>
-                                    </select>
+                                    <input type="text" name="sesion_reutlizacionfiltro" value="<?php echo ($this->input->post('sesion_reutlizacionfiltro') ? $this->input->post('sesion_reutlizacionfiltro') : $sesion['sesion_reutlizacionfiltro']); ?>" class="form-control" id="sesion_reutlizacionfiltro" />
+                                    <span class="text-danger"><?php echo form_error('sesion_reutlizacionfiltro');?></span>
                                 </div>
                             </div>
-                            
-                            
-                            <!--<div class="col-md-6">
-                                <label for="sesion_eritropoyetina" class="control-label">  <span class="text-danger"></span>ERITROPOYETINA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_lineasav" class="control-label">  <span class="text-danger"></span>REUTILIZ. LINEAS A/V</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_eritropoyetina" value="<?php echo ($this->input->post('sesion_eritropoyetina') ? $this->input->post('sesion_eritropoyetina') : $sesion['sesion_eritropoyetina']); ?>" class="form-control" id="sesion_eritropoyetina" />
-                                    <span class="text-danger"><?php echo form_error('sesion_eritropoyetina');?></span>
+                                    <input type="text" name="sesion_lineasav" value="<?php echo ($this->input->post('sesion_lineasav') ? $this->input->post('sesion_lineasav') : $sesion['sesion_lineasav']); ?>" class="form-control" id="sesion_lineasav" />
+                                    <span class="text-danger"><?php echo form_error('sesion_lineasav');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="sesion_eritropoyetina" class="control-label">  <span class="text-danger"></span>ERITROPOYETINA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_devolucion" class="control-label">  <span class="text-danger"></span>DEVOL.</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_eritropoyetina" value="<?php echo ($this->input->post('sesion_eritropoyetina') ? $this->input->post('sesion_eritropoyetina') : $sesion['sesion_eritropoyetina']); ?>" class="form-control" id="sesion_eritropoyetina" />
-                                    <span class="text-danger"><?php echo form_error('sesion_eritropoyetina');?></span>
+                                    <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" />
+                                    <span class="text-danger"><?php echo form_error('sesion_devolucion');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="sesion_eritropoyetina" class="control-label">  <span class="text-danger"></span>ERITROPOYETINA</label>
+                            <div class="col-md-2">
+                                <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_eritropoyetina" value="<?php echo ($this->input->post('sesion_eritropoyetina') ? $this->input->post('sesion_eritropoyetina') : $sesion['sesion_eritropoyetina']); ?>" class="form-control" id="sesion_eritropoyetina" />
-                                    <span class="text-danger"><?php echo form_error('sesion_eritropoyetina');?></span>
+                                    <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" />
+                                    <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
                                 </div>
-                            </div>-->
+                            </div>
+                            <div class="col-md-2">
+                                <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
+                                <div class="form-group">
+                                    <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" />
+                                    <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
+                                </div>
+                            </div>
                             
                             
                           
