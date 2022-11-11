@@ -71,19 +71,19 @@
                 <div class="col-md-4">
                     <label for="sesion_eritropoyetina" class="control-label">Eritropoyetina</label>
                     <div class="form-group">
-                        <input type="number" min="0" name="sesion_eritropoyetina" class="form-control" id="sesion_eritropoyetina" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                        <input type="number" min="0" name="sesion_eritropoyetina" class="form-control" id="sesion_eritropoyetina" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="sesion_hierroev" class="control-label">Hierro E.V.</label>
                     <div class="form-group">
-                        <input type="input" name="sesion_hierroev" class="form-control" id="sesion_hierroev" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" onclick="this.select();" />
+                        <input type="number" min="0" name="sesion_hierroev" class="form-control" id="sesion_hierroev" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="sesion_complejobampolla" class="control-label">Complejo B</label>
                     <div class="form-group">
-                        <input type="input" name="sesion_complejobampolla" class="form-control" id="sesion_complejobampolla" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" onclick="this.select();" />
+                        <input type="number" min="0" name="sesion_complejobampolla" class="form-control" id="sesion_complejobampolla" />
                     </div>
                 </div>
                 <div class="col-md-4">

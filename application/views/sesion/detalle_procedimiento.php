@@ -1,6 +1,7 @@
 <script src="<?php echo base_url('resources/js/sesion_procedimiento.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="tratamiento_id" id="tratamiento_id" value="<?php echo $sesion['tratamiento_id']; ?>" />
+<input type="hidden" name="sesion_id" id="sesion_id" value="<?php echo $sesion['sesion_id']; ?>" />
 
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 
@@ -13,6 +14,9 @@
                 </div>
                 <h2 class="box-title">PACIENTE: <?php echo $paciente["paciente_nombre"]; ?></h2>
                 <?php echo form_open('sesion/detalle_procedimiento/'.$sesion['sesion_id']); ?>
+                <div class="col-md-12 text-center" id="loader" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
                     <div class="box-body">
                         <div class="row clearfix">
                             <div class="col-md-2">
@@ -142,16 +146,16 @@
                                 </div>
                             </div>
                             <div class="col-md-6" style="font-size: 10px">
-                                <div class="text-center">
-                                    <a class="btn btn-success btn-xs" onclick="mostrar_modalhora()"><span class="fa fa-plus-circle"></span> Registrar Hora</a>
-                                </div>
+                                <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_horasesion" onclick="mostrar_modalhora()">
+                                    <span class="fa fa-plus-circle"></span> Registrar Hora 
+                                </a>
                                 <div class="box-body table-responsive no-padding">
                                     <table id="mitabla" class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th>Ho<br>ra</th>
                                             <th>PA</th>
-                                            <th>CF</th>
+                                            <th>FC</th>
                                             <th>TEMP.</th>
                                             <th>FLUJO DE<br>SANGRE</th>
                                             <th>PV</th>
@@ -192,52 +196,64 @@
         <br><br>
         <div class="modal-content">
             <div class="modal-header text-center" style="background: #00ca6d">
-                <b style="color: white;">GENERAR SESIONES NUEVAS</b>
+                <b style="color: white;">REGISTRAR HORA DE LA SESION</b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
             </div>
             <div class="modal-body">
-                <div class="col-md-12 text-center" id="loadernuevo" style="display:none;">
+                <div class="col-md-12 text-center" id="loaderhora" style="display:none;">
                     <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_numero" class="control-label">Nº Sesiones</label>
+                    <label for="detallehora_numero" class="control-label">Nº</label>
                     <div class="form-group">
-                        <input type="number" min="0" name="sesion_numero" value="0" class="form-control" id="sesion_numero" onclick="this.select();" />
+                        <input type="number" min="0" name="detallehora_numero" class="form-control" id="detallehora_numero" onclick="this.select();" />
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_fechainicio" class="control-label">Fecha Inicio de Sesion</label>
+                    <label for="detallehora_pa" class="control-label">PA</label>
                     <div class="form-group">
-                        <input type="date" name="sesion_fechainicio" class="form-control" id="sesion_fechainicio" />
+                        <input type="text" name="detallehora_pa" class="form-control" id="detallehora_pa" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_eritropoyetina" class="control-label">Eritropoyetina</label>
+                    <label for="detallehora_fc" class="control-label">FC</label>
                     <div class="form-group">
-                        <input type="number" min="0" name="sesion_eritropoyetina" class="form-control" id="sesion_eritropoyetina" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                        <input type="number" min="0" name="detallehora_fc" class="form-control" id="detallehora_fc" />
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_hierroev" class="control-label">Hierro E.V.</label>
+                    <label for="detallehora_temp" class="control-label">TEMP.</label>
                     <div class="form-group">
-                        <input type="input" name="sesion_hierroev" class="form-control" id="sesion_hierroev" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" onclick="this.select();" />
+                        <input type="number" min="0" step="any" name="detallehora_temp" class="form-control" id="detallehora_temp" />
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_complejobampolla" class="control-label">Complejo B</label>
+                    <label for="detallehora_flujosangre" class="control-label">FLUJO DE SANGRE</label>
                     <div class="form-group">
-                        <input type="input" name="sesion_complejobampolla" class="form-control" id="sesion_complejobampolla" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" onclick="this.select();" />
+                        <input type="number" min="0" name="detallehora_flujosangre" class="form-control" id="detallehora_flujosangre"/>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_costosesion" class="control-label">Costo Sesión</label>
+                    <label for="detallehora_pv" class="control-label">PV</label>
                     <div class="form-group">
-                        <input type="number" min="0" step="any" name="sesion_costosesion" class="form-control" id="sesion_costosesion" onclick="this.select();" />
+                        <input type="number" min="0" name="detallehora_pv" class="form-control" id="detallehora_pv" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_ptm" class="control-label">PTM</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_ptm" class="form-control" id="detallehora_ptm" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_conductividad" class="control-label">CONDUCTIVIDAD</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_conductividad" class="form-control" id="detallehora_conductividad" />
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="text-align: center">
-                <button type="button" class="btn btn-success" onclick="generar_sesiones()"><fa class="fa fa-floppy-o"></fa> Registrar Sesiones</button>
+                <button type="button" class="btn btn-success" onclick="registrar_hora()"><fa class="fa fa-floppy-o"></fa> Registrar hora</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodal"><fa class="fa fa-times"></fa> Cerrar</button>
             </div>
         </div>
