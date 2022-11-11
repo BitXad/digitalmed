@@ -162,9 +162,9 @@ class Sesion extends CI_Controller{
             //$data['tratamiento_id'] = $tratamiento_id;
             $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
             $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
-            $tipo = 1;
+            /*$tipo = 1;
             $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
-            
+            */
             $this->load->library('upload');
             $this->load->library('form_validation');
             if(isset($data['sesion']['sesion_id']))
@@ -172,20 +172,26 @@ class Sesion extends CI_Controller{
                 if(isset($_POST) && count($_POST) > 0)     
                 {
                     $params = array(
-                        'sesion_eritropoyetina'=> $this->input->post('sesion_eritropoyetina'),
-                        'sesion_hierroeve'=> $this->input->post('sesion_hierroeve'),
-                        'sesion_complejobampolla'=> $this->input->post('sesion_complejobampolla'),
-                        'sesion_costosesion'=> $this->input->post('sesion_costosesion'),
-                        'sesion_omeprazol'=> $this->input->post('sesion_omeprazol'),
-                        'sesion_acidofolico'=> $this->input->post('sesion_acidofolico'),
-                        'sesion_calcio'=> $this->input->post('sesion_calcio'),
-                        'sesion_amlodipina'=> $this->input->post('sesion_amlodipina'),
-                        'sesion_enalpril'=> $this->input->post('sesion_enalpril'),
-                        'sesion_losartan'=> $this->input->post('sesion_losartan'),
-                        'sesion_atorvastina'=> $this->input->post('sesion_atorvastina'),
-                        'sesion_asa'=> $this->input->post('sesion_asa'),
-                        'sesion_complejob'=> $this->input->post('sesion_complejob'),
-                        'estado_id'=> $this->input->post('estado_id'),
+                        'sesion_horaingreso'=> $this->input->post('sesion_horaingreso'),
+                        'sesion_horasalida'=> $this->input->post('sesion_horasalida'),
+                        'sesion_numerosesionhd'=> $this->input->post('sesion_numerosesionhd'),
+                        'sesion_fecha'=> $this->input->post('sesion_fecha'),
+                        'sesion_paingreso'=> $this->input->post('sesion_paingreso'),
+                        'sesion_ingest'=> $this->input->post('sesion_ingest'),
+                        'sesion_pesoseco'=> $this->input->post('sesion_pesoseco'),
+                        'sesion_pesoingreso'=> $this->input->post('sesion_pesoingreso'),
+                        'sesion_pesoegreso'=> $this->input->post('sesion_pesoegreso'),
+                        'sesion_nummaquina'=> $this->input->post('sesion_nummaquina'),
+                        'sesion_ultrafilsesion'=> $this->input->post('sesion_ultrafilsesion'),
+                        'sesion_ultrafilfinal'=> $this->input->post('sesion_ultrafilfinal'),
+                        'sesion_tipofiltro'=> $this->input->post('sesion_tipofiltro'),
+                        'sesion_reutlizacionfiltro'=> $this->input->post('sesion_reutlizacionfiltro'),
+                        'sesion_lineasav'=> $this->input->post('sesion_lineasav'),
+                        'sesion_devolucion'=> $this->input->post('sesion_devolucion'),
+                        'sesion_heparina'=> $this->input->post('sesion_heparina'),
+                        'sesion_ktv'=> $this->input->post('sesion_ktv'),
+                        'sesion_evaluacionenfermeria'=> $this->input->post('sesion_evaluacionenfermeria'),
+                        
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');

@@ -1,4 +1,4 @@
-<script src="<?php echo base_url('resources/js/sesion_nueva.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('resources/js/sesion.js'); ?>" type="text/javascript"></script>
 
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="tratamiento_id" id="tratamiento_id" value="<?php echo $tratamiento_id; ?>" />
@@ -44,7 +44,7 @@
 </div>
 
 <!------------------------ INICIO modal para Generar nuevas sesiones ------------------->
-<div class="modal fade" id="modal_nuevasesion" tabindex="-1" role="dialog" aria-labelledby="modalanularlabel" style="font-family: Arial; font-size: 10pt;">
+<div class="modal fade" id="modal_nuevasesion" tabindex="-1" role="dialog" aria-labelledby="modalnuevasesionlabel" style="font-family: Arial; font-size: 10pt;">
     <div class="modal-dialog" role="document">
         <br><br>
         <div class="modal-content">
