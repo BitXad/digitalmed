@@ -28,8 +28,10 @@ class Detalle_hora extends CI_Controller{
     function registrar_hora(){
         try{
             if($this->input->is_ajax_request()){
+                $estado_id = 5; //estado = ACTIVO
                 $params = array(
                     'sesion_id' => $this->input->post('sesion_id'),
+                    'estado_id' => $estado_id,
                     'detallehora_numero' => $this->input->post('detallehora_numero'),
                     'detallehora_pa' => $this->input->post('detallehora_pa'),
                     'detallehora_fc' => $this->input->post('detallehora_fc'),
@@ -63,4 +65,64 @@ class Detalle_hora extends CI_Controller{
         }
     }
     
+    /* modificar detalles de una hora en una sesion determinada!. */
+    function modificar_hora(){
+        try{
+            if($this->input->is_ajax_request()){
+                $detallehora_id = $this->input->post('detallehora_id');
+                $params = array(
+                    'detallehora_numero' => $this->input->post('detallehora_numero'),
+                    'detallehora_pa' => $this->input->post('detallehora_pa'),
+                    'detallehora_fc' => $this->input->post('detallehora_fc'),
+                    'detallehora_temp' => $this->input->post('detallehora_temp'),
+                    'detallehora_flujosangre' => $this->input->post('detallehora_flujosangre'),
+                    'detallehora_pv' => $this->input->post('detallehora_pv'),
+                    'detallehora_ptm' => $this->input->post('detallehora_ptm'),
+                    'detallehora_conductividad' => $this->input->post('detallehora_conductividad'),
+                );
+                $this->Detalle_hora_model->update_detalle_hora($detallehora_id, $params);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    /* anular detalle hora */
+    function anular_detallehora(){
+        try{
+            if($this->input->is_ajax_request()){
+                $detallehora_id = $this->input->post('detallehora_id');
+                $estado_id = 6;
+                $params = array(
+                    'estado_id' => $estado_id,
+                );
+                $this->Detalle_hora_model->update_detalle_hora($detallehora_id, $params);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    /* activar detalle hora */
+    function activar_detallehora(){
+        try{
+            if($this->input->is_ajax_request()){
+                $detallehora_id = $this->input->post('detallehora_id');
+                $estado_id = 5;
+                $params = array(
+                    'estado_id' => $estado_id,
+                );
+                $this->Detalle_hora_model->update_detalle_hora($detallehora_id, $params);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
  }

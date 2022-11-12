@@ -253,10 +253,85 @@
                 </div>
             </div>
             <div class="modal-footer" style="text-align: center">
-                <button type="button" class="btn btn-success" onclick="registrar_hora()"><fa class="fa fa-floppy-o"></fa> Registrar hora</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodal"><fa class="fa fa-times"></fa> Cerrar</button>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="registrar_hora()"><fa class="fa fa-floppy-o"></fa> Registrar hora</button>
+                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodal"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!------------------------ F I N  modal para registrar hora de sesiones ------------------->
+<!------------------------ INICIO modal para modifcar hora de sesiones ------------------->
+<div class="modal fade" id="modal_modificarhorasesion" tabindex="-1" role="dialog" aria-labelledby="modal_modificarhorasesionlabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">MODIFICAR HORA DE LA SESION</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderhoramodif" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_numeromodif" class="control-label">Nº</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_numeromodif" class="form-control" id="detallehora_numeromodif" onclick="this.select();" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_pamodif" class="control-label">PA</label>
+                    <div class="form-group">
+                        <input type="text" name="detallehora_pamodif" class="form-control" id="detallehora_pamodif" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_fcmodif" class="control-label">FC</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_fcmodif" class="form-control" id="detallehora_fcmodif" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_tempmodif" class="control-label">TEMP.</label>
+                    <div class="form-group">
+                        <input type="number" min="0" step="any" name="detallehora_tempmodif" class="form-control" id="detallehora_tempmodif" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_flujosangremodif" class="control-label">FLUJO DE SANGRE</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_flujosangremodif" class="form-control" id="detallehora_flujosangremodif"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_pvmodif" class="control-label">PV</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_pvmodif" class="form-control" id="detallehora_pvmodif" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_ptmmodif" class="control-label">PTM</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_ptmmodif" class="form-control" id="detallehora_ptmmodif" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="detallehora_conductividadmodif" class="control-label">CONDUCTIVIDAD</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="detallehora_conductividadmodif" class="form-control" id="detallehora_conductividadmodif" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <input type="hidden" name="detallehora_idmodif" class="form-control" id="detallehora_idmodif" />
+                    <button type="button" class="btn btn-success" onclick="registrar_horamodificada()"><fa class="fa fa-floppy-o"></fa> Guardar modificación</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para modifcar hora de sesiones ------------------->
