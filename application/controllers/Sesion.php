@@ -191,7 +191,9 @@ class Sesion extends CI_Controller{
                         'sesion_heparina'=> $this->input->post('sesion_heparina'),
                         'sesion_ktv'=> $this->input->post('sesion_ktv'),
                         'sesion_evaluacionenfermeria'=> $this->input->post('sesion_evaluacionenfermeria'),
-                        
+                        'sesion_cateter'=> $this->input->post('sesion_cateter'),
+                        'sesion_fistula'=> $this->input->post('sesion_fistula'),
+                        'sesion_evaluacionclinica'=> $this->input->post('sesion_evaluacionclinica'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');

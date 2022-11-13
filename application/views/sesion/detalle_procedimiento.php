@@ -175,6 +175,36 @@
                                     <span class="text-danger"><?php echo form_error('sesion_evaluacionenfermeria');?></span>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <label for="sesion_cateter_fistula" class="control-label">  <span class="text-danger"></span>ACCESO VASCULAR</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon" >CATETER: </div>
+                                    <input type="text" name="sesion_cateter" value="<?php echo ($this->input->post('sesion_cateter') ? $this->input->post('sesion_cateter') : $sesion['sesion_cateter']); ?>" class="form-control" id="sesion_cateter" />
+                                    <div class="input-group-addon" >FISTULA: </div>
+                                    <input type="text" name="sesion_fistula" value="<?php echo ($this->input->post('sesion_fistula') ? $this->input->post('sesion_fistula') : $sesion['sesion_fistula']); ?>" class="form-control" id="sesion_fistula" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="sesion_evaluacionclinica" class="control-label">  <span class="text-danger"></span>EVALUACION CLINICA DURANTE LA SESION</label>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="sesion_evaluacionclinica" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_evaluacionclinica']; ?></textarea>
+                                    <span class="text-danger"><?php echo form_error('sesion_evaluacionclinica');?></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="planilla_oral" class="control-label">  <span class="text-danger"></span>TRATAMIENTO y/o RECOMENDACIONES</label>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="planilla_oral" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_evaluacionclinica']; ?></textarea>
+                                    <span class="text-danger"><?php echo form_error('planilla_oral');?></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="sesion_evaluacionclinica" class="control-label">  <span class="text-danger"></span>MEDICAMENTOS UTILIZADOS</label>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="sesion_evaluacionclinica" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_evaluacionclinica']; ?></textarea>
+                                    <span class="text-danger"><?php echo form_error('sesion_evaluacionclinica');?></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="box-footer">
