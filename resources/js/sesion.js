@@ -109,6 +109,7 @@ function mostrar_tablas()
                         html += "<td class='text-center'>";
                         html += "<a href='"+base_url+"sesion/detalle_procedimiento/"+registros[i]['sesion_id']+"' class='btn btn-facebook btn-xs' title='Detalle de procedimiento de hemodialisis'><span class='fa fa-file-text'></span></a>";
                         html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar información de la sesión'><span class='fa fa-pencil'></span></a>";
+                        html += "<a href='"+base_url+"reportes/detalle_procedimiento/"+registros[i]['sesion_id']+"' target='_blank' class='btn btn-success btn-xs' title='Imprimir detalle de procedimiento de hemodialisis'><span class='fa fa-file-text-o'></span></a>";
                         //html += "<a href='"+base_url+"sesion/concluido/"+registros[i]['sesion_id']+"' class='btn btn-warning btn-xs' title='Concluir'><span class='fa fa-mail-reply'></span></a>";
                         //html += "<a href='"+base_url+"sesion/concluido/"+registros[i]['sesion_id']+"' class='btn btn-warning btn-xs' title='Concluir'><span class='fa fa-mail-forward'></span></a>";
                         html += "</td>";

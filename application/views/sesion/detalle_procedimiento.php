@@ -191,20 +191,6 @@
                                     <span class="text-danger"><?php echo form_error('sesion_evaluacionclinica');?></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="planilla_oral" class="control-label">  <span class="text-danger"></span>TRATAMIENTO y/o RECOMENDACIONES</label>
-                                <div class="form-group">
-                                    <textarea class="form-control" name="planilla_oral" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_evaluacionclinica']; ?></textarea>
-                                    <span class="text-danger"><?php echo form_error('planilla_oral');?></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="sesion_evaluacionclinica" class="control-label">  <span class="text-danger"></span>MEDICAMENTOS UTILIZADOS</label>
-                                <div class="form-group">
-                                    <textarea class="form-control" name="sesion_evaluacionclinica" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_evaluacionclinica']; ?></textarea>
-                                    <span class="text-danger"><?php echo form_error('sesion_evaluacionclinica');?></span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="box-footer">
