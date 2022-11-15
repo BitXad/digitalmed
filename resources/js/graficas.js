@@ -44,7 +44,7 @@ function cargar_grafica_barras(anio,mes){
                 type: 'column' 
             }, 
             title: { 
-                text: 'REGISTRO DE PRUEBAS MENSUAL ('+nombre_moneda+')'
+                text: 'REGISTRO DE SESIONES MENSUALES ('+nombre_moneda+')'
             }, 
             subtitle: { 
                 text: empresa 
@@ -59,7 +59,7 @@ function cargar_grafica_barras(anio,mes){
             yAxis: { 
                 min: 0, 
                 title: { 
-                    text: 'PRUEBAS AL DIA' 
+                    text: 'SESIONES AL DIA' 
                 } 
             }, 
             tooltip: { 

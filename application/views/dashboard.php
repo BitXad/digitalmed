@@ -83,7 +83,7 @@
                 <?php echo $interlineado; ?>
                 
               <h3><b><?php echo $pruebas_registradas[0]["cantidad"]; ?></b></h3>
-              <p><?php echo "Pruebas Registradas"; ?></p>
+              <p><?php echo "Sesiones Pendientes"; ?></p>
               
             </div>
               
@@ -139,12 +139,12 @@
             <div class="inner">
                 <h3><b><?php echo $ingresos[0]["ingresos"]; ?> Bs </b></h3>
 
-              <p><?php echo "Ingresos dia"; ?></p>
+              <p><?php echo "Inventario"; ?></p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="<?php echo base_url('compra'); ?>" class="small-box-footer">Ver reportes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('compra'); ?>" class="small-box-footer">Ver inventario <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -221,7 +221,7 @@
             <div class="box-header">
               <i class="fa fa-money"></i>
 
-              <h3 class="box-title">Pruebas pendientes</h3>
+              <h3 class="box-title">Sesiones Realizadas</h3>
               <!-- tools box -->
               <div class="pull-right box-tools">
                 <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
