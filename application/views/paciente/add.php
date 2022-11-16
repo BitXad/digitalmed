@@ -1,65 +1,63 @@
-<div class="row">
+<div class="row" style="font-family: Arial">
     <div class="col-md-12">
-      	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Paciente Add</h3>
+                <h3 class="box-title" style="font-family: Arial"><b><fa class="fa fa-user-circle"></fa> REGISTRO DE PACIENTE</b></h3>
             </div>
-            <?php echo form_open('paciente/add'); ?>
+      	<div class="box box-info">
+            <?php echo form_open_multipart('paciente/add'); ?>
+            
           	<div class="box-body">
+                    
+                    
           		<div class="row clearfix">
-                                    <div class="col-md-6">
-						<label for="paciente_nombre" class="control-label">Paciente Nombre</label>
+                            
+                                        <div class="col-md-4">
+						<label for="paciente_nombre" class="control-label">Nombre</label>
 						<div class="form-group">
-							<input type="text" name="paciente_nombre" value="<?php echo $this->input->post('paciente_nombre'); ?>" class="form-control" id="paciente_nombre" />
+							<input type="text" name="paciente_nombre" value="<?php echo $this->input->post('paciente_nombre'); ?>" class="form-control" id="paciente_nombre" onKeyUp="this.value = this.value.toUpperCase();"/>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="paciente_direccion" class="control-label">Paciente Direccion</label>
+
+                                        <div class="col-md-4">
+						<label for="paciente_apellido" class="control-label">Apellido (s)</label>
 						<div class="form-group">
-							<input type="text" name="paciente_direccion" value="<?php echo $this->input->post('paciente_direccion'); ?>" class="form-control" id="paciente_direccion" />
+							<input type="text" name="paciente_apellido" value="<?php echo $this->input->post('paciente_apellido'); ?>" class="form-control" id="paciente_apellido" onKeyUp="this.value = this.value.toUpperCase();"/>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="paciente_ci" class="control-label">Paciente Ci</label>
+
+					<div class="col-md-4">
+						<label for="paciente_ci" class="control-label">Cedula Identidad</label>
 						<div class="form-group">
-							<input type="text" name="paciente_ci" value="<?php echo $this->input->post('paciente_ci'); ?>" class="form-control" id="paciente_ci" />
+							<input type="text" name="paciente_ci" value="<?php echo $this->input->post('paciente_ci'); ?>" class="form-control" id="paciente_ci" onKeyUp="this.value = this.value.toUpperCase();"/>
 						</div>
 					</div>
                             
-                            <div class="col-md-6">
-						<label for="extencion_id" class="control-label">Extencion</label>
-						<div class="form-group">
-							<select name="extencion_id" class="form-control">
-								<option value="">- EXTENSION -</option>
-								<?php 
-								foreach($all_extencion as $extencion)
-								{
-									$selected = ($extencion['extencion_id'] == $this->input->post('extencion_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$extencion['extencion_id'].'" '.$selected.'>'.$extencion['extencion_descripcion'].'</option>';
-								} 
-								?>
-							</select>
+                                        <div class="col-md-4">
+						<label for="paciente_codigo" class="control-label">Código</label>
+						<div class="input-group">
+                                                    <input type="text" name="paciente_codigo" value="<?php echo $this->input->post('paciente_codigo'); ?>" class="form-control" id="paciente_codigo" />
+                                                    <div style="border-color: #008d4c; background: #008D4C !important; color: white" class="btn btn-success input-group-addon" onclick="generar_codigo()" title="Código de barras"><span class="fa fa-barcode" aria-hidden="true" id="span_buscar_cliente" onKeyUp="this.value = this.value.toUpperCase();"></span></div>
 						</div>
 					</div>
+
+                                        <div class="col-md-4">
+                                                <label for="extencion_id" class="control-label">Extencion</label>
+                                                <div class="form-group">
+                                                        <select name="extencion_id" class="form-control">
+                                                                <option value="">- EXTENSION -</option>
+                                                                <?php 
+                                                                foreach($all_extencion as $extencion)
+                                                                {
+                                                                        $selected = ($extencion['extencion_id'] == $this->input->post('extencion_id')) ? ' selected="selected"' : "";
+
+                                                                        echo '<option value="'.$extencion['extencion_id'].'" '.$selected.'>'.$extencion['extencion_descripcion'].'</option>';
+                                                                } 
+                                                                ?>
+                                                        </select>
+                                                </div>
+                                        </div>
                             
-					<div class="col-md-6">
-						<label for="estado_id" class="control-label">Estado</label>
-						<div class="form-group">
-							<select name="estado_id" class="form-control">
-								<option value="">- ESTADO -</option>
-								<?php 
-								foreach($all_estado as $estado)
-								{
-									$selected = ($estado['estado_id'] == $this->input->post('estado_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
 							<select name="genero_id" class="form-control">
@@ -75,32 +73,109 @@
 							</select>
 						</div>
 					</div>
-					
-<!--					<div class="col-md-6">
-						<label for="paciente_edad" class="control-label">Paciente</label>
+                            
+					<div class="col-md-4">
+						<label for="paciente_direccion" class="control-label">Paciente Direccion</label>
 						<div class="form-group">
-							<select name="paciente_edad" class="form-control">
-								<option value="">select paciente</option>
-								<?php 
-								foreach($all_paciente as $paciente)
-								{
-									$selected = ($paciente['paciente_id'] == $this->input->post('paciente_edad')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$paciente['paciente_id'].'" '.$selected.'>'.$paciente['paciente_nombre'].'</option>';
-								} 
-								?>
-							</select>
+							<input type="text" name="paciente_direccion" value="<?php echo $this->input->post('paciente_direccion'); ?>" class="form-control" id="paciente_direccion" onKeyUp="this.value = this.value.toUpperCase();"/>
 						</div>
-					</div>-->
-					
+					</div>
+                            
+                                        <div class="col-md-4">
+						<label for="paciente_celular" class="control-label">Celular</label>
+						<div class="form-group">
+							<input type="text" name="paciente_celular" value="<?php echo $this->input->post('paciente_celular'); ?>" class="form-control" id="paciente_celular" onKeyUp="this.value = this.value.toUpperCase();"/>
+						</div>
+					</div>
+                            
+					<div class="col-md-4">
+						<label for="paciente_telefono" class="control-label">Teléfono</label>
+						<div class="form-group">
+							<input type="text" name="paciente_telefono" value="<?php echo $this->input->post('paciente_telefono'); ?>" class="form-control" id="paciente_telefono" onKeyUp="this.value = this.value.toUpperCase();"/>
+						</div>
+					</div>
+        
+                                        <div class="col-md-4">
+						<label for="paciente_nombrefirmante" class="control-label">Nombre Completo Firmante</label>
+						<div class="form-group">
+							<input type="text" name="paciente_nombrefirmante" value="<?php echo $this->input->post('paciente_nombrefirmante'); ?>" class="form-control" id="paciente_nombrefirmante" onKeyUp="this.value = this.value.toUpperCase();"/>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<label for="paciente_cifirmante" class="control-label">C.I. Firmante</label>
+						<div class="form-group">
+							<input type="text" name="paciente_cifirmante" value="<?php echo $this->input->post('paciente_cifirmante'); ?>" class="form-control" id="paciente_cifirmante" onKeyUp="this.value = this.value.toUpperCase();"/>
+						</div>
+					</div>
+
+                            
+                                        <div class="col-md-4">
+                                            <label for="user_imagen" class="control-label">Imagen</label>
+                                            <div class="form-group">
+                                                <input type="file" name="paciente_foto"  id="paciente_foto" class="form-control input"  value="<?php echo $this->input->post('paciente_foto'); ?>"  onchange="cargar_imagen()">
+                                                <small class="help-block" data-fv-result="INVALID" data-fv-for="chivo" data-fv-validator="notEmpty"></small>
+                                                <h4 id='loading' ></h4>
+                                                <div id="message"></div>
+                                            </div>
+                                        </div>
 				</div>
+                    
 			</div>
+            
           	<div class="box-footer">
-            	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
-            	</button>
+                    
+                    <button type="submit" class="btn btn-success">
+                            <i class="fa fa-floppy-o"></i> Guardar
+                    </button>
+                    
+                    <a href="<?php echo base_url("paciente"); ?>" type="submit" class="btn btn-danger">
+            		<i class="fa fa-times"></i> Cancelar
+                    </a>
+                    
           	</div>
             <?php echo form_close(); ?>
       	</div>
     </div>
 </div>
+
+
+
+<script>
+
+
+function cargar_imagen(){
+    //base_url = document.getElementById('base_url').value;
+    //alert(base_url);
+    var elemento = document.getElementById('paciente_foto');
+    var direccion =  URL.createObjectURL(elemento.files[0]);
+      
+   //alert(direccion);
+   // alert("base_url");
+}
+
+//
+//$(document).ready(function() {
+//
+//  // Escuchamos el evento 'change' del input donde cargamos el archivo
+//  $(document).on('change', 'input[type=file]', function(e) {
+//    // Obtenemos la ruta temporal mediante el evento
+//    var TmpPath = URL.createObjectURL(e.target.files[0]);
+//    // Mostramos la ruta temporal
+//    $('span').html(TmpPath);
+//    $('img').attr('src', TmpPath);
+//  });
+//
+//});
+
+    function generar_codigo(){
+        var paciente_nombre = document.getElementById("paciente_nombre").value;
+        var paciente_apellido = document.getElementById("paciente_apellido").value;
+        var numero = Math.floor(Math.random() * 100000); ;
+        
+        var codigo = paciente_nombre[0]+paciente_nombre[1]+paciente_nombre[2]+paciente_apellido[0]+paciente_apellido[1]+numero;
+        $("#paciente_codigo").val(codigo);
+        //codigo;
+    }
+   
+</script>

@@ -38,7 +38,7 @@
 						<td><?php echo $p['estado_id']; ?></td>
 						<td><?php echo $p['genero_id']; ?></td>
 						<td><?php echo $p['extencion_id']; ?></td>
-						<td><?php echo $p['paciente_edad']; ?></td>
+						<td><?php echo $p['paciente_fechanac']; ?></td>
 						<td><?php echo $p['paciente_nombre']; ?></td>
 						<td><?php echo $p['paciente_direccion']; ?></td>
 						<td><?php echo $p['paciente_ci']; ?></td>
