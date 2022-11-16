@@ -5,21 +5,45 @@
 */
 class Tratamiento_model extends CI_Model 
 { 
-     function __construct()
-      {
-          parent::__construct();
-      }
-      /*
-        * Get tratamiento by tratamiento_id 
-      */ 
-      function get_tratamiento($tratamiento_id)
-      {
+    function __construct()
+    {
+        parent::__construct();
+    }
+    
+    /*
+    * Get all tratamiento de un registro determinado
+    */ 
+    function getall_tratamientoregistro($registro_id)
+    {
+        try{
+            return $this->db->get_where('tratamiento',array('registro_id'=>$registro_id))->result_array();
+        }catch (Exception $ex){
+            throw new Exception('Tratamiento_model model : Error in getall_tratamientoregistro function - ' . $ex);
+        }  
+    }
+    
+    /*
+    * Get tratamiento by tratamiento_id 
+    */ 
+    function get_tratamiento($tratamiento_id)
+    {
         try{
            return $this->db->get_where('tratamiento',array('tratamiento_id'=>$tratamiento_id))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
-           }  
-      }
+        }catch (Exception $ex) {
+           throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
+           }
+    }  
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       /*
         * Get tratamiento by  column name
       */ 

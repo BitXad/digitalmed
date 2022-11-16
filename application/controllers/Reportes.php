@@ -13,6 +13,7 @@ class Reportes extends CI_Controller{
         $this->load->model('Reporte_ing_egr_model');
         $this->load->model('Ingreso_model');
         $this->load->model('Empresa_model');
+        $this->load->model('Tratamiento_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -76,7 +77,26 @@ class Reportes extends CI_Controller{
         //}
     }
     
-    
+    /*
+     * Reporte de las sesiones dado un tratamiento!.
+     */
+    function reportesesiones($tratamiento_id)
+    {
+        //if($this->acceso(141)){
+        $this->load->model('Sesion_model');
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+        
+        $this->load->model('Parametro_model');
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        $data['page_title'] = "Reporte de sesiones";
+        $data['_view'] = 'reportes/reportesesiones';
+
+        $this->load->view('layouts/main',$data);
+        //}
+    }
     
     
     

@@ -4,25 +4,50 @@
  www.manuigniter.com
 */
 class Tratamiento extends CI_Controller{
- function __construct()
- {
-       parent::__construct();
-      $this->load->model('Tratamiento_model');
- } 
- /*
-* Listing of tratamiento
- */
-public function index()
-{
-  try{
-      $data['noof_page'] = 0;
-     $data['tratamiento'] = $this->Tratamiento_model->get_all_tratamiento();
-      $data['_view'] = 'tratamiento/index';
-      $this->load->view('layouts/main',$data);
-    } catch (Exception $ex) {
-      throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
-  }  
-}
+     function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Tratamiento_model');
+        $this->load->model('Registro_model');
+        $this->load->model('Sesion_model');
+    }
+    
+    /*
+    * Listing of tratamiento
+    */
+    public function tratamientos($registro_id)
+    {
+        try{
+            //obtiene los tratamientos de un determinado registro
+            $data['registro'] = $this->Registro_model->get_registro($registro_id);
+            $data['tratamiento'] = $this->Tratamiento_model->getall_tratamientoregistro($registro_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['tratamiento'][0]['tratamiento_id']);
+            
+            $data['_view'] = 'tratamiento/tratamientos';
+            $this->load->view('layouts/main',$data);
+        } catch (Exception $ex) {
+            throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+        }
+    }
+    
+    
+    
+    
+    
+    /*
+    * Listing of tratamiento
+    */
+    public function index()
+    {
+        try{
+            $data['noof_page'] = 0;
+            $data['tratamiento'] = $this->Tratamiento_model->get_all_tratamiento();
+            $data['_view'] = 'tratamiento/index';
+            $this->load->view('layouts/main',$data);
+        } catch (Exception $ex) {
+            throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+        }
+    } 
  /*
   * Adding a new tratamiento
   */
