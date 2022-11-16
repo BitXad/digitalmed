@@ -5,21 +5,38 @@
 */
 class Registro_model extends CI_Model 
 { 
-     function __construct()
-      {
-          parent::__construct();
-      }
-      /*
-        * Get registro by registro_id 
-      */ 
-      function get_registro($registro_id)
+    function __construct()
+    {
+        parent::__construct();
+    }
+    /*
+     * Get registro by registro_id 
+    */ 
+    function get_registro($registro_id)
+    {
+        try{
+            return $this->db->get_where('registro',array('registro_id'=>$registro_id))->row_array();
+        } catch (Exception $ex) {
+            throw new Exception('Registro_model Model : Error in get_registro function - ' . $ex);
+        }  
+    }
+    
+    
+    function getall_registropaciente($paciente_id)
       {
         try{
-           return $this->db->get_where('registro',array('registro_id'=>$registro_id))->row_array();
+              return $this->db->get_where('registro',array('paciente_id'=>$paciente_id))->result_array();
            } catch (Exception $ex) {
-             throw new Exception('Registro_model Model : Error in get_registro function - ' . $ex);
+             throw new Exception('Registro_model model : Error in get_all_registro function - ' . $ex);
            }  
-      }
+      } 
+      
+      
+      
+      
+      
+      
+      
       /*
         * Get registro by  column name
       */ 
@@ -62,18 +79,7 @@ class Registro_model extends CI_Model
       /*
           * Get all registro 
       */ 
-      function get_all_registro($params = array())
-      {
-        try{
-              $this->db->order_by('registro_id', 'desc');
-              if(isset($params) && !empty($params)){
-               $this->db->limit($params['limit'], $params['offset']);
-              }
-               return $this->db->get('registro')->result_array();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_all_registro function - ' . $ex);
-           }  
-      } 
+      
       /*
          * function to add new registro 
       */

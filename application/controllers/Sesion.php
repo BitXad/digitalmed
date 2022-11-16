@@ -63,7 +63,7 @@ class Sesion extends CI_Controller{
                     if($dia == 1 || $dia == 3 || $dia == 5){
                         $lmv = 1;
                     }
-                    $estado_id = 1; // estado pendiente
+                    $estado_id = 3; // estado pendiente
                     for($i = 1; $i <= $sesion_numero; $i++){
                         $params = array(
                             'tratamiento_id' => $this->input->post('tratamiento_id'),
@@ -114,7 +114,7 @@ class Sesion extends CI_Controller{
             //$data['tratamiento_id'] = $tratamiento_id;
             $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
             $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
-            $tipo = 1;
+            $tipo = 2;
             $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
             
             $this->load->library('upload');

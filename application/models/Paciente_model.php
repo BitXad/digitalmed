@@ -82,11 +82,13 @@ class Paciente_model extends CI_Model
         
         $paciente = $this->db->query("
             SELECT
-                *
-
+                p.*, e.estado_color, e. estado_descripcion, 
+                g.genero_nombre, ex.extencion_descripcion
             FROM
-                `paciente`
-
+                `paciente` p
+            left join genero g on p.genero_id = g.genero_id
+            left join estado e on p.estado_id = e.estado_id
+            left join extencion ex on p.extencion_id = ex.extencion_id
             WHERE
                 1 = 1
 
