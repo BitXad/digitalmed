@@ -10,19 +10,19 @@
                         <div class="col-md-4">
                             <label for="paciente_nombre" class="control-label"><span class="text-danger">*</span>Nombre (s)</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_nombre" value="<?php echo ($this->input->post('paciente_nombre') ? $this->input->post('paciente_nombre') : $paciente['paciente_nombre']); ?>" class="form-control" id="paciente_nombre" required />
+                                <input type="text" name="paciente_nombre" value="<?php echo ($this->input->post('paciente_nombre') ? $this->input->post('paciente_nombre') : $paciente['paciente_nombre']); ?>" class="form-control" id="paciente_nombre" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_apellido" class="control-label"><span class="text-danger">*</span>Apellido (s)</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_apellido" value="<?php echo ($this->input->post('paciente_apellido') ? $this->input->post('paciente_apellido') : $paciente['paciente_apellido']); ?>" class="form-control" id="paciente_apellido" required />
+                                <input type="text" name="paciente_apellido" value="<?php echo ($this->input->post('paciente_apellido') ? $this->input->post('paciente_apellido') : $paciente['paciente_apellido']); ?>" class="form-control" id="paciente_apellido" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_ci" class="control-label">Cedula Identidad</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_ci" value="<?php echo ($this->input->post('paciente_ci') ? $this->input->post('paciente_ci') : $paciente['paciente_ci']); ?>" class="form-control" id="paciente_ci" />
+                                <input type="text" name="paciente_ci" value="<?php echo ($this->input->post('paciente_ci') ? $this->input->post('paciente_ci') : $paciente['paciente_ci']); ?>" class="form-control" id="paciente_ci" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -70,19 +70,19 @@
                         <div class="col-md-4">
                             <label for="paciente_direccion" class="control-label">Dirección</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_direccion" value="<?php echo ($this->input->post('paciente_direccion') ? $this->input->post('paciente_direccion') : $paciente['paciente_direccion']); ?>" class="form-control" id="paciente_direccion" />
+                                <input type="text" name="paciente_direccion" value="<?php echo ($this->input->post('paciente_direccion') ? $this->input->post('paciente_direccion') : $paciente['paciente_direccion']); ?>" class="form-control" id="paciente_direccion" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_celular" class="control-label">Celular</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_celular" value="<?php echo ($this->input->post('paciente_celular') ? $this->input->post('paciente_celular') : $paciente['paciente_celular']); ?>" class="form-control" id="paciente_celular" />
+                                <input type="text" name="paciente_celular" value="<?php echo ($this->input->post('paciente_celular') ? $this->input->post('paciente_celular') : $paciente['paciente_celular']); ?>" class="form-control" id="paciente_celular"  onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_telefono" class="control-label">Teléfono</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_telefono" value="<?php echo ($this->input->post('paciente_telefono') ? $this->input->post('paciente_telefono') : $paciente['paciente_telefono']); ?>" class="form-control" id="paciente_telefono" />
+                                <input type="text" name="paciente_telefono" value="<?php echo ($this->input->post('paciente_telefono') ? $this->input->post('paciente_telefono') : $paciente['paciente_telefono']); ?>" class="form-control" id="paciente_telefono" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -95,13 +95,13 @@
                         <div class="col-md-4">
                             <label for="paciente_nombrefirmante" class="control-label">Nombre Completo Firmante</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_nombrefirmante" value="<?php echo ($this->input->post('paciente_nombrefirmante') ? $this->input->post('paciente_nombrefirmante') : $paciente['paciente_nombrefirmante']); ?>" class="form-control" id="paciente_nombrefirmante" />
+                                <input type="text" name="paciente_nombrefirmante" value="<?php echo ($this->input->post('paciente_nombrefirmante') ? $this->input->post('paciente_nombrefirmante') : $paciente['paciente_nombrefirmante']); ?>" class="form-control" id="paciente_nombrefirmante" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_cifirmante" class="control-label">C.I. Firmante</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_cifirmante" value="<?php echo ($this->input->post('paciente_cifirmante') ? $this->input->post('paciente_cifirmante') : $paciente['paciente_cifirmante']); ?>" class="form-control" id="paciente_cifirmante" />
+                                <input type="text" name="paciente_cifirmante" value="<?php echo ($this->input->post('paciente_cifirmante') ? $this->input->post('paciente_cifirmante') : $paciente['paciente_cifirmante']); ?>" class="form-control" id="paciente_cifirmante" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">

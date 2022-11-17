@@ -32,8 +32,55 @@ class Tratamiento_model extends CI_Model
         }catch (Exception $ex) {
            throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
            }
-    }  
-      
+    }
+    
+    /*
+    * Get tratamiento by tratamiento_id 
+    */ 
+    function get_pacienteregistro($registro_id)
+    {
+        try{
+            $paciente = $this->db->query("
+                SELECT
+                    p.*
+                FROM
+                    `paciente` p
+                left join registro r on p.paciente_id = r.paciente_id
+                WHERE
+                    registro_id = $registro_id
+            ")->row_array();
+            
+            return $paciente;
+        }catch (Exception $ex) {
+           throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
+           }
+    }
+    
+    /*
+     * function to add new tratamiento 
+    */
+    function add_tratamiento($params)
+    {
+        try{
+            $this->db->insert('tratamiento',$params);
+            return $this->db->insert_id();
+        }catch (Exception $ex) {
+            throw new Exception('Tratamiento_model model : Error in add_tratamiento function - ' . $ex);
+        }
+    }
+    
+    /* 
+     * function to update tratamiento 
+    */
+    function update_tratamiento($tratamiento_id,$params)
+    {
+        try{
+            $this->db->where('tratamiento_id',$tratamiento_id);
+            return $this->db->update('tratamiento',$params);
+        }catch (Exception $ex) {
+            throw new Exception('Tratamiento_model model : Error in update_tratamiento function - ' . $ex);
+        }  
+    }
       
       
       
@@ -98,30 +145,6 @@ class Tratamiento_model extends CI_Model
              throw new Exception('Tratamiento_model model : Error in get_all_tratamiento function - ' . $ex);
            }  
       } 
-      /*
-         * function to add new tratamiento 
-      */
-      function add_tratamiento($params)
-      {
-        try{
-          $this->db->insert('tratamiento',$params);
-        return $this->db->insert_id();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in add_tratamiento function - ' . $ex);
-           }  
-      }
-      /* 
-          * function to update tratamiento 
-      */
-      function update_tratamiento($tratamiento_id,$params)
-      {
-        try{
-            $this->db->where('tratamiento_id',$tratamiento_id);
-        return $this->db->update('tratamiento',$params);
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in update_tratamiento function - ' . $ex);
-           }  
-       }
      /* 
           * function to delete tratamiento 
       */

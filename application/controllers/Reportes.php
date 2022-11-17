@@ -98,7 +98,27 @@ class Reportes extends CI_Controller{
         //}
     }
     
-    
+    /*
+     * Reporte del Informe Clinico Mensual
+     */
+    function informecmensual($reporte_id)
+    {
+        //if($this->acceso(141)){
+        $this->load->model('Sesion_model');
+        $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
+        $this->load->model('Detalle_hora_model');
+        $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesion($sesion_id);
+        
+        $this->load->model('Parametro_model');
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        $data['page_title'] = "Informe clinico mensual";
+        $data['_view'] = 'reportes/informecmensual';
+
+        $this->load->view('layouts/main',$data);
+        //}
+    }
     
     
     

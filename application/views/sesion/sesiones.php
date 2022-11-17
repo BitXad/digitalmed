@@ -8,7 +8,7 @@
 <!-- ---------------------------------------------------- -->
 
 <div class="box-header">
-    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"] ?></span>
+    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></span>
     <div class="box-tools" id="nuevas_sesiones" style="display: none;">
         <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevasesion" onclick="cargarmodal_nuevasesion()">
             <span class="fa fa-pencil-square-o"></span> Nuevas Sesiones </a>
@@ -101,3 +101,8 @@
     </div>
 </div>
 <!------------------------ F I N  modal para Generar nuevas sesiones ------------------->
+<div>
+    <a href="<?php echo base_url("tratamiento/tratamientos/".$paciente["registro_id"]); ?>" class="btn btn-danger">
+        <i class="fa fa-reply"></i> Tratamientos
+    </a>
+</div>

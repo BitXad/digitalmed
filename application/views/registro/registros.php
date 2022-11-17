@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<!------------------------ INICIO modal para Generar nuevas sesiones ------------------->
+<!------------------------ INICIO modal para registrar registro de paciente ------------------->
 <div class="modal fade" id="modal_nuevoregistro" tabindex="-1" role="dialog" aria-labelledby="modal_nuevoregistrolabel" style="font-family: Arial; font-size: 10pt;">
     <div class="modal-dialog" role="document">
         <br><br>
@@ -97,6 +97,65 @@
         </div>
     </div>
 </div>
-<!------------------------ F I N  modal para Generar nuevas sesiones ------------------->
+<!------------------------ F I N  modal para registrar registro de paciente ------------------->
+<!------------------------ INICIO modal para Modificar registro de paciente ------------------->
+<div class="modal fade" id="modal_modificarregistro" tabindex="-1" role="dialog" aria-labelledby="modal_modificarregistrolabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">MODIFICAR REGISTRO</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderregistromodif" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_fechamodif" class="control-label">Fecha</label>
+                    <div class="form-group">
+                        <input type="date" name="registro_fechamodif" class="form-control" id="registro_fechamodif" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_horamodif" class="control-label">Hora</label>
+                    <div class="form-group">
+                        <input type="time" name="registro_horamodif" value="0" class="form-control" id="registro_horamodif"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_mesmodif" class="control-label">Mes</label>
+                    <div class="form-group">
+                        <span id="elmesmodif"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_gestionmodif" class="control-label">Gestión</label>
+                    <div class="form-group">
+                        <span id="lagestionmodif"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="registro_diagnosticomodif" class="control-label">Diagnostico</label>
+                    <div class="form-group">
+                        <input type="text" name="registro_diagnosticomodif" class="form-control" id="registro_diagnosticomodif" />
+                        <input type="hidden" name="registro_idmodif" class="form-control" id="registro_idmodif" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="modificar_registro()"><fa class="fa fa-floppy-o"></fa> Guardar el Registro Modificado</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Modificar registro de paciente ------------------->
 
-
+<div>
+    <a href="<?php echo base_url("paciente"); ?>" class="btn btn-danger">
+        <i class="fa fa-reply"></i> Pacientes
+    </a>
+</div>

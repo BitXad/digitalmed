@@ -23,13 +23,41 @@ class Registro_model extends CI_Model
     
     
     function getall_registropaciente($paciente_id)
-      {
+    {
         try{
-              return $this->db->get_where('registro',array('paciente_id'=>$paciente_id))->result_array();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_all_registro function - ' . $ex);
-           }  
-      } 
+            return $this->db->get_where('registro',array('paciente_id'=>$paciente_id))->result_array();
+        }catch (Exception $ex) {
+            throw new Exception('Registro_model model : Error in get_all_registro function - ' . $ex);
+        }  
+    }
+    
+    /*
+     * function to add new registro 
+    */
+    function add_registro($params)
+    {
+        try{
+            $this->db->insert('registro',$params);
+            return $this->db->insert_id();
+        }catch (Exception $ex) {
+            throw new Exception('Registro_model model : Error in add_registro function - ' . $ex);
+        }
+    }
+    /* 
+     * function to update registro 
+    */
+    function update_registro($registro_id,$params)
+    {
+        try{
+            $this->db->where('registro_id',$registro_id);
+            return $this->db->update('registro',$params);
+        }catch (Exception $ex) {
+            throw new Exception('Registro_model model : Error in update_registro function - ' . $ex);
+        }
+    }
+    
+      
+      
       
       
       
@@ -80,30 +108,6 @@ class Registro_model extends CI_Model
           * Get all registro 
       */ 
       
-      /*
-         * function to add new registro 
-      */
-      function add_registro($params)
-      {
-        try{
-          $this->db->insert('registro',$params);
-        return $this->db->insert_id();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in add_registro function - ' . $ex);
-           }  
-      }
-      /* 
-          * function to update registro 
-      */
-      function update_registro($registro_id,$params)
-      {
-        try{
-            $this->db->where('registro_id',$registro_id);
-        return $this->db->update('registro',$params);
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in update_registro function - ' . $ex);
-           }  
-       }
      /* 
           * function to delete registro 
       */

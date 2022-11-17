@@ -10,20 +10,20 @@
                         <div class="col-md-4">
                             <label for="paciente_nombre" class="control-label"><span class="text-danger">*</span>Nombre (s)</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_nombre" value="<?php echo $this->input->post('paciente_nombre'); ?>" class="form-control" id="paciente_nombre" onKeyUp="this.value = this.value.toUpperCase();" required />
+                                <input type="text" name="paciente_nombre" value="<?php echo $this->input->post('paciente_nombre'); ?>" class="form-control" id="paciente_nombre" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_apellido" class="control-label"><span class="text-danger">*</span>Apellido (s)</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_apellido" value="<?php echo $this->input->post('paciente_apellido'); ?>" class="form-control" id="paciente_apellido" onKeyUp="this.value = this.value.toUpperCase();" required />
+                                <input type="text" name="paciente_apellido" value="<?php echo $this->input->post('paciente_apellido'); ?>" class="form-control" id="paciente_apellido" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         
                         <div class="col-md-4">
                             <label for="paciente_ci" class="control-label">Cedula Identidad</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_ci" value="<?php echo $this->input->post('paciente_ci'); ?>" class="form-control" id="paciente_ci" onKeyUp="this.value = this.value.toUpperCase();"/>
+                                <input type="text" name="paciente_ci" value="<?php echo $this->input->post('paciente_ci'); ?>" class="form-control" id="paciente_ci" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -50,7 +50,7 @@
                         <div class="col-md-4">
                             <label for="paciente_codigo" class="control-label">Código</label>
                             <div class="input-group">   
-                                <input type="text" name="paciente_codigo" value="<?php echo $this->input->post('paciente_codigo'); ?>" class="form-control" id="paciente_codigo" />
+                                <input type="text" name="paciente_codigo" value="<?php echo $this->input->post('paciente_codigo'); ?>" class="form-control" id="paciente_codigo" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                                 <div style="border-color: #008d4c; background: #008D4C !important; color: white" class="btn btn-success input-group-addon" onclick="generar_codigo()" title="Código de barras"><span class="fa fa-barcode" aria-hidden="true" id="span_buscar_cliente" onKeyUp="this.value = this.value.toUpperCase();"></span></div>
                             </div>
                         </div>
@@ -73,19 +73,19 @@
                         <div class="col-md-5">
                             <label for="paciente_direccion" class="control-label">Dirección</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_direccion" value="<?php echo $this->input->post('paciente_direccion'); ?>" class="form-control" id="paciente_direccion" onKeyUp="this.value = this.value.toUpperCase();"/>
+                                <input type="text" name="paciente_direccion" value="<?php echo $this->input->post('paciente_direccion'); ?>" class="form-control" id="paciente_direccion" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="paciente_celular" class="control-label">Celular</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_celular" value="<?php echo $this->input->post('paciente_celular'); ?>" class="form-control" id="paciente_celular" onKeyUp="this.value = this.value.toUpperCase();"/>
+                                <input type="text" name="paciente_celular" value="<?php echo $this->input->post('paciente_celular'); ?>" class="form-control" id="paciente_celular" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <label for="paciente_telefono" class="control-label">Teléfono</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_telefono" value="<?php echo $this->input->post('paciente_telefono'); ?>" class="form-control" id="paciente_telefono" onKeyUp="this.value = this.value.toUpperCase();"/>
+                                <input type="text" name="paciente_telefono" value="<?php echo $this->input->post('paciente_telefono'); ?>" class="form-control" id="paciente_telefono" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -100,13 +100,13 @@
                         <div class="col-md-5">
                             <label for="paciente_nombrefirmante" class="control-label">Nombre Completo Firmante</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_nombrefirmante" value="<?php echo $this->input->post('paciente_nombrefirmante'); ?>" class="form-control" id="paciente_nombrefirmante" onKeyUp="this.value = this.value.toUpperCase();"/>
+                                <input type="text" name="paciente_nombrefirmante" value="<?php echo $this->input->post('paciente_nombrefirmante'); ?>" class="form-control" id="paciente_nombrefirmante" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <label for="paciente_cifirmante" class="control-label">C.I. Firmante</label>
                             <div class="form-group">
-                                <input type="text" name="paciente_cifirmante" value="<?php echo $this->input->post('paciente_cifirmante'); ?>" class="form-control" id="paciente_cifirmante" onKeyUp="this.value = this.value.toUpperCase();"/>
+                                <input type="text" name="paciente_cifirmante" value="<?php echo $this->input->post('paciente_cifirmante'); ?>" class="form-control" id="paciente_cifirmante" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ class Tratamiento extends CI_Controller{
         parent::__construct();
         $this->load->model('Tratamiento_model');
         $this->load->model('Registro_model');
-        $this->load->model('Sesion_model');
+        $this->load->model('Paciente_model');
     }
     
     /*
@@ -20,8 +20,7 @@ class Tratamiento extends CI_Controller{
         try{
             //obtiene los tratamientos de un determinado registro
             $data['registro'] = $this->Registro_model->get_registro($registro_id);
-            $data['tratamiento'] = $this->Tratamiento_model->getall_tratamientoregistro($registro_id);
-            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['tratamiento'][0]['tratamiento_id']);
+            $data['paciente'] = $this->Tratamiento_model->get_pacienteregistro($registro_id);
             
             $data['_view'] = 'tratamiento/tratamientos';
             $this->load->view('layouts/main',$data);
@@ -29,6 +28,68 @@ class Tratamiento extends CI_Controller{
             throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
         }
     }
+    
+    function registrar_tratamiento(){
+        try{
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'registro_id' => $this->input->post('registro_id'),
+                    'tratamiento_mes' => $this->input->post('tratamiento_mes'),
+                    'tratamiento_gestion' => $this->input->post('tratamiento_gestion'),
+                    'tratamiento_fecha' => $this->input->post('tratamiento_fecha'),
+                    'tratamiento_hora' => $this->input->post('tratamiento_hora'),
+                );
+                $tratamiento_id = $this->Tratamiento_model->add_tratamiento($params);
+            echo json_encode($tratamiento_id);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    function mostrar_tratamientos(){
+        try{
+            if($this->input->is_ajax_request()){
+                $registro_id = $this->input->post('registro_id');
+                $tratamiento = $this->Tratamiento_model->getall_tratamientoregistro($registro_id);
+                echo json_encode($tratamiento);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    function modificar_tratamiento(){
+        try{
+            if($this->input->is_ajax_request()){
+                $usuario_id = 1;
+                $params = array(
+                    'tratamiento_mes' => $this->input->post('tratamiento_mes'),
+                    'tratamiento_gestion' => $this->input->post('tratamiento_gestion'),
+                    'tratamiento_fecha' => $this->input->post('tratamiento_fecha'),
+                    'tratamiento_hora' => $this->input->post('tratamiento_hora'),
+                );
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $this->Tratamiento_model->update_tratamiento($tratamiento_id, $params);
+            echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     
     
