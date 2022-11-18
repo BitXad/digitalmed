@@ -159,6 +159,117 @@
 </div>
 <!------------------------ F I N  modal para Modificar tratamiento de paciente ------------------->
 
+<!------------------------ INICIO modal para Registrar informe mensual de paciente ------------------->
+<div class="modal fade" id="modal_nuevoinfmensual" tabindex="-1" role="dialog" aria-labelledby="modal_nuevoinfmensuallabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog modal-lg" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">REGISTRAR INFORME MENSUAL</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderinfmensual" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_cabecera" class="control-label">Cabecera</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_cabecera" id="infmensual_cabecera"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_acceso" class="control-label">Acceso</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_acceso" id="infmensual_acceso"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_laboratorio" class="control-label">Laboratorio</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_laboratorio" id="infmensual_laboratorio"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <label for="infmensual_conclusion" class="control-label">Conclusiones</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_conclusion" id="infmensual_conclusion"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="infmensual_fecha" class="control-label">Fecha de Informe</label>
+                    <div class="form-group">
+                        <input type="date" name="infmensual_fecha" class="form-control" id="infmensual_fecha" />
+                        <input type="hidden" name="tratamiento_id" class="form-control" id="tratamiento_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="registrar_infmensual()"><fa class="fa fa-floppy-o"></fa> Registrar Informe Mensual</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalinfmensual"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Registrar informe mensual de paciente ------------------->
+
+<!------------------------ INICIO modal para Modificar informe mensual de paciente ------------------->
+<div class="modal fade" id="modal_modificarinfmensual" tabindex="-1" role="dialog" aria-labelledby="modal_modificarinfmensuallabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog modal-lg" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">MODIFICAR INFORME MENSUAL</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderinfmensualmodif" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_cabeceramodif" class="control-label">Cabecera</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_cabeceramodif" id="infmensual_cabeceramodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_accesomodif" class="control-label">Acceso</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_accesomodif" id="infmensual_accesomodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_laboratoriomodif" class="control-label">Laboratorio</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_laboratoriomodif" id="infmensual_laboratoriomodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <label for="infmensual_conclusionmodif" class="control-label">Conclusiones</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_conclusionmodif" id="infmensual_conclusionmodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="infmensual_fechamodif" class="control-label">Fecha de Informe</label>
+                    <div class="form-group">
+                        <input type="date" name="infmensual_fechamodif" class="form-control" id="infmensual_fechamodif" />
+                        <input type="hidden" name="infmensual_id" class="form-control" id="infmensual_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="modificar_infmensual()"><fa class="fa fa-floppy-o"></fa> Modificar Informe Mensual</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalinfmensualmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Modificar informe mensual de paciente ------------------->
 <div>
     <a href="<?php echo base_url("registro/registros/".$paciente["paciente_id"]); ?>" class="btn btn-danger">
         <i class="fa fa-reply"></i> Registros

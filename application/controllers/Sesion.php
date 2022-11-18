@@ -8,6 +8,7 @@ class Sesion extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Sesion_model');
+        $this->load->model('Registro_model');
         $this->load->model('Estado_model');
     }
     
@@ -59,12 +60,16 @@ class Sesion extends CI_Controller{
                 // 0=>Domingo, 1=>Lunes, 2=>Martes, 3=>Miercoles, 4=>Jueves, 5=>Viernes, 6=>Sabado
                 $dia = date("w", strtotime($sesion_fechainicio));
                 if($dia >0){
+                    $tratamiento_id = $this->input->post('tratamiento_id');
+                    $registro = $this->Registro_model->get_numeroregistro_detratamiento($tratamiento_id);
+                    $numero_registro = $registro["registro_numero"];
                     $lmv = 0;  //0==>false;  1==>true
                     if($dia == 1 || $dia == 3 || $dia == 5){
                         $lmv = 1;
                     }
                     $estado_id = 3; // estado pendiente
                     for($i = 1; $i <= $sesion_numero; $i++){
+                        $num_reg = ($numero_registro+$i);
                         $params = array(
                             'tratamiento_id' => $this->input->post('tratamiento_id'),
                             'sesion_numero' => $i,
@@ -73,6 +78,7 @@ class Sesion extends CI_Controller{
                             'sesion_hierroeve' => $this->input->post('sesion_hierroev'),
                             'sesion_complejobampolla' => $this->input->post('sesion_complejobampolla'),
                             'sesion_costosesion' => $this->input->post('sesion_costosesion'),
+                            'sesion_numerosesionhd' => $num_reg,
                             'estado_id' => $estado_id,
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
@@ -82,17 +88,51 @@ class Sesion extends CI_Controller{
                         if($lmv == 1){
                             if($dia == 1 || $dia == 3){
                                 $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+2 days"));
+                                $paramsok = array(
+                                    'sesion_omeprazol' => 2,
+                                    'sesion_acidofolico' => 2,
+                                    'sesion_calcio' => 8,
+                                    'sesion_amlodipina' => 4,
+                                    'sesion_complejob' => 2,
+                                );
                             }elseif($dia == 5){
                                 $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+3 days"));
+                                $paramsok = array(
+                                    'sesion_omeprazol' => 3,
+                                    'sesion_acidofolico' => 3,
+                                    'sesion_calcio' => 12,
+                                    'sesion_amlodipina' => 6,
+                                    'sesion_complejob' => 3,
+                                );
                             }
                         }else{
                             if($dia == 2 || $dia == 4){
                                 $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+2 days"));
+                                $paramsok = array(
+                                    'sesion_omeprazol' => 2,
+                                    'sesion_acidofolico' => 2,
+                                    'sesion_calcio' => 8,
+                                    'sesion_amlodipina' => 4,
+                                    'sesion_complejob' => 2,
+                                );
                             }elseif($dia == 6){
                                 $sesion_fechainicio = date('Y-m-d', strtotime($sesion_fechainicio."+3 days"));
+                                $paramsok = array(
+                                    'sesion_omeprazol' => 3,
+                                    'sesion_acidofolico' => 3,
+                                    'sesion_calcio' => 12,
+                                    'sesion_amlodipina' => 6,
+                                    'sesion_complejob' => 3,
+                                );
                             }
                         }
+                        $this->Sesion_model->update_sesion($sesion_id, $paramsok);
                     }
+                    $params = array(
+                        'registro_numero' => $num_reg,
+                    );
+                    $this->Registro_model->update_registro($registro["registro_id"], $params);
+                    
                     echo json_encode("ok");
                 }else{
                     echo json_encode("no");

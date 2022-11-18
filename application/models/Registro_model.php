@@ -55,112 +55,23 @@ class Registro_model extends CI_Model
             throw new Exception('Registro_model model : Error in update_registro function - ' . $ex);
         }
     }
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /*
-        * Get registro by  column name
-      */ 
-      function get_registrobyclm_name($clm_name,$clm_value)
-      {
+    /* get registro de un tratamiento */
+    function get_numeroregistro_detratamiento($tratamiento_id)
+    {
         try{
-           return $this->db->get_where('registro',array($clm_name=>$clm_value))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model Madel : Error in get_registrobyclm_name function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All registro count 
-      */ 
-      function get_all_registro_count()
-      {
-        try{
-           $this->db->from('registro');
-           return $this->db->count_all_results();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_all_registro_count function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All with associated tables join registrocount 
-      */ 
-      function get_all_with_asso_registro()
-      {
-        try{
-          $query = $this->db->get(); 
-            if($query->num_rows() != 0){
-               return $query->result_array();
-            }else{
-                return false;
-            }
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_all_with_asso_registro function - ' . $ex);
-           }  
-      }
-      /*
-          * Get all registro 
-      */ 
-      
-     /* 
-          * function to delete registro 
-      */
-       function delete_registro($registro_id)
-       {
-        try{
-             return $this->db->delete('registro',array('registro_id'=>$registro_id));
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in delete_registro function - ' . $ex);
-           }  
-       }
-      /*
-        * Get registro by  column name where not in particular id
-      */ 
-      function get_registrobyclm_name_not_id($clm_name,$clm_value,$where_cond)
-      {
-        try{
-            $this->db->where('registro_id!=', $where_cond);
-           return $this->db->get_where('registro',array($clm_name=>$clm_value))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_registrobyclm_name_not_id function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All with associated tables join registrocount 
-      */ 
-      function get_all_with_asso_registro_by_cat($column_name=null,$value_id=null,$params=array())
-      {
-        try{
-          $query = $this->db->get(); 
-            if($query->num_rows() != 0){
-               return $query->result_array();
-            }else{
-                return false;
-            }
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_all_with_asso_registro_by_cat function - ' . $ex);
-           }  
-      }
-      /*
-          * Get all registro_by_cat 
-      */ 
-      function get_all_registro_by_cat($column_name=null,$value_id=null,$params=array())
-      {
-        try{
-              $this->db->order_by('registro_id', 'desc');
-              $this->db->where($column_name, $value_id);
-              if(isset($params) && !empty($params)){
-               $this->db->limit($params['limit'], $params['offset']);
-              }
-               return $this->db->get('registro')->result_array();
-           } catch (Exception $ex) {
-             throw new Exception('Registro_model model : Error in get_all_registro_by_cat function - ' . $ex);
-           }  
-      } 
+            $num_registro = $this->db->query("
+                SELECT
+                    r.registro_id, r.registro_numero
+                FROM
+                    `registro` r
+                left join tratamiento t on r.registro_id = t.registro_id
+                WHERE
+                    t.tratamiento_id = $tratamiento_id
+            ")->row_array();
+            
+            return $num_registro;
+        }catch (Exception $ex) {
+            throw new Exception('Registro_model model : Error in get_numeroregistro_detratamiento function - ' . $ex);
+        }  
+    }
  }

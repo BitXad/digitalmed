@@ -93,11 +93,20 @@ function mostrar_tablastratamiento()
                         html += "<td class='text-center'>"+moment(tratamientos[i]["tratamiento_fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td class='text-center'>"+tratamientos[i]['tratamiento_hora']+"</td>";
                         html += "<td class='text-center'>"; 
-                        html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificartratamiento' onclick='cargarmodal_modificartratamiento("+JSON.stringify(tratamientos[i])+")' title='Modifcar registro'>";
+                        html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificartratamiento' onclick='cargarmodal_modificartratamiento("+JSON.stringify(tratamientos[i])+")' title='Modificar registro'>";
                         html += "<span class='fa fa-pencil'></span></a>";
-                        html += "<a href='"+base_url+"sesion/sesiones/"+tratamientos[i]['tratamiento_id']+"' class='btn btn-success btn-xs' title='Sesiones'><span class='fa fa-list'></span></a>";
+                        html += "<a href='"+base_url+"sesion/sesiones/"+tratamientos[i]['tratamiento_id']+"' class='btn btn-yahoo btn-xs' title='Sesiones'><span class='fa fa-list'></span></a>";
                         html += "<a href='"+base_url+"reportes/reportesesiones/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-facebook btn-xs' title='Reporte de Sesiones'><span class='fa fa-file-text'></span></a>";
-                        html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
+                        if(tratamientos[i]['infmensual_id'] >0){
+                            // modificar informe mensual
+                            html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
+                            html += "<span class='fa fa-pencil-square-o'></span></a>";
+                            html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
+                        }else{
+                            // nuevo informe mensual
+                            html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+")' title='Registrar informe mensual'>";
+                            html += "<span class='fa fa-pencil-square-o'></span></a>";
+                        }
                         html += "</td>";
                         html += "</tr>";
                     }
@@ -178,4 +187,101 @@ function modificar_tratamiento()
             },
     });
             
+}
+
+/* carga modal para registrar informe mensual de un determinado tratamiento */
+function cargarmodal_nuevoinfmensual(tratamiento_id)
+{
+    document.getElementById('loaderinfmensual').style.display = 'none';
+    $("#infmensual_cabecera").val("");
+    $("#infmensual_acceso").val("");
+    $("#infmensual_laboratorio").val("");
+    $("#infmensual_conclusion").val("");
+    $("#infmensual_fecha").val(moment(Date()).format("YYYY-MM-DD"));
+    $("#tratamiento_id").val(tratamiento_id);
+    $('#modal_nuevoinfmensual').on('shown.bs.modal', function (e) {
+        $('#infmensual_cabecera').focus();
+    });
+}
+
+/* regsitra el informe clinico mensual de un tratamiento  */
+function registrar_infmensual()
+{
+    let infmensual_cabecera = document.getElementById("infmensual_cabecera").value;
+    let infmensual_acceso = document.getElementById("infmensual_acceso").value;
+    let infmensual_laboratorio = document.getElementById("infmensual_laboratorio").value;
+    let infmensual_conclusion = document.getElementById("infmensual_conclusion").value;
+    let infmensual_fecha = document.getElementById("infmensual_fecha").value;
+    let tratamiento_id = document.getElementById("tratamiento_id").value;
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/registrar_infmensual';
+    document.getElementById('loaderinfmensual').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            data:{infmensual_cabecera:infmensual_cabecera, infmensual_acceso:infmensual_acceso,
+                infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
+                infmensual_fecha:infmensual_fecha, tratamiento_id:tratamiento_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                    alert("Informe mensual registrado con exito!.");
+                    $('#boton_cerrarmodalinfmensual').click();
+                    mostrar_tablastratamiento();
+            },
+    });            
+}
+
+/* carga modal para registrar informe mensual de un determinado tratamiento */
+function cargarmodal_modificarinfmensual(infmensual_id)
+{
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/get_informemensual';
+    document.getElementById('loaderinfmensualmodif').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{infmensual_id:infmensual_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                document.getElementById('loaderinfmensualmodif').style.display = 'none';
+                $("#infmensual_cabeceramodif").val(res["infmensual_cabecera"]);
+                $("#infmensual_accesomodif").val(res["infmensual_acceso"]);
+                $("#infmensual_laboratoriomodif").val(res["infmensual_laboratorio"]);
+                $("#infmensual_conclusionmodif").val(res["infmensual_conclusion"]);
+                $("#infmensual_fechamodif").val(res["infmensual_fecha"]);
+                $("#infmensual_id").val(infmensual_id);
+                $('#modal_modificarinfmensual').on('shown.bs.modal', function (e) {
+                    $('#infmensual_cabeceramodif').focus();
+                });
+            },
+    }); 
+}
+/* modifica el informe clinico mensual de un tratamiento  */
+function modificar_infmensual()
+{
+    let infmensual_cabecera = document.getElementById("infmensual_cabeceramodif").value;
+    let infmensual_acceso = document.getElementById("infmensual_accesomodif").value;
+    let infmensual_laboratorio = document.getElementById("infmensual_laboratoriomodif").value;
+    let infmensual_conclusion = document.getElementById("infmensual_conclusionmodif").value;
+    let infmensual_fecha = document.getElementById("infmensual_fechamodif").value;
+    let infmensual_id = document.getElementById("infmensual_id").value;
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/modificar_infmensual';
+    document.getElementById('loaderinfmensualmodif').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            data:{infmensual_cabecera:infmensual_cabecera, infmensual_acceso:infmensual_acceso,
+                infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
+                infmensual_fecha:infmensual_fecha, infmensual_id:infmensual_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                    alert("Informe mensual modificado con exito!.");
+                    $('#boton_cerrarmodalinfmensualmodif').click();
+                    mostrar_tablastratamiento();
+            },
+    });            
 }

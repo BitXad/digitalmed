@@ -120,7 +120,9 @@ function mostrar_tablas()
                     html += "<td class='text-center'>"+total_hierroev+"</td>"; 
                     html += "<td class='text-center'>"+total_complejob+"</td>"; 
                     html += "<td class='text-center'>"+total_costosesion+"</td>";
-                    html += "<tr>"; 
+                    html += "<td></td>";
+                    html += "<td></td>";
+                    html += "<tr>";
                     $("#tablaresultados").html(html);
                     document.getElementById('loader').style.display = 'none';
                 }

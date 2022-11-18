@@ -14,6 +14,7 @@ class Reportes extends CI_Controller{
         $this->load->model('Ingreso_model');
         $this->load->model('Empresa_model');
         $this->load->model('Tratamiento_model');
+        $this->load->model('Informe_mensual_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -87,6 +88,7 @@ class Reportes extends CI_Controller{
         $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();
@@ -101,14 +103,14 @@ class Reportes extends CI_Controller{
     /*
      * Reporte del Informe Clinico Mensual
      */
-    function informecmensual($reporte_id)
+    function informecmensual($tratamiento_id)
     {
         //if($this->acceso(141)){
         $this->load->model('Sesion_model');
-        $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
-        $this->load->model('Detalle_hora_model');
-        $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesion($sesion_id);
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+        $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();

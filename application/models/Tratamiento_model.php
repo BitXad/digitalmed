@@ -16,7 +16,17 @@ class Tratamiento_model extends CI_Model
     function getall_tratamientoregistro($registro_id)
     {
         try{
-            return $this->db->get_where('tratamiento',array('registro_id'=>$registro_id))->result_array();
+            $tratamiento = $this->db->query("
+                SELECT
+                    t.*, im.infmensual_id
+                FROM
+                    `tratamiento` t
+                left join informe_mensual im on t.tratamiento_id = im.tratamiento_id
+                WHERE
+                    registro_id = $registro_id
+            ")->result_array();
+            
+            return $tratamiento;
         }catch (Exception $ex){
             throw new Exception('Tratamiento_model model : Error in getall_tratamientoregistro function - ' . $ex);
         }  

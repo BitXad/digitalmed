@@ -10,6 +10,7 @@ class Tratamiento extends CI_Controller{
         $this->load->model('Tratamiento_model');
         $this->load->model('Registro_model');
         $this->load->model('Paciente_model');
+        $this->load->model('Informe_mensual_model');
     }
     
     /*
@@ -84,162 +85,62 @@ class Tratamiento extends CI_Controller{
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    * Listing of tratamiento
-    */
-    public function index()
-    {
+    /* regsitra el informe mensual */
+    function registrar_infmensual(){
         try{
-            $data['noof_page'] = 0;
-            $data['tratamiento'] = $this->Tratamiento_model->get_all_tratamiento();
-            $data['_view'] = 'tratamiento/index';
-            $this->load->view('layouts/main',$data);
-        } catch (Exception $ex) {
-            throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'tratamiento_id' => $this->input->post('tratamiento_id'),
+                    'infmensual_cabecera' => $this->input->post('infmensual_cabecera'),
+                    'infmensual_acceso' => $this->input->post('infmensual_acceso'),
+                    'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
+                    'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
+                    'infmensual_fecha' => $this->input->post('infmensual_fecha'),
+                );
+                $infmensual_id = $this->Informe_mensual_model->add_informe_mensual($params);
+            echo json_encode($infmensual_id);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
-    } 
- /*
-  * Adding a new tratamiento
-  */
- function add()
- {  
-try{
-      $params = array(
-       'registro_id'=> $this->input->post('registro_id'),
-       'tratamiento_mes'=> $this->input->post('tratamiento_mes'),
-       'tratamiento_gestion'=> $this->input->post('tratamiento_gestion'),
-       'tratamiento_fecha'=> $this->input->post('tratamiento_fecha'),
-       'tratamiento_hora'=> $this->input->post('tratamiento_hora'),
-        );
-       $this->load->library('upload');
-       $this->load->library('form_validation');
-       if(isset($_POST) && count($_POST) > 0)     
-        {  
-            $tratamiento_id= $this->Tratamiento_model->add_tratamiento($params);
-             $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Succesfully added.</div>');
-              redirect('tratamiento/index');
+    }
+    
+    function get_informemensual(){
+        try{
+            if($this->input->is_ajax_request()){
+                $infmensual_id = $this->input->post('infmensual_id');
+                $informe_mensual = $this->Informe_mensual_model->get_informe_mensual($infmensual_id);
+                echo json_encode($informe_mensual);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
-        else
-        { 
-           $data['_view'] = 'tratamiento/add';
-            $this->load->view('layouts/main',$data);
+    }
+    
+    /* modificar el informe mensual */
+    function modificar_infmensual(){
+        try{
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'infmensual_cabecera' => $this->input->post('infmensual_cabecera'),
+                    'infmensual_acceso' => $this->input->post('infmensual_acceso'),
+                    'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
+                    'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
+                    'infmensual_fecha' => $this->input->post('infmensual_fecha'),
+                );
+                $infmensual_id = $this->input->post('infmensual_id');
+                $this->Informe_mensual_model->update_informe_mensual($infmensual_id, $params);
+            echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
-  } catch (Exception $ex) {
-    throw new Exception('Tratamiento Controller : Error in add function - ' . $ex);
-  }  
- }  
-  /*
-  * Editing a tratamiento
- */
- public function edit($tratamiento_id)
- {   
-  try{
-   $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-       $this->load->library('upload');
-       $this->load->library('form_validation');
-     if(isset($data['tratamiento']['tratamiento_id']))
-      {
-        $params = array(
-           'registro_id'=> $this->input->post('registro_id'),
-           'tratamiento_mes'=> $this->input->post('tratamiento_mes'),
-           'tratamiento_gestion'=> $this->input->post('tratamiento_gestion'),
-           'tratamiento_fecha'=> $this->input->post('tratamiento_fecha'),
-           'tratamiento_hora'=> $this->input->post('tratamiento_hora'),
-        );
-          if(isset($_POST) && count($_POST) > 0)     
-           {  
-           $this->Tratamiento_model->update_tratamiento($tratamiento_id,$params);
-             $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Succesfully updated.</div>');
-                redirect('tratamiento/index');
-           }
-           else
-          {
-              $data['_view'] = 'tratamiento/edit';
-              $this->load->view('layouts/main',$data);
-          }
-  }
-  else
-  show_error('The tratamiento you are trying to edit does not exist.');
-  } catch (Exception $ex) {
-    throw new Exception('Tratamiento Controller : Error in edit function - ' . $ex);
-  }  
-} 
-/*
-  * Deleting tratamiento
-  */
-  function remove($tratamiento_id)
-   {
-    try{
-      $tratamiento = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-  // check if the tratamiento exists before trying to delete it
-       if(isset($tratamiento['tratamiento_id']))
-       {
-         $this->Tratamiento_model->delete_tratamiento($tratamiento_id);
-             $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Succesfully Removed.</div>');
-           redirect('tratamiento/index');
-       }
-       else
-       show_error('The tratamiento you are trying to delete does not exist.');
-  } catch (Exception $ex) {
-    throw new Exception('Tratamiento Controller : Error in remove function - ' . $ex);
-  }  
-  }
-  /*
-  * View more a tratamiento
- */
- public function view_more($tratamiento_id)
- {   
-try{
-   $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-     if(isset($data['tratamiento']['tratamiento_id']))
-      {
-              $data['_view'] = 'tratamiento/view_more';
-              $this->load->view('layouts/main',$data);
-      }
-      else
-        show_error('The tratamiento you are trying to view more does not exist.');
-    } catch (Exception $ex) {
-    throw new Exception('Tratamiento Controller : Error in View more function - ' . $ex);
-  }  
-} 
- /*
-* Listing of tratamiento
- */
-public function search_by_clm()
-{
-    $column_name= $this->input->post('column_name');
-    $value_id= $this->input->post('value_id');
-     $data['noof_page'] = 0;
-     $params = array();
-    $data['tratamiento'] = $this->Tratamiento_model->get_all_tratamiento_by_cat($column_name,$value_id);
-      $data['_view'] = 'tratamiento/index';
-      $this->load->view('layouts/main',$data);
-}
- /*
-* get search values by column- tratamiento
- */
-public function get_search_values_by_clm()
-{
-    $clm_name= $this->input->post('clm_name');
-    $value= $this->input->post('value');
-    $id= $this->input->post('id');
-        $params = array(
-        $clm_name=>$value,
-        );
-           $this->Tratamiento_model->update_tratamiento($id,$params);
-   $data['noof_page'] = 0;
-  $data['tratamiento'] = $this->Tratamiento_model->get_all_tratamiento();
-  $this->load->view('tratamiento/index',$data);
-}
+    }
+    
  }
