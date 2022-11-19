@@ -9,6 +9,7 @@ class Sesion extends CI_Controller{
         parent::__construct();
         $this->load->model('Sesion_model');
         $this->load->model('Registro_model');
+        $this->load->model('Acceso_vascular_model');
         $this->load->model('Estado_model');
     }
     
@@ -61,8 +62,19 @@ class Sesion extends CI_Controller{
                 $dia = date("w", strtotime($sesion_fechainicio));
                 if($dia >0){
                     $tratamiento_id = $this->input->post('tratamiento_id');
-                    $registro = $this->Registro_model->get_numeroregistro_detratamiento($tratamiento_id);
+                    $registro = $this->Registro_model->get_registro_detratamiento($tratamiento_id);
                     $numero_registro = $registro["registro_numero"];
+                    $registro_numaquina = $registro["registro_numaquina"];
+                    $registro_tipofiltro = $registro["registro_tipofiltro"];
+                    
+                    $acceso_vascular = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($registro["registro_id"]);
+                    $cateter = "";
+                    $fistula = "";
+                    if($acceso_vascular["avascular_nombre"] == "Cateter"){
+                        $cateter = $acceso_vascular["avascular_detalle"];
+                    }else{
+                        $fistula = $acceso_vascular["avascular_detalle"];
+                    }
                     $lmv = 0;  //0==>false;  1==>true
                     if($dia == 1 || $dia == 3 || $dia == 5){
                         $lmv = 1;
@@ -78,6 +90,10 @@ class Sesion extends CI_Controller{
                             'sesion_hierroeve' => $this->input->post('sesion_hierroev'),
                             'sesion_complejobampolla' => $this->input->post('sesion_complejobampolla'),
                             'sesion_costosesion' => $this->input->post('sesion_costosesion'),
+                            'sesion_nummaquina' => $registro_numaquina,
+                            'sesion_tipofiltro' => $registro_tipofiltro,
+                            'sesion_cateter' => $cateter,
+                            'sesion_fistula' => $fistula,
                             'sesion_numerosesionhd' => $num_reg,
                             'estado_id' => $estado_id,
                         );

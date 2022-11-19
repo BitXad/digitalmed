@@ -9,6 +9,7 @@ class Registro extends CI_Controller{
         parent::__construct();
         $this->load->model('Registro_model');
         $this->load->model('Paciente_model');
+        $this->load->model('Acceso_vascular_model');
     }
     
     /* Registros de un paciente!. */
@@ -37,8 +38,17 @@ class Registro extends CI_Controller{
                     'registro_gestion' => $this->input->post('registro_gestion'),
                     'registro_diagnostico' => $this->input->post('registro_diagnostico'),
                     'registro_numero' => 0,
+                    'registro_numaquina' => $this->input->post('registro_numaquina'),
+                    'registro_tipofiltro' => $this->input->post('registro_tipofiltro'),
                 );
                 $registro_id = $this->Registro_model->add_registro($params);
+                
+                $params = array(
+                    'registro_id' => $registro_id,
+                    'avascular_nombre' => $this->input->post('avascular_nombre'),
+                    'avascular_detalle' => $this->input->post('avascular_detalle'),
+                );
+                $avascular_id = $this->Acceso_vascular_model->add_acceso_vascular($params);
             echo json_encode($registro_id);
             }else{                 
                 show_404();
@@ -72,6 +82,8 @@ class Registro extends CI_Controller{
                     'registro_mes' => $this->input->post('registro_mes'),
                     'registro_gestion' => $this->input->post('registro_gestion'),
                     'registro_diagnostico' => $this->input->post('registro_diagnostico'),
+                    'registro_numaquina' => $this->input->post('registro_numaquina'),
+                    'registro_tipofiltro' => $this->input->post('registro_tipofiltro'),
                 );
                 $registro_id = $this->input->post('registro_id');
                 $this->Registro_model->update_registro($registro_id, $params);

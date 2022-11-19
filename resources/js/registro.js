@@ -36,6 +36,7 @@ function cargarmodal_nuevoregistro()
     }
     html2 += "</select>";
     $("#lagestion").html(html2);
+    $("#registro_numaquina").val("");
     $("#registro_diagnostico").val("");
     $('#modal_nuevoregistro').on('shown.bs.modal', function (e) {
         $('#registro_fecha').focus();
@@ -48,6 +49,10 @@ function registrar_registro()
     let registro_hora = document.getElementById("registro_hora").value;
     let registro_mes = document.getElementById("registro_mes").value;
     let registro_gestion = document.getElementById("registro_gestion").value;
+    let registro_numaquina = document.getElementById("registro_numaquina").value;
+    let registro_tipofiltro = document.getElementById("registro_tipofiltro").value;
+    let avascular_nombre = document.getElementById("avascular_nombre").value;
+    let avascular_detalle = document.getElementById("avascular_detalle").value;
     let registro_diagnostico = document.getElementById("registro_diagnostico").value;
     let paciente_id = document.getElementById("paciente_id").value;
     
@@ -58,7 +63,9 @@ function registrar_registro()
             type:"POST",
             data:{registro_fecha:registro_fecha, registro_hora:registro_hora,
                 registro_mes:registro_mes, registro_gestion:registro_gestion,
-                registro_diagnostico:registro_diagnostico, paciente_id:paciente_id
+                registro_diagnostico:registro_diagnostico, paciente_id:paciente_id,
+                registro_numaquina:registro_numaquina, registro_tipofiltro:registro_tipofiltro,
+                avascular_nombre:avascular_nombre, avascular_detalle:avascular_detalle
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -183,4 +190,28 @@ function modificar_registro()
             },
     });
             
+}
+
+function detalle_acceso()
+{
+    let avascular_nombre = document.getElementById("avascular_nombre").value;
+    if(avascular_nombre ==  "Cateter"){
+        html = "<select name='avascular_detalle' id='avascular_detalle' class='form-control'>";
+        html += "<option value='P-YSCD'>P-YSCD</option>";
+        html += "<option value='P-YSCI'>P-YSCI</option>";
+        html += "<option value='T-YSCD'>P-YSCD</option>";
+        html += "<option value='T-YSCI'>P-YSCI</option>";
+        html += "<option value='Femoral I'>Femoral I</option>";
+        html += "<option value='Femoral D'>Femoral D</option>";
+        html += "</select>";
+        $('#avasculardetalle').html(html);
+    }else{
+        html = "<select name='avascular_detalle' id='avascular_detalle' class='form-control'>";
+        html += "<option value='Protesis I'>Protesis I</option>";
+        html += "<option value='Protesis D'>Protesis D</option>";
+        html += "<option value='MSD'>MSD</option>";
+        html += "<option value='MSI'>MSI</option>";
+        html += "</select>";
+        $('#avasculardetalle').html(html);
+    }
 }

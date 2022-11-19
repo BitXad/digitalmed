@@ -111,6 +111,7 @@ class Reportes extends CI_Controller{
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
         $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+        //$data['acceso_vascular'] = $this->Accceso_vascular_model->get_ultimoa_vascularregistro($tratamiento_id);
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();

@@ -12,7 +12,7 @@
     <br><font size='2' face='Arial'>Registros Encontrados: <span id="encontrados"></span></font>
     <div class="box-tools no-print">
         <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevotratamiento" onclick="cargarmodal_nuevotratamiento()">
-            <span class="fa fa-pencil-square-o"></span> Nuevo Registro </a>
+            <span class="fa fa-pencil-square-o"></span> Nuevo Tratamiento </a>
     </div>
 </div>
 <div class="col-md-12 text-center" id="loader" style="display:none;">

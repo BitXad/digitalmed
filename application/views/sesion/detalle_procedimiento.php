@@ -36,7 +36,7 @@
                             <div class="col-md-2">
                                 <label for="sesion_numerosesionhd" class="control-label">  <span class="text-danger"></span>N° Ses HD</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_complejobampolla" />
+                                    <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_complejobampolla" readonly />
                                     <span class="text-danger"><?php echo form_error('sesion_numerosesionhd');?></span>
                                 </div>
                             </div>
@@ -62,21 +62,21 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="sesion_pesoseco" class="control-label">  <span class="text-danger"></span>PESO SECO</label>
+                                <label for="sesion_pesoseco" class="control-label">  <span class="text-danger"></span>PESO SECO (Kg)</label>
                                 <div class="form-group">
                                     <input type="number" min="0" step="any" name="sesion_pesoseco" value="<?php echo ($this->input->post('sesion_pesoseco') ? $this->input->post('sesion_pesoseco') : $sesion['sesion_pesoseco']); ?>" class="form-control" id="sesion_pesoseco" onkeyup="calcular_ingest()" />
                                     <span class="text-danger"><?php echo form_error('sesion_pesoseco');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="sesion_pesoingreso" class="control-label">  <span class="text-danger"></span>PESO INGRESO</label>
+                                <label for="sesion_pesoingreso" class="control-label">  <span class="text-danger"></span>PESO INGRESO (Kg)</label>
                                 <div class="form-group">
                                     <input type="number" min="0" step="any" name="sesion_pesoingreso" value="<?php echo ($this->input->post('sesion_pesoingreso') ? $this->input->post('sesion_pesoingreso') : $sesion['sesion_pesoingreso']); ?>" class="form-control" id="sesion_pesoingreso" />
                                     <span class="text-danger"><?php echo form_error('sesion_pesoingreso');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="sesion_pesoegreso" class="control-label">  <span class="text-danger"></span>PESO EGRESO</label>
+                                <label for="sesion_pesoegreso" class="control-label">  <span class="text-danger"></span>PESO EGRESO (Kg)</label>
                                 <div class="form-group">
                                     <input type="number" min="0" step="any" name="sesion_pesoegreso" value="<?php echo ($this->input->post('sesion_pesoegreso') ? $this->input->post('sesion_pesoegreso') : $sesion['sesion_pesoegreso']); ?>" class="form-control" id="sesion_pesoegreso" onkeyup="calcular_ingest()" />
                                     <span class="text-danger"><?php echo form_error('sesion_pesoegreso');?></span>
@@ -125,14 +125,14 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="sesion_devolucion" class="control-label">  <span class="text-danger"></span>DEVOL.</label>
+                                <label for="sesion_devolucion" class="control-label">  <span class="text-danger"></span>DEVOL. (ml)</label>
                                 <div class="form-group">
                                     <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" />
                                     <span class="text-danger"><?php echo form_error('sesion_devolucion');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="sesion_heparina" class="control-label">  <span class="text-danger"></span>HEPARINA</label>
+                                <label for="sesion_heparina" class="control-label">  <span class="text-danger"></span>HEPARINA (UI)</label>
                                 <div class="form-group">
                                     <input type="text" name="sesion_heparina" value="<?php echo ($this->input->post('sesion_heparina') ? $this->input->post('sesion_heparina') : $sesion['sesion_heparina']); ?>" class="form-control" id="sesion_heparina" />
                                     <span class="text-danger"><?php echo form_error('sesion_heparina');?></span>

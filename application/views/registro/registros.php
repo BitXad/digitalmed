@@ -81,6 +81,37 @@
                         <span id="lagestion"></span>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <label for="registro_numaquina" class="control-label">Maquina N°</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="registro_numaquina" class="form-control" id="registro_numaquina"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_tipofiltro" class="control-label">Tipo de Filtro</label>
+                    <div class="form-group">
+                        <select class="form-control" name="registro_tipofiltro" id="registro_tipofiltro">
+                            <option value="F8HPS">F8HPS</option>
+                            <option value="FX100">FX100</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="avascular_nombre" class="control-label">Tipo de Acceso</label>
+                    <div class="form-group">
+                        <select class="form-control" name="avascular_nombre" id="avascular_nombre" onchange="detalle_acceso()">
+                            <option value="0">-- Acceso Vascular --</option>
+                            <option value="Cateter">Cateter</option>
+                            <option value="Fistula">Fistula</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="avascular_detalle" class="control-label">Acceso Vascular</label>
+                    <div class="form-group">
+                        <span id="avasculardetalle"></span>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <label for="registro_diagnostico" class="control-label">Diagnostico</label>
                     <div class="form-group">

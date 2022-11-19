@@ -56,12 +56,12 @@ class Registro_model extends CI_Model
         }
     }
     /* get registro de un tratamiento */
-    function get_numeroregistro_detratamiento($tratamiento_id)
+    function get_registro_detratamiento($tratamiento_id)
     {
         try{
             $num_registro = $this->db->query("
                 SELECT
-                    r.registro_id, r.registro_numero
+                    r.*
                 FROM
                     `registro` r
                 left join tratamiento t on r.registro_id = t.registro_id
