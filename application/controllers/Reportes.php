@@ -15,6 +15,7 @@ class Reportes extends CI_Controller{
         $this->load->model('Empresa_model');
         $this->load->model('Tratamiento_model');
         $this->load->model('Informe_mensual_model');
+        $this->load->model('Acceso_vascular_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -111,7 +112,7 @@ class Reportes extends CI_Controller{
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
         $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
-        //$data['acceso_vascular'] = $this->Accceso_vascular_model->get_ultimoa_vascularregistro($tratamiento_id);
+        $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($data['sesiones'][0]["avascular_id"]);
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();
@@ -122,7 +123,34 @@ class Reportes extends CI_Controller{
         $this->load->view('layouts/main',$data);
         //}
     }
-    
+    /*
+     * Reporte del Informe Clinico Mensual
+     */
+    function medinsumos($tratamiento_id)
+    {
+        //if($this->acceso(141)){
+        $this->load->model('Sesion_model');
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+        $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+        
+        if(isset($data['sesiones'][0]["avascular_id"])){
+            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($data['sesiones'][0]["avascular_id"]);
+        }else{
+            $data['acceso_vascular'] = "";
+        }
+        
+        
+        $this->load->model('Parametro_model');
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        $data['page_title'] = "Medicamentos e insumos medicos otorgados y autorizados";
+        $data['_view'] = 'reportes/medinsumos';
+
+        $this->load->view('layouts/main',$data);
+        //}
+    }
     
     
     

@@ -25,7 +25,7 @@ class Acceso_vascular_model extends CI_Model
     function get_ultimoa_vascularregistro($registro_id)
     {
         try{
-            $num_registro = $this->db->query("
+            $avascular = $this->db->query("
                 SELECT
                     av.*
                 FROM
@@ -35,7 +35,7 @@ class Acceso_vascular_model extends CI_Model
                 order by avascular_id desc
             ")->row_array();
             
-            return $num_registro;
+            return $avascular;
             
         }catch (Exception $ex) {
             throw new Exception('Acceso_vascular_model model : Error in get_all_acceso_vascular function - ' . $ex);

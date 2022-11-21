@@ -96,6 +96,7 @@ class Sesion extends CI_Controller{
                             'sesion_fistula' => $fistula,
                             'sesion_numerosesionhd' => $num_reg,
                             'estado_id' => $estado_id,
+                            'avascular_id' => $acceso_vascular["avascular_id"],
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
 

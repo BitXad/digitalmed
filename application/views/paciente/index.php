@@ -89,12 +89,29 @@
                         <td class="text-center">
                             <?php
                             if($p['paciente_fechanac'] != "" && $p['paciente_fechanac'] != null && $p['paciente_fechanac'] != "0000-00-00"){
-                                echo date("d/m/Y", strtotime($p['paciente_fechanac']))."<br>";
-                                $fnac = new DateTime($p['paciente_fechanac']);
-                                $hoy = new DateTime();
-                                $anios = $hoy->diff($fnac);
-                                echo $anios->y;
-                            }
+                                $fecha_nacimiento = $p['paciente_fechanac'];
+                                
+                                $dia  = date("d");
+                                $mes  = date("m");
+                                $anio = date("Y");
+
+                                $dianaz=date("d",strtotime($fecha_nacimiento));
+                                $mesnaz=date("m",strtotime($fecha_nacimiento));
+                                $anionaz=date("Y",strtotime($fecha_nacimiento));
+
+                                //si el mes es el mismo pero el día inferior aun no ha cumplido años, le quitaremos un año al actual
+                                if (($mesnaz == $mes) && ($dianaz > $dia)) {
+                                    $anio=($anio-1);
+                                }
+
+                                //si el mes es superior al actual tampoco habrá cumplido años, por eso le quitamos un año al actual
+                                if ($mesnaz > $mes) {
+                                $anio=($anio-1);}
+
+                                 //ya no habría mas condiciones, ahora simplemente restamos los años y mostramos el resultado como su edad
+                                $edad=($anio-$anionaz);
+                                echo $edad;
+                            }else{ echo 0; }
                             ?>
                         </td>
                         <td class="text-center"><?php echo $p['genero_nombre']; ?></td>

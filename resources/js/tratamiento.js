@@ -102,9 +102,10 @@ function mostrar_tablastratamiento()
                             html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                             html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
+                            html += "<a href='"+base_url+"reportes/medinsumos/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='medicamentos e insumos medicos otorgados y autorizados'><span class='fa fa-list-ol'></span></a>";
                         }else{
                             // nuevo informe mensual
-                            html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+")' title='Registrar informe mensual'>";
+                            html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                         }
                         html += "</td>";
@@ -190,14 +191,31 @@ function modificar_tratamiento()
 }
 
 /* carga modal para registrar informe mensual de un determinado tratamiento */
-function cargarmodal_nuevoinfmensual(tratamiento_id)
+function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
 {
     document.getElementById('loaderinfmensual').style.display = 'none';
     $("#infmensual_cabecera").val("");
     $("#infmensual_acceso").val("");
     $("#infmensual_laboratorio").val("");
     $("#infmensual_conclusion").val("");
-    $("#infmensual_fecha").val(moment(Date()).format("YYYY-MM-DD"));
+    let num_mes = "";
+    const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+    for (var i = 0; i < 12; i++) {
+        if((mes[i]) == elmes){
+            num_mes = i;
+            break;
+        }
+    }
+    num_mes = Number(num_mes+1);
+    if(num_mes<10){
+        num_mes = "0"+num_mes;
+    }
+    
+    lafecha = gestion+"-"+num_mes+"-"+"05";
+    var date = new Date(lafecha);
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    //alert (ultimoDia.getMonth());
+    $("#infmensual_fecha").val(moment(ultimoDia).format("YYYY-MM-DD"));
     $("#tratamiento_id").val(tratamiento_id);
     $('#modal_nuevoinfmensual').on('shown.bs.modal', function (e) {
         $('#infmensual_cabecera').focus();
