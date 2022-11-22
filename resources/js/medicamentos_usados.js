@@ -1,7 +1,100 @@
 $(document).on("ready",inicio);
 function inicio(){
-    mostrar_tablas();
+    //mostrar_tablas();
 } 
+
+/* carga modal para asignar medicamentos */
+function cargarmodal_asignarmedicamento()
+{
+    document.getElementById('loaderasignarmedicamento').style.display = 'none';
+    $("#filtrar2").val("");
+    $("#tabla_asignarmedicamentos").val("");
+    $('#modal_asignarmedicamento').on('shown.bs.modal', function (e) {
+        $('#filtrar2').focus();
+    });
+}
+
+/*
+ * Funcion que busca medicamentos
+ */
+function buscar_medicamento(e) {
+  tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==13){
+        mostrarresultado_busquedamedicamentos();
+    }
+}
+
+function mostrarresultado_busquedamedicamentos()
+{
+    let base_url = document.getElementById('base_url').value;
+    let filtrar = document.getElementById('filtrar2').value;
+    let controlador = base_url+'medicamento/mostrar_medicamentos';
+    document.getElementById('loaderasignarmedicamento').style.display = 'block'; //muestra el bloque del loader
+    $.ajax({url: controlador,
+            type:"POST",
+            data:{filtrar:filtrar},
+            success:function(respuesta){
+               var registros =  JSON.parse(respuesta);
+               if (registros != null){
+                    let n = registros.length;
+                    
+                    let html = "";
+                    for(var i = 0; i < n ; i++){
+                        html += "<tr>"; 
+                        html += "<td class='text-center'>"+(i+1)+"</td>";
+                        html += "<td>";
+                        html += registros[i]['medicamento_nombre']+"<br>("+registros[i]['medicamento_codigo']+")";
+                        html += "</td>";
+                        html += "<td class='text-center'>"+registros[i]['medicamento_forma']+"<br>";
+                        html += registros[i]['medicamento_concentracion'];
+                        html += "</td>";
+                        html += "<td>";
+                        html += "<input type='number' step='any' name='cantidad"+registros[i]['medicamento_id']+"' class='form-control' id='cantidad"+registros[i]['medicamento_id']+"' required />";
+                        html += "</td>";
+                        html += "<td class='text-center'>";
+                        html += "<a class='btn btn-success btn-xs' title='Registrar medicamento'><span class='fa fa-check'></span> Registrar</a>";
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                    $("#tabla_asignarmedicamentos").html(html);
+                    document.getElementById('loaderasignarmedicamento').style.display = 'none';
+                }
+                document.getElementById('loaderasignarmedicamento').style.display = 'none';
+        },
+        error:function(respuesta){
+          
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loaderasignarmedicamento').style.display = 'none'; //ocultar el bloque del loader 
+        }
+        
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* carga modal de nueva sesion  en limpio */
 function cargarmodal_nuevasesion()

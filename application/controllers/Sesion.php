@@ -9,6 +9,7 @@ class Sesion extends CI_Controller{
         parent::__construct();
         $this->load->model('Sesion_model');
         $this->load->model('Registro_model');
+        $this->load->model('Tratamiento_model');
         $this->load->model('Acceso_vascular_model');
         $this->load->model('Estado_model');
     }
@@ -265,6 +266,25 @@ class Sesion extends CI_Controller{
             throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
         }
     }
+    
+    /*
+    * Listing of sesiones de un tratamiento
+    */
+    public function detalle_medicacion($sesion_id = 0)
+    {
+        $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($data['sesion']["tratamiento_id"]);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']["tratamiento_id"]);
+        
+        $data['_view'] = 'sesion/detalle_medicacion';
+        $this->load->view('layouts/main',$data);
+    }
+    
+    
+    
+    
+    
+    
     
     
     
