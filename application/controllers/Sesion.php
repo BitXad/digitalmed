@@ -11,6 +11,8 @@ class Sesion extends CI_Controller{
         $this->load->model('Registro_model');
         $this->load->model('Tratamiento_model');
         $this->load->model('Acceso_vascular_model');
+        $this->load->model('Medicacion_model');
+        $this->load->model('Medicamento_model');
         $this->load->model('Estado_model');
     }
     
@@ -275,11 +277,25 @@ class Sesion extends CI_Controller{
         $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
         $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($data['sesion']["tratamiento_id"]);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']["tratamiento_id"]);
+        $data['medicamentos'] = $this->Medicamento_model->get_all_medicamento();
         
         $data['_view'] = 'sesion/detalle_medicacion';
         $this->load->view('layouts/main',$data);
     }
-    
+    /* muestra medicamentos usados  en una determinada sesion */
+    function mostrar_medicamentos(){
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_id = $this->input->post('sesion_id');
+                $medicamento = $this->Medicacion_model->getall_medicamentosusados($sesion_id);
+                echo json_encode($medicamento);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
     
     
     

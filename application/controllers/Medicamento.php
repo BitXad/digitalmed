@@ -7,6 +7,7 @@ class Medicamento extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Medicamento_model');
+        $this->load->model('Medicacion_model');
         $this->load->model('Forma_model');
     }
     
@@ -98,8 +99,79 @@ class Medicamento extends CI_Controller {
         }
     }
     
+    function registrar_medicamento(){
+        try{
+            if($this->input->is_ajax_request()){
+                $estado_id = 1; // Activo
+                $params = array(
+                    'sesion_id' => $this->input->post('sesion_id'),
+                    'medicamento_id' => $this->input->post('medicamento_id'),
+                    'estado_id' => $estado_id,
+                    'medicacion_cantidad' => $this->input->post('cantidad'),
+                );
+                $medicacion_id = $this->Medicacion_model->add_medicacion($params);
+                echo json_encode($medicacion_id);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
     
+    function modificar_medicamento(){
+        try{
+            if($this->input->is_ajax_request()){
+                $medicacion_id = $this->input->post('medicacion_id');
+                $params = array(
+                    'medicamento_id' => $this->input->post('medicamento_id'),
+                    'medicacion_cantidad' => $this->input->post('medicacion_cantidad'),
+                );
+                $this->Medicacion_model->update_medicacion($medicacion_id, $params);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
     
+    function darde_baja(){
+        try{
+            if($this->input->is_ajax_request()){
+                $medicacion_id = $this->input->post('medicacion_id');
+                $estado_id = 2; // INACTIVO
+                $params = array(
+                    'estado_id' => $estado_id,
+                );
+                $this->Medicacion_model->update_medicacion($medicacion_id, $params);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    function darde_alta(){
+        try{
+            if($this->input->is_ajax_request()){
+                $medicacion_id = $this->input->post('medicacion_id');
+                $estado_id = 1; // ACTIVO
+                $params = array(
+                    'estado_id' => $estado_id,
+                );
+                $this->Medicacion_model->update_medicacion($medicacion_id, $params);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
     /*
      * Deleting medicamento
      */

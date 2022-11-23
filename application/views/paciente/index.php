@@ -78,7 +78,7 @@
                                 <!------------------------ FIN modal para MOSTRAR imagen REAL ------------------->
                              <?php } else { ?>
                                     <div id="contieneimg">
-                                        <img src="<?php echo site_url('/resources/images/pacientes/default.jpg');  ?>" />
+                                        <img src="<?php echo site_url('/resources/images/pacientes/default.jpg');  ?>" width="80px" height="80px" />
                                     </div>
                                     <?php }  ?>
                             
@@ -120,9 +120,9 @@
                         <td class="text-center"><?php echo $p['paciente_direccion']; ?></td>
                         <td class="text-center"><?php echo $p['estado_descripcion']; ?></td>
                         <td class="text-center">
-                            <a href="<?php echo site_url('paciente/edit/'.$p['paciente_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Modificar</a> 
-                            <a href="<?php echo site_url('registro/registros/'.$p['paciente_id']); ?>" class="btn btn-facebook btn-xs" title="Ver registros de pacientes"><span class="fa fa-list-alt"></span> Registros</a>
-                            <a href="<?php echo site_url('paciente/remove/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</a>
+                            <a href="<?php echo site_url('paciente/edit/'.$p['paciente_id']); ?>" class="btn btn-info btn-xs" title="Modificar paciente"><span class="fa fa-pencil"></span></a> 
+                            <a href="<?php echo site_url('registro/registros/'.$p['paciente_id']); ?>" class="btn btn-facebook btn-xs" title="Ver registros de pacientes"><span class="fa fa-list-alt"></span></a>
+                            <a href="<?php echo site_url('paciente/darde_ebaja/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Dar de baja a un paciente"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                     <?php

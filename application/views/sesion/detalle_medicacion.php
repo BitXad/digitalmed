@@ -1,8 +1,22 @@
 <script src="<?php echo base_url('resources/js/medicamentos_usados.js'); ?>" type="text/javascript"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        (function ($) {
+            $('#filtrar2').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('.buscar2 tr').hide();
+                $('.buscar2 tr').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            })
+        }(jQuery));
+    });
+</script>
+
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="sesion_id" id="sesion_id" value="<?php echo $sesion["sesion_id"]; ?>" />
-
+<input type="hidden" name="los_medicamentos" id="los_medicamentos" value='<?php echo json_encode($medicamentos); ?>' />
 <!-- ---------------- ESTILO DE LAS TABLAS --------------- -->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-- ---------------------------------------------------- -->
@@ -36,11 +50,11 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>FECHA SESION</th>
-                        <th>ERITROPOYETINA</th>
-                        <th>HIERRO E.V.</th>
-                        <th>COMPEJO B</th>
-                        <th>COSTO SESION</th>
+                        <th>MEDICAMENTO</th>
+                        <th>CODIGO</th>
+                        <th>FORMA</th>
+                        <th>CONCENTRACION</th>
+                        <th>CANTIDAD</th>
                         <th>ESTADO</th>
                         <th></th>
                     </tr>
@@ -53,7 +67,7 @@
     </div>
 </div>
 
-<!------------------------ INICIO modal para Generar nuevas sesiones ------------------->
+<!------------------------ INICIO modal para registrar nuevos medicamentos ------------------->
 <div class="modal fade" id="modal_asignarmedicamento" tabindex="-1" role="dialog" aria-labelledby="modal_asignarmedicamentolabel" style="font-family: Arial; font-size: 10pt;">
     <div class="modal-dialog modal-lg" role="document">
         <br><br>
@@ -83,7 +97,7 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody class="buscar" id="tabla_asignarmedicamentos"></tbody>
+                        <tbody class="buscar2" id="tabla_asignarmedicamentos"></tbody>
                     </table>
                 </div>
             </div>
@@ -93,9 +107,47 @@
         </div>
     </div>
 </div>
-<!------------------------ F I N  modal para Generar nuevas sesiones ------------------->
+<!------------------------ F I N  modal para registrar nuevos medicamentos ------------------->
+
+<!------------------------ INICIO modal para modificar uun medicamento ------------------->
+<div class="modal fade" id="modal_modificarmedicamento" tabindex="-1" role="dialog" aria-labelledby="modal_modificarmedicamentolabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">MODIFICAR MEDICAMENTO/INSUMO</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadermodificarmedicamento" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-8">
+                    <label for="medicamento_modificar" class="control-label">Medicamento</label>
+                    <div class="form-group">
+                        <span id="medicamento_modificar"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="medicacion_cantidadmodif" class="control-label">Cantidad</label>
+                    <div class="form-group">
+                        <input type="number" step="any" name="medicacion_cantidadmodif" class="form-control" id="medicacion_cantidadmodif" />
+                        <input type="hidden" name="medicacion_id" class="form-control" id="medicacion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="modificar_medicamento()"><fa class="fa fa-floppy-o"></fa> Guardar Medicamento Modificado</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para modificar uun medicamento ------------------->
 <div>
-    <a href="<?php echo base_url("tratamiento/tratamientos/".$paciente["registro_id"]); ?>" class="btn btn-danger">
-        <i class="fa fa-reply"></i> Tratamientos
+    <a href="<?php echo base_url("sesion/sesiones/".$tratamiento["tratamiento_id"]); ?>" class="btn btn-danger">
+        <i class="fa fa-reply"></i> Sesiones
     </a>
 </div>

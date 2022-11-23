@@ -112,6 +112,24 @@
                         <span id="avasculardetalle"></span>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <label for="registro_numero" class="control-label">Numero Sesión</label>
+                    <div class="form-group">
+                        <input type="number" min="1" name="registro_numero" class="form-control" id="registro_numero" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_iniciohemodialisis" class="control-label">Inicio de Hemodialisis</label>
+                    <div class="form-group">
+                        <input type="date" name="registro_iniciohemodialisis" class="form-control" id="registro_iniciohemodialisis" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="registro_filtro" class="control-label">Filtro</label>
+                    <div class="form-group">
+                        <input type="number" name="registro_filtro" class="form-control" id="registro_filtro" />
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <label for="registro_diagnostico" class="control-label">Diagnostico</label>
                     <div class="form-group">

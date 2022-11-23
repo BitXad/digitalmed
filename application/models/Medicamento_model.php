@@ -23,12 +23,9 @@ class Medicamento_model extends CI_Model {
     /*
      * Get all medicamento 
      */
-    function get_all_medicamento($params = array()) {
+    function get_all_medicamento() {
         try {
             $this->db->order_by('medicamento_nombre', 'asc');
-            if (isset($params) && !empty($params)) {
-                $this->db->limit($params['limit'], $params['offset']);
-            }
             return $this->db->get('medicamento')->result_array();
         } catch (Exception $ex) {
             throw new Exception('Medicamento_model model : Error in get_all_medicamento function - ' . $ex);
