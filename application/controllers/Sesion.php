@@ -66,15 +66,16 @@ class Sesion extends CI_Controller{
                 if($dia >0){
                     $tratamiento_id = $this->input->post('tratamiento_id');
                     $registro = $this->Registro_model->get_registro_detratamiento($tratamiento_id);
-                    $numero_registro = $registro["registro_numero"];
+                    $numero_registro = $registro["registro_numerosesion"];
                     $registro_numaquina = $registro["registro_numaquina"];
                     $registro_tipofiltro = $registro["registro_tipofiltro"];
-                    
+                    $registro_filtro     = $registro["registro_filtro"];
                     $acceso_vascular = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($registro["registro_id"]);
                     $cateter = "";
                     $fistula = "";
                     if($acceso_vascular["avascular_nombre"] == "Cateter"){
                         $cateter = $acceso_vascular["avascular_detalle"];
+                        
                     }else{
                         $fistula = $acceso_vascular["avascular_detalle"];
                     }
@@ -83,8 +84,18 @@ class Sesion extends CI_Controller{
                         $lmv = 1;
                     }
                     $estado_id = 3; // estado pendiente
+                    $num_filtro = 0;
+                    $filtro_usado = "";
+                    $cont = 1;
                     for($i = 1; $i <= $sesion_numero; $i++){
-                        $num_reg = ($numero_registro+$i);
+                        $num_reg    = ($numero_registro+$i);
+                        $num_filtro = ($registro_filtro+$cont);
+                        $cont++;
+                        if($num_filtro == 12){
+                            $registro_filtro = 0;
+                            $cont = 1;
+                        }
+                        
                         $params = array(
                             'tratamiento_id' => $this->input->post('tratamiento_id'),
                             'sesion_numero' => $i,
@@ -100,8 +111,21 @@ class Sesion extends CI_Controller{
                             'sesion_numerosesionhd' => $num_reg,
                             'estado_id' => $estado_id,
                             'avascular_id' => $acceso_vascular["avascular_id"],
+                            'sesion_reutlizacionfiltro' => $num_filtro,
+                            'sesion_lineasav' => $num_filtro,
+                            'sesion_heparina' => 5000,
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
+                        
+                        if($this->input->post('sesion_eritropoyetina') > 0){
+                            $params = array(
+                               'sesion_id'=> $sesion_id,
+                               'medicamento_id'=> 21, // Jeringa descartable1 ml. c./aguja
+                               'estado_id'=> 1,
+                               'medicacion_cantidad'=> 1,
+                                );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                        }
 
                         $dia = date("w", strtotime($sesion_fechainicio));
 
@@ -147,9 +171,273 @@ class Sesion extends CI_Controller{
                             }
                         }
                         $this->Sesion_model->update_sesion($sesion_id, $paramsok);
+                        
+                        if($num_filtro == 1){
+                            $medicamento_id = 28; // "FILTRO HPS F8/DIACAP/ELISIO 21 H"
+                            $cantidad = 1; // es uno porque es al regla del negocio
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> $medicamento_id,
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> $cantidad,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                        }
+                        
+                        if($acceso_vascular["avascular_nombre"] == "Cateter"){
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 3, // barbijo descartable
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 4, // Batas descartables
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 8, // Equipo de venoclisis c/aguja Nº 21 G 1 ½
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 10, // Gorro descartable
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 11, // Guantes quirúrgicos descartables Nº 7 ½
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 12, // Guantes descartables Nº 7
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 4,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 13, // Heparina sódica
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 17, // Jeringa descartable 20 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 3,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 18, // Jeringa descartable 10 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 19, // Jeringa descartable 5 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 20, // Jeringa descartable3 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 22, // Lineas A-V
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 23, // Solucion Acida
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 24, // Solución Básica
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 25, // Solución Fisiologica
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            if(($i%2) != 0){
+                                $params = array(
+                                    'sesion_id'=> $sesion_id,
+                                    'medicamento_id'=> 26, // Tela adhesiva micropore 2.5  x 10 m.
+                                    'estado_id'=> 1,
+                                    'medicacion_cantidad'=> 1,
+                                );
+                                $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            }
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 27, // Transductor para medición de saturación arterial
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 29, // STOPPER IN
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 30, // OTROS INSUMOS CATETER
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                        }else{
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 2, // Aguja p/fistula arterio-venosa (Par)
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 3, // Barbijo descartable
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 8, // Equipo de venoclisis c/aguja Nº 21 G 1 ½
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 10, // Gorro descartable
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 12, // Guantes descartables Nº 7
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 4,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 13, // Heparina sódica
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 17, // Jeringa descartable 20 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 3,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 19, // Jeringa descartable 5 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 22, // Lineas A-V
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 23, // Solucion Acida
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 24, // Solución Básica
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 25, // Solución Fisiologica
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 2,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            if(($i%2) != 0){
+                                $params = array(
+                                    'sesion_id'=> $sesion_id,
+                                    'medicamento_id'=> 26, // Tela adhesiva micropore 2.5  x 10 m.
+                                    'estado_id'=> 1,
+                                    'medicacion_cantidad'=> 1,
+                                );
+                                $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            }
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 27, // Transductor para medición de saturación arterial
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 31, // Transductor para medición de saturación arterial
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> 1,
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                        }
+                        
                     }
                     $params = array(
-                        'registro_numero' => $num_reg,
+                        'registro_numerosesion' => $num_reg,
+                    );
+                    $this->Registro_model->update_registro($registro["registro_id"], $params);
+                    
+                    $params = array(
+                        'registro_filtro' => $num_filtro,
                     );
                     $this->Registro_model->update_registro($registro["registro_id"], $params);
                     
@@ -200,6 +488,35 @@ class Sesion extends CI_Controller{
                         'estado_id'=> $this->input->post('estado_id'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
+                    
+                    $medicamento_id = 21; // Jeringa descartable1 ml. c./aguja
+                    $lamedicacion = $this->Medicacion_model->get_medicamento_sesion($sesion_id, $medicamento_id);
+                    if($this->input->post('sesion_eritropoyetina') > 0){
+                        if(isset($lamedicacion)){
+                            $params = array(
+                                'medicacion_cantidad'=> $this->input->post('sesion_eritropoyetina'),
+                                'estado_id'=> 1,
+                            );
+                            $this->Medicacion_model->update_medicacion($lamedicacion["medicacion_id"], $params);
+                        }else{
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 21, // Jeringa descartable1 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> $this->input->post('sesion_eritropoyetina'),
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                        }
+                    }else{
+                        if(isset($lamedicacion)){
+                            $params = array(
+                                'estado_id'=> 2,
+                            );
+                            $this->Medicacion_model->update_medicacion($lamedicacion["medicacion_id"], $params);
+                        }
+                    }
+                    
+                    
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
                     redirect('sesion/sesiones/'.$data['sesion']['tratamiento_id']);
                 }else{

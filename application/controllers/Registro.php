@@ -37,7 +37,9 @@ class Registro extends CI_Controller{
                     'registro_mes' => $this->input->post('registro_mes'),
                     'registro_gestion' => $this->input->post('registro_gestion'),
                     'registro_diagnostico' => $this->input->post('registro_diagnostico'),
-                    'registro_numero' => 0,
+                    'registro_numerosesion' => $this->input->post('registro_numerosesion'),
+                    'registro_iniciohemodialisis' => $this->input->post('registro_iniciohemodialisis'),
+                    'registro_filtro' => $this->input->post('registro_filtro'),
                     'registro_numaquina' => $this->input->post('registro_numaquina'),
                     'registro_tipofiltro' => $this->input->post('registro_tipofiltro'),
                 );
@@ -45,6 +47,7 @@ class Registro extends CI_Controller{
                 
                 $params = array(
                     'registro_id' => $registro_id,
+                    'paciente_id' => $this->input->post('paciente_id'),
                     'avascular_nombre' => $this->input->post('avascular_nombre'),
                     'avascular_detalle' => $this->input->post('avascular_detalle'),
                 );
@@ -82,8 +85,11 @@ class Registro extends CI_Controller{
                     'registro_mes' => $this->input->post('registro_mes'),
                     'registro_gestion' => $this->input->post('registro_gestion'),
                     'registro_diagnostico' => $this->input->post('registro_diagnostico'),
+                    'registro_iniciohemodialisis' => $this->input->post('registro_iniciohemodialisis'),
                     'registro_numaquina' => $this->input->post('registro_numaquina'),
                     'registro_tipofiltro' => $this->input->post('registro_tipofiltro'),
+                    'registro_numerosesion' => $this->input->post('registro_numerosesion'),
+                    'registro_filtro' => $this->input->post('registro_filtro'),
                 );
                 $registro_id = $this->input->post('registro_id');
                 $this->Registro_model->update_registro($registro_id, $params);

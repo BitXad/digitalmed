@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="sesion_hierroev" class="control-label">Hierro E.V.</label>
+                    <label for="sesion_hierroev" class="control-label">Hierro E.V. (100 Mg)</label>
                     <div class="form-group">
                         <input type="number" min="0" name="sesion_hierroev" class="form-control" id="sesion_hierroev" />
                     </div>

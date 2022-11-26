@@ -74,4 +74,23 @@ class Registro_model extends CI_Model
             throw new Exception('Registro_model model : Error in get_numeroregistro_detratamiento function - ' . $ex);
         }  
     }
+    
+    function getlast_registropaciente($paciente_id)
+    {
+        try{
+            $num_registro = $this->db->query("
+                SELECT
+                    r.*
+                FROM
+                    `registro` r
+                WHERE
+                    r.paciente_id = $paciente_id
+                order by r.registro_id DESC
+            ")->row_array();
+            
+            return $num_registro;
+        }catch (Exception $ex) {
+            throw new Exception('Registro_model model : Error in get_all_registro function - ' . $ex);
+        }  
+    }
  }

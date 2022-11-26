@@ -89,7 +89,11 @@ class Reportes extends CI_Controller{
         $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
-
+        
+        $total_sesion = sizeof($data['sesiones']);
+        $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
+        $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
+        
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();

@@ -66,4 +66,45 @@ class Acceso_vascular_model extends CI_Model
             throw new Exception('Acceso_vascular_model model : Error in update_acceso_vascular function - ' . $ex);
         }
     }
+    
+    /* obtiene el historial de acceso vascular de un paciente */
+    function get_historialacceso($paciente_id)
+    {
+        try{
+            $avascular = $this->db->query("
+                SELECT
+                    av.*
+                FROM
+                    `acceso_vascular` av
+                WHERE
+                    av.paciente_id = $paciente_id
+                order by avascular_id desc
+            ")->result_array();
+            
+            return $avascular;
+            
+        }catch (Exception $ex) {
+            throw new Exception('Acceso_vascular_model model : Error in get_all_acceso_vascular function - ' . $ex);
+        }  
+    }
+    /*  */
+    function get_historialacceso_paciente($registro_id)
+    {
+        try{
+            $avascular = $this->db->query("
+                SELECT
+                    av.*
+                FROM
+                    `acceso_vascular` av
+                WHERE
+                    av.registro_id = $registro_id
+                order by avascular_id desc
+            ")->result_array();
+            
+            return $avascular;
+            
+        }catch (Exception $ex) {
+            throw new Exception('Acceso_vascular_model model : Error in get_all_acceso_vascular function - ' . $ex);
+        }  
+    }
  }

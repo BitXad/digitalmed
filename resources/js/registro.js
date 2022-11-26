@@ -36,7 +36,10 @@ function cargarmodal_nuevoregistro()
     }
     html2 += "</select>";
     $("#lagestion").html(html2);
-    $("#registro_numaquina").val("");
+    $("#registro_numaquina").val(1);
+    $("#registro_numerosesion").val(0);
+    $("#registro_iniciohemodialisis").val(moment(Date()).format("YYYY-MM-DD"));
+    $("#registro_filtro").val(0);
     $("#registro_diagnostico").val("");
     $('#modal_nuevoregistro').on('shown.bs.modal', function (e) {
         $('#registro_fecha').focus();
@@ -53,6 +56,9 @@ function registrar_registro()
     let registro_tipofiltro = document.getElementById("registro_tipofiltro").value;
     let avascular_nombre = document.getElementById("avascular_nombre").value;
     let avascular_detalle = document.getElementById("avascular_detalle").value;
+    let registro_numerosesion = document.getElementById("registro_numerosesion").value;
+    let registro_iniciohemodialisis = document.getElementById("registro_iniciohemodialisis").value;
+    let registro_filtro = document.getElementById("registro_filtro").value;
     let registro_diagnostico = document.getElementById("registro_diagnostico").value;
     let paciente_id = document.getElementById("paciente_id").value;
     
@@ -65,7 +71,9 @@ function registrar_registro()
                 registro_mes:registro_mes, registro_gestion:registro_gestion,
                 registro_diagnostico:registro_diagnostico, paciente_id:paciente_id,
                 registro_numaquina:registro_numaquina, registro_tipofiltro:registro_tipofiltro,
-                avascular_nombre:avascular_nombre, avascular_detalle:avascular_detalle
+                avascular_nombre:avascular_nombre, avascular_detalle:avascular_detalle,
+                registro_numerosesion:registro_numerosesion, registro_iniciohemodialisis:registro_iniciohemodialisis,
+                registro_filtro:registro_filtro
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -106,6 +114,7 @@ function mostrar_tablasregistro()
                         html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificarregistro' onclick='cargarmodal_modificarregistro("+JSON.stringify(registros[i])+")'>";
                         html += "<span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"tratamiento/tratamientos/"+registros[i]['registro_id']+"' class='btn btn-facebook btn-xs' title='Tratamientos de un registro'><span class='fa fa-file-text'></span></a>";
+                        //html += "<a href='"+base_url+"acceso_vascular/historial/"+registros[i]['registro_id']+"' class='btn btn-dropbox btn-xs' title='Historial de accesos' target='_blank'><span class='fa fa-list-ol'></span></a>";
                         html += "</td>";
                         html += "</tr>";
                     }
@@ -158,6 +167,11 @@ function cargarmodal_modificarregistro(registro)
     }
     html2 += "</select>";
     $("#lagestionmodif").html(html2);
+    $("#registro_iniciohemodialisismodif").val(registro["registro_iniciohemodialisis"]);
+    $("#registro_numaquinamodif").val(registro["registro_numaquina"]);
+    $("#registro_tipofiltromodif").val(registro["registro_tipofiltro"]);
+    $("#registro_numerosesionmodif").val(registro["registro_numerosesion"]);
+    $("#registro_filtromodif").val(registro["registro_filtro"]);
     $("#registro_diagnosticomodif").val(registro["registro_diagnostico"]);
     $('#modal_modificarregistro').on('shown.bs.modal', function (e) {
         $('#registro_fechamodif').focus();
@@ -171,6 +185,11 @@ function modificar_registro()
     let registro_hora = document.getElementById("registro_horamodif").value;
     let registro_mes = document.getElementById("registro_mesmodif").value;
     let registro_gestion = document.getElementById("registro_gestionmodif").value;
+    let registro_iniciohemodialisis = document.getElementById("registro_iniciohemodialisismodif").value;
+    let registro_numaquina = document.getElementById("registro_numaquinamodif").value;
+    let registro_tipofiltro = document.getElementById("registro_tipofiltromodif").value;
+    let registro_numerosesion = document.getElementById("registro_numerosesionmodif").value;
+    let registro_filtro = document.getElementById("registro_filtromodif").value;
     let registro_diagnostico = document.getElementById("registro_diagnosticomodif").value;
     
     var base_url = document.getElementById('base_url').value;
@@ -180,7 +199,10 @@ function modificar_registro()
             type:"POST",
             data:{registro_fecha:registro_fecha, registro_hora:registro_hora,
                 registro_mes:registro_mes, registro_gestion:registro_gestion,
-                registro_diagnostico:registro_diagnostico, registro_id:registro_id
+                registro_diagnostico:registro_diagnostico, registro_id:registro_id,
+                registro_iniciohemodialisis:registro_iniciohemodialisis, registro_numaquina:registro_numaquina,
+                registro_tipofiltro:registro_tipofiltro, registro_numerosesion:registro_numerosesion,
+                registro_filtro:registro_filtro
             },
             success:function(result){
                 res = JSON.parse(result);

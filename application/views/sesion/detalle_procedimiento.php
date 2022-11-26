@@ -57,7 +57,7 @@
                             <div class="col-md-2">
                                 <label for="sesion_ingest" class="control-label">  <span class="text-danger"></span>INGEST</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_ingest" value="<?php echo ($this->input->post('sesion_ingest') ? $this->input->post('sesion_ingest') : $sesion['sesion_ingest']); ?>" class="form-control" id="sesion_ingest" readonly />
+                                    <input type="number" min="0" step="any" name="sesion_ingest" value="<?php echo ($this->input->post('sesion_ingest') ? $this->input->post('sesion_ingest') : $sesion['sesion_ingest']); ?>" class="form-control" id="sesion_ingest" readonly />
                                     <span class="text-danger"><?php echo form_error('sesion_ingest');?></span>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                             <div class="col-md-2">
                                 <label for="sesion_nummaquina" class="control-label">  <span class="text-danger"></span>MAQUINA N°</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_nummaquina" value="<?php echo ($this->input->post('sesion_nummaquina') ? $this->input->post('sesion_nummaquina') : $sesion['sesion_nummaquina']); ?>" class="form-control" id="sesion_nummaquina" />
+                                    <input type="number" min="0" name="sesion_nummaquina" value="<?php echo ($this->input->post('sesion_nummaquina') ? $this->input->post('sesion_nummaquina') : $sesion['sesion_nummaquina']); ?>" class="form-control" id="sesion_nummaquina" readonly="true" />
                                     <span class="text-danger"><?php echo form_error('sesion_nummaquina');?></span>
                                 </div>
                             </div>
@@ -106,21 +106,21 @@
                             <div class="col-md-2">
                                 <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
                                 <div class="form-group">
-                                    <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                                    <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" readonly="true" />
                                     <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_reutlizacionfiltro" class="control-label">  <span class="text-danger"></span>REUTILIZACION FILTRO</label>
                                 <div class="form-group">
-                                    <input type="text" name="sesion_reutlizacionfiltro" value="<?php echo ($this->input->post('sesion_reutlizacionfiltro') ? $this->input->post('sesion_reutlizacionfiltro') : $sesion['sesion_reutlizacionfiltro']); ?>" class="form-control" id="sesion_reutlizacionfiltro" />
+                                    <input type="text" name="sesion_reutlizacionfiltro" value="<?php echo ($this->input->post('sesion_reutlizacionfiltro') ? $this->input->post('sesion_reutlizacionfiltro') : $sesion['sesion_reutlizacionfiltro']); ?>" class="form-control" id="sesion_reutlizacionfiltro" readonly="true" />
                                     <span class="text-danger"><?php echo form_error('sesion_reutlizacionfiltro');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_lineasav" class="control-label">  <span class="text-danger"></span>REUTILIZ. LINEAS A/V</label>
                                 <div class="form-group">
-                                    <input type="text" name="sesion_lineasav" value="<?php echo ($this->input->post('sesion_lineasav') ? $this->input->post('sesion_lineasav') : $sesion['sesion_lineasav']); ?>" class="form-control" id="sesion_lineasav" />
+                                    <input type="text" name="sesion_lineasav" value="<?php echo ($this->input->post('sesion_lineasav') ? $this->input->post('sesion_lineasav') : $sesion['sesion_lineasav']); ?>" class="form-control" id="sesion_lineasav" readonly="true" />
                                     <span class="text-danger"><?php echo form_error('sesion_lineasav');?></span>
                                 </div>
                             </div>
@@ -179,9 +179,9 @@
                                 <label for="sesion_cateter_fistula" class="control-label">  <span class="text-danger"></span>ACCESO VASCULAR</label>
                                 <div class="input-group">
                                     <div class="input-group-addon" >CATETER: </div>
-                                    <input type="text" name="sesion_cateter" value="<?php echo ($this->input->post('sesion_cateter') ? $this->input->post('sesion_cateter') : $sesion['sesion_cateter']); ?>" class="form-control" id="sesion_cateter" />
+                                    <input type="text" name="sesion_cateter" value="<?php echo ($this->input->post('sesion_cateter') ? $this->input->post('sesion_cateter') : $sesion['sesion_cateter']); ?>" class="form-control" id="sesion_cateter" readonly="true" />
                                     <div class="input-group-addon" >FISTULA: </div>
-                                    <input type="text" name="sesion_fistula" value="<?php echo ($this->input->post('sesion_fistula') ? $this->input->post('sesion_fistula') : $sesion['sesion_fistula']); ?>" class="form-control" id="sesion_fistula" />
+                                    <input type="text" name="sesion_fistula" value="<?php echo ($this->input->post('sesion_fistula') ? $this->input->post('sesion_fistula') : $sesion['sesion_fistula']); ?>" class="form-control" id="sesion_fistula" readonly="true" />
                                 </div>
                             </div>
                             <div class="col-md-12">

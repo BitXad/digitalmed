@@ -7,9 +7,11 @@
 <!--------------------------------------------------------> 
 
 <div class="box-header">
-    <font size='4' face='Arial'><b>TRATAMIENTOS DEL PACIENTE</b></font><br>
-    <font size='3' face='Arial'><b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"]; ?></b></font>
-    <br><font size='2' face='Arial'>Registros Encontrados: <span id="encontrados"></span></font>
+    <font size='3' face='Arial'><b>TRATAMIENTOS DEL PACIENTE</b></font>
+    <div class="text-center">
+        <font size='3' face='Arial'><b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"]; ?></b></font>
+    </div>
+    <font size='2' face='Arial'>Registros Encontrados: <span id="encontrados"></span></font>
     <div class="box-tools no-print">
         <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevotratamiento" onclick="cargarmodal_nuevotratamiento()">
             <span class="fa fa-pencil-square-o"></span> Nuevo Tratamiento </a>
@@ -85,13 +87,13 @@
                         <span id="lagestion"></span>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 hidden">
                     <label for="tratamiento_fecha" class="control-label">Fecha</label>
                     <div class="form-group">
                         <input type="date" name="tratamiento_fecha" class="form-control" id="tratamiento_fecha" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 hidden">
                     <label for="tratamiento_hora" class="control-label">Hora</label>
                     <div class="form-group">
                         <input type="time" name="tratamiento_hora" value="0" class="form-control" id="tratamiento_hora"/>

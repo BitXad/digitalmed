@@ -125,5 +125,18 @@ class Medicacion_model extends CI_Model {
 
         return $medicamento;
     }
+    /* Get busqueda medicamentos de una sesion */
+    function get_medicamento_sesion($sesion_id, $medicamento_id){
+        $medicamento = $this->db->query("
+            SELECT
+                m.*
+            FROM
+                medicacion m
+            WHERE
+                m.sesion_id = $sesion_id
+                and m.medicamento_id = $medicamento_id
+        ")->row_array();
+        return $medicamento;
+    }
 
 }
