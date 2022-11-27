@@ -16,6 +16,8 @@ class Reportes extends CI_Controller{
         $this->load->model('Tratamiento_model');
         $this->load->model('Informe_mensual_model');
         $this->load->model('Acceso_vascular_model');
+        $this->load->model('Medicamento_model');
+        $this->load->model('Medicacion_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -91,9 +93,19 @@ class Reportes extends CI_Controller{
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
         
         $total_sesion = sizeof($data['sesiones']);
-        $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
-        $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
+        $acceso_vascular = "";
+        if($total_sesion > 0){
+            $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
+            $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
+            if($sesion_cateter != "" && $sesion_cateter != null){
+                $acceso_vascular = $sesion_cateter;
+            }
+            if($sesion_fistula != "" && $sesion_fistula != null){
+                $acceso_vascular = $sesion_fistula;
+            }
+        }
         
+        $data['acceso_vascular'] = $acceso_vascular;
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();
@@ -116,8 +128,15 @@ class Reportes extends CI_Controller{
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
         $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
-        $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($data['sesiones'][0]["avascular_id"]);
         
+        $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+        
+        $peso_seco = "";
+        $total_sesion = sizeof($data['sesiones']);
+        if($total_sesion > 0){
+            $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
+        }
+        $data['peso_seco'] = $peso_seco;
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();
         
@@ -138,13 +157,13 @@ class Reportes extends CI_Controller{
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
         $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+        $data['medicamento_insumo'] = $this->Medicamento_model->get_all_medicamentoid();
         
         if(isset($data['sesiones'][0]["avascular_id"])){
             $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($data['sesiones'][0]["avascular_id"]);
         }else{
             $data['acceso_vascular'] = "";
         }
-        
         
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();
@@ -155,6 +174,28 @@ class Reportes extends CI_Controller{
         $this->load->view('layouts/main',$data);
         //}
     }
+    
+    /* obtiene el ultimo informe mensual de un tratamiento */
+    function obtener_medicamentousado(){
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_id = $this->input->post('sesion_id');
+                $medicamento_id = $this->input->post('medicamento_id');
+                $medicacion = $this->Medicacion_model->get_medicamento_sesion($sesion_id, $medicamento_id);
+            echo json_encode($medicacion);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    
+    
+    
+    
+    
     
     
     

@@ -85,6 +85,16 @@ class Medicamento_model extends CI_Model {
         return $medicamento;
     }
     
-    
+    /*
+     * Get all medicamento 
+     */
+    function get_all_medicamentoid() {
+        try {
+            $this->db->order_by('medicamento_id', 'asc');
+            return $this->db->get('medicamento')->result_array();
+        } catch (Exception $ex) {
+            throw new Exception('Medicamento_model model : Error in get_all_medicamento function - ' . $ex);
+        }
+    }
 
 }

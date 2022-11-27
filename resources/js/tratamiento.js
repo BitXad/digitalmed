@@ -193,11 +193,21 @@ function modificar_tratamiento()
 /* carga modal para registrar informe mensual de un determinado tratamiento */
 function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
 {
+    let ultimo_informe = JSON.parse(obtener_ultimoinfmensual());
     document.getElementById('loaderinfmensual').style.display = 'none';
-    $("#infmensual_cabecera").val("");
-    $("#infmensual_acceso").val("");
-    $("#infmensual_laboratorio").val("");
-    $("#infmensual_conclusion").val("");
+    if(ultimo_informe != ""){
+        $("#infmensual_cabecera").val(ultimo_informe["infmensual_cabecera"]);
+        $("#infmensual_accesouno").val(ultimo_informe["infmensual_accesouno"]);
+        $("#infmensual_accesodos").val(ultimo_informe["infmensual_accesodos"]);
+        $("#infmensual_laboratorio").val(ultimo_informe["infmensual_laboratorio"]);
+        $("#infmensual_conclusion").val(ultimo_informe["infmensual_conclusion"]);
+    }else{
+        $("#infmensual_cabecera").val("");
+        $("#infmensual_accesouno").val("");
+        $("#infmensual_accesodos").val("");
+        $("#infmensual_laboratorio").val("");
+        $("#infmensual_conclusion").val("");
+    }
     let num_mes = "";
     const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
     for (var i = 0; i < 12; i++) {
@@ -226,7 +236,8 @@ function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
 function registrar_infmensual()
 {
     let infmensual_cabecera = document.getElementById("infmensual_cabecera").value;
-    let infmensual_acceso = document.getElementById("infmensual_acceso").value;
+    let infmensual_accesouno = document.getElementById("infmensual_accesouno").value;
+    let infmensual_accesodos = document.getElementById("infmensual_accesodos").value;
     let infmensual_laboratorio = document.getElementById("infmensual_laboratorio").value;
     let infmensual_conclusion = document.getElementById("infmensual_conclusion").value;
     let infmensual_fecha = document.getElementById("infmensual_fecha").value;
@@ -237,9 +248,10 @@ function registrar_infmensual()
     document.getElementById('loaderinfmensual').style.display = 'block';
     $.ajax({url:controlador,
             type:"POST",
-            data:{infmensual_cabecera:infmensual_cabecera, infmensual_acceso:infmensual_acceso,
+            data:{infmensual_cabecera:infmensual_cabecera, infmensual_accesouno:infmensual_accesouno,
                 infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
-                infmensual_fecha:infmensual_fecha, tratamiento_id:tratamiento_id
+                infmensual_fecha:infmensual_fecha, tratamiento_id:tratamiento_id,
+                infmensual_accesodos:infmensual_accesodos
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -247,7 +259,7 @@ function registrar_infmensual()
                     $('#boton_cerrarmodalinfmensual').click();
                     mostrar_tablastratamiento();
             },
-    });            
+    });
 }
 
 /* carga modal para registrar informe mensual de un determinado tratamiento */
@@ -265,7 +277,8 @@ function cargarmodal_modificarinfmensual(infmensual_id)
                 res = JSON.parse(result);
                 document.getElementById('loaderinfmensualmodif').style.display = 'none';
                 $("#infmensual_cabeceramodif").val(res["infmensual_cabecera"]);
-                $("#infmensual_accesomodif").val(res["infmensual_acceso"]);
+                $("#infmensual_accesounomodif").val(res["infmensual_accesouno"]);
+                $("#infmensual_accesodosmodif").val(res["infmensual_accesodos"]);
                 $("#infmensual_laboratoriomodif").val(res["infmensual_laboratorio"]);
                 $("#infmensual_conclusionmodif").val(res["infmensual_conclusion"]);
                 $("#infmensual_fechamodif").val(res["infmensual_fecha"]);
@@ -280,7 +293,8 @@ function cargarmodal_modificarinfmensual(infmensual_id)
 function modificar_infmensual()
 {
     let infmensual_cabecera = document.getElementById("infmensual_cabeceramodif").value;
-    let infmensual_acceso = document.getElementById("infmensual_accesomodif").value;
+    let infmensual_accesouno = document.getElementById("infmensual_accesounomodif").value;
+    let infmensual_accesodos = document.getElementById("infmensual_accesodosmodif").value;
     let infmensual_laboratorio = document.getElementById("infmensual_laboratoriomodif").value;
     let infmensual_conclusion = document.getElementById("infmensual_conclusionmodif").value;
     let infmensual_fecha = document.getElementById("infmensual_fechamodif").value;
@@ -291,9 +305,10 @@ function modificar_infmensual()
     document.getElementById('loaderinfmensualmodif').style.display = 'block';
     $.ajax({url:controlador,
             type:"POST",
-            data:{infmensual_cabecera:infmensual_cabecera, infmensual_acceso:infmensual_acceso,
+            data:{infmensual_cabecera:infmensual_cabecera, infmensual_accesouno:infmensual_accesouno,
                 infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
-                infmensual_fecha:infmensual_fecha, infmensual_id:infmensual_id
+                infmensual_fecha:infmensual_fecha, infmensual_id:infmensual_id,
+                infmensual_accesodos:infmensual_accesodos
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -303,3 +318,25 @@ function modificar_infmensual()
             },
     });            
 }
+
+/* obtiene el ultimo informe mensual de un paciente */
+function obtener_ultimoinfmensual()
+{
+    var base_url = document.getElementById('base_url').value;
+    var paciente_id = document.getElementById('paciente_id').value;
+    var controlador = base_url+'tratamiento/obtener_infmensual';
+    let last_infmensual = "";
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{paciente_id:paciente_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                if(res != null){
+                    last_infmensual = JSON.stringify(res);
+                }
+            },
+    });
+    return last_infmensual;
+    }

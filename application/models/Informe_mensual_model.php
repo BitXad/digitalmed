@@ -69,4 +69,28 @@ class Informe_mensual_model extends CI_Model
         }  
     }
     
+    /*
+    * Get ultimo informe_mensual de un paciente
+    */ 
+    function getlast_informepaciente($paciente_id)
+    {
+        try{
+            $infmensual = $this->db->query("
+                SELECT
+                    im.*, r.paciente_id
+                FROM
+                    `informe_mensual` im
+                left join tratamiento t on t.tratamiento_id = im.tratamiento_id
+                left join registro r on r.registro_id = t.registro_id
+                WHERE
+                    r.paciente_id = $paciente_id
+                order by im.infmensual_id desc
+            ")->row_array();
+            
+            return $infmensual;
+        }catch (Exception $ex){
+            throw new Exception('Informe_mensual_model model : Error in getall_informe_mensualtratamiento function - ' . $ex);
+        }  
+    }
+    
  }

@@ -92,7 +92,8 @@ class Tratamiento extends CI_Controller{
                 $params = array(
                     'tratamiento_id' => $this->input->post('tratamiento_id'),
                     'infmensual_cabecera' => $this->input->post('infmensual_cabecera'),
-                    'infmensual_acceso' => $this->input->post('infmensual_acceso'),
+                    'infmensual_accesouno' => $this->input->post('infmensual_accesouno'),
+                    'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
                     'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
                     'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
                     'infmensual_fecha' => $this->input->post('infmensual_fecha'),
@@ -127,7 +128,8 @@ class Tratamiento extends CI_Controller{
             if($this->input->is_ajax_request()){
                 $params = array(
                     'infmensual_cabecera' => $this->input->post('infmensual_cabecera'),
-                    'infmensual_acceso' => $this->input->post('infmensual_acceso'),
+                    'infmensual_accesouno' => $this->input->post('infmensual_accesouno'),
+                    'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
                     'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
                     'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
                     'infmensual_fecha' => $this->input->post('infmensual_fecha'),
@@ -143,4 +145,18 @@ class Tratamiento extends CI_Controller{
         }
     }
     
+    /* obtiene el ultimo informe mensual de un tratamiento */
+    function obtener_infmensual(){
+        try{
+            if($this->input->is_ajax_request()){
+                $paciente_id = $this->input->post('paciente_id');
+                $informe_mensual = $this->Informe_mensual_model->getlast_informepaciente($paciente_id);
+            echo json_encode($informe_mensual);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
  }

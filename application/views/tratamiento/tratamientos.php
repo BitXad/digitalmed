@@ -1,6 +1,7 @@
 <script src="<?php echo base_url('resources/js/tratamiento.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="registro_id" id="registro_id" value="<?php echo $registro["registro_id"]; ?>" />
+<input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente["paciente_id"]; ?>" />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
@@ -180,10 +181,16 @@
                         <textarea class="form-control" name="infmensual_cabecera" id="infmensual_cabecera"></textarea>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <label for="infmensual_acceso" class="control-label">Acceso</label>
+                <div class="col-md-6">
+                    <label for="infmensual_accesouno" class="control-label">Acceso uno</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_acceso" id="infmensual_acceso"></textarea>
+                        <textarea class="form-control" name="infmensual_accesouno" id="infmensual_accesouno"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="infmensual_accesodos" class="control-label">Acceso dos</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_accesodos" id="infmensual_accesodos"></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -236,10 +243,16 @@
                         <textarea class="form-control" name="infmensual_cabeceramodif" id="infmensual_cabeceramodif"></textarea>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <label for="infmensual_accesomodif" class="control-label">Acceso</label>
+                <div class="col-md-6">
+                    <label for="infmensual_accesounomodif" class="control-label">Acceso uno</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_accesomodif" id="infmensual_accesomodif"></textarea>
+                        <textarea class="form-control" name="infmensual_accesounomodif" id="infmensual_accesounomodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="infmensual_accesodosmodif" class="control-label">Acceso dos</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_accesodosmodif" id="infmensual_accesodosmodif"></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
