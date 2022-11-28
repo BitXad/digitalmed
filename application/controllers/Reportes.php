@@ -18,6 +18,7 @@ class Reportes extends CI_Controller{
         $this->load->model('Acceso_vascular_model');
         $this->load->model('Medicamento_model');
         $this->load->model('Medicacion_model');
+        $this->load->model('Registro_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -154,6 +155,7 @@ class Reportes extends CI_Controller{
         //if($this->acceso(141)){
         $this->load->model('Sesion_model');
         $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        $data['registro'] = $this->Registro_model->get_registro($data['tratamiento']["registro_id"]);
         $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
         $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);

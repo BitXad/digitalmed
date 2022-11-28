@@ -193,9 +193,11 @@ function modificar_tratamiento()
 /* carga modal para registrar informe mensual de un determinado tratamiento */
 function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
 {
-    let ultimo_informe = JSON.parse(obtener_ultimoinfmensual());
+    let elultimo_informe = obtener_ultimoinfmensual();
+    let ultimo_informe = "";
     document.getElementById('loaderinfmensual').style.display = 'none';
-    if(ultimo_informe != ""){
+    if(elultimo_informe != ""){
+        ultimo_informe = JSON.parse(elultimo_informe);
         $("#infmensual_cabecera").val(ultimo_informe["infmensual_cabecera"]);
         $("#infmensual_accesouno").val(ultimo_informe["infmensual_accesouno"]);
         $("#infmensual_accesodos").val(ultimo_informe["infmensual_accesodos"]);
