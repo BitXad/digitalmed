@@ -62,13 +62,13 @@
 
                                     <p>
                                         <?php echo $session_data['usuario_nombre']; ?>
-                                        <small><?php echo "Usuario"; //$session_data['tipousuario_descripcion']; ?></small>
+                                        <small><?php echo $session_data['tipousuario_descripcion']; ?></small>
                                     </p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                            <a href="#" class="btn btn-default btn-flat hidden">Perfil</a>
                                         </div>
                                         <div class="pull-right">
                                             <a href="<?php echo base_url("verificar/logout"); ?>" class="btn btn-default btn-flat">Salir</a>
@@ -101,7 +101,7 @@
                         <li class="header">PRINCIPAL</li>
                         <li>
                             <a href="<?php echo base_url("dashboard"); ?>">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <i class="fa fa-dashboard"></i> <span>Inicio</span>
                             </a>
                         </li>
                         
@@ -114,10 +114,11 @@
                                 
                                 <ul class="treeview-menu">
 
-                                    <li class="active"> <a href="<?php echo site_url('prueba/registrar_prueba');?>"><i class="fa fa-flask"></i> Prueba</a> </li>
+                                    <li class="active"> <a href="<?php echo site_url('paciente');?>"><i class="fa fa-users"></i> Pacientes</a> </li>
+                                    <!--<li class="active"> <a href="<?php /*echo site_url('prueba/registrar_prueba');?>"><i class="fa fa-flask"></i> Prueba</a> </li>
                                     <li class="active"> <a href="<?php echo site_url('ingreso/index');?>"><i class="fa fa-money"></i> Ingresos</a> </li>
-                                    <li class="active"> <a href="<?php echo site_url('egreso/index');?>"><i class="fa fa-money"></i> Egresos</a> </li>
-                                    
+                                    <li class="active"> <a href="<?php echo site_url('egreso/index'); */ ?>"><i class="fa fa-money"></i> Egresos</a> </li>
+                                    -->
 
                                     
                                 </ul>
@@ -133,7 +134,7 @@
                                     
                                     <li class="active"> <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-bank"></i> Empresa</a> </li>
                                     
-                                    <li> <a href="<?php echo site_url('tipo_prueba/index');?>"><i class="fa fa-cubes"></i> Tipos de pruebas</a> </li>                                    
+                                    <!--<li> <a href="<?php //echo site_url('tipo_prueba/index');?>"><i class="fa fa-cubes"></i> Tipos de pruebas</a> </li>-->                                    
                                     
                                     <li> <a href="<?php echo site_url('estado/index');?>"><i class="fa fa-toggle-on"></i> Estados</a> </li>                                    
                                     
@@ -151,11 +152,11 @@
                                 <ul class="treeview-menu">
                                     
                                     <li class="active">
-                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-gear"></i> Configuracion</a>
+                                        <!--<a href="<?php //echo site_url('parametro');?>"><i class="fa fa-gear"></i> Configuracion</a>-->
                                     </li>
 <!--                                    
                                     <li>
-                                        <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
+                                        <a href="<?php //echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
                                     </li>-->
                                     
                                 </ul>
@@ -173,7 +174,7 @@
                                     </li>
                                     
                                     <li>
-                                        <a href="<?php echo site_url('prueba');?>"><i class="fa fa-list-ul"></i> Pruebas del dia</a>
+                                        <!--<a href="<?php //echo site_url('prueba');?>"><i class="fa fa-list-ul"></i> Pruebas del dia</a>-->
                                     </li>
                                     
                                 </ul>
@@ -205,7 +206,7 @@
                                 <ul class="treeview-menu">
                                     
                                     <li class="active">
-                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-close"></i> Finalizar</a>
+                                        <a href="<?php echo base_url("verificar/logout"); ?>"><i class="fa fa-close"></i> Finalizar</a>
                                     </li>                                   
                                     
                                 </ul>

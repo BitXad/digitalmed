@@ -17,16 +17,17 @@ class Paciente extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
+        /*$params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
         $config = $this->config->item('pagination');
         $config['base_url'] = site_url('paciente/index?');
         $config['total_rows'] = $this->Paciente_model->get_all_paciente_count();
         $this->pagination->initialize($config);
+        */
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         
-        $data['paciente'] = $this->Paciente_model->get_all_paciente($params);
+        $data['paciente'] = $this->Paciente_model->get_all_paciente();
         
         $data['_view'] = 'paciente/index';
         $this->load->view('layouts/main',$data);

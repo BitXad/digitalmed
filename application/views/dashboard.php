@@ -67,7 +67,7 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
           
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-6 hidden">
           <!-- small box -->
           <div class="small-box bg-aqua">
               <div class="inner" >
@@ -118,7 +118,7 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-6 hidden">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
@@ -133,7 +133,7 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-6 hidden">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
@@ -216,7 +216,7 @@
       
       
  </section>     
-<section class="col-lg-12 connectedSortable">
+<section class="col-lg-12 connectedSortable hidden">
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-money"></i>
@@ -418,7 +418,7 @@
     
     
    
- <section class="col-lg-12 connectedSortable">
+ <section class="col-lg-12 connectedSortable hidden">
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-money"></i>

@@ -11,6 +11,7 @@ class Tratamiento extends CI_Controller{
         $this->load->model('Registro_model');
         $this->load->model('Paciente_model');
         $this->load->model('Informe_mensual_model');
+        $this->load->model('Certificado_medico_model');
     }
     
     /*
@@ -152,6 +153,21 @@ class Tratamiento extends CI_Controller{
                 $paciente_id = $this->input->post('paciente_id');
                 $informe_mensual = $this->Informe_mensual_model->getlast_informepaciente($paciente_id);
             echo json_encode($informe_mensual);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    /* obtiene el ultimo certificado medico de un tratamiento */
+    function obtener_certmedico(){
+        try{
+            if($this->input->is_ajax_request()){
+                $paciente_id = $this->input->post('paciente_id');
+                $certificado_paciente = $this->Certificado_medico_model->getlast_certificadopaciente($paciente_id);
+            echo json_encode($certificado_paciente);
             }else{                 
                 show_404();
             }

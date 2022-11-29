@@ -74,12 +74,12 @@ class Paciente_model extends CI_Model
     /*
      * Get all paciente
      */
-    function get_all_paciente($params = array())
+    function get_all_paciente()
     {
-        $limit_condition = "";
+        /*$limit_condition = "";
         if(isset($params) && !empty($params))
             $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
-        
+        */
         $paciente = $this->db->query("
             SELECT
                 p.*, e.estado_color, e. estado_descripcion, 
@@ -92,9 +92,8 @@ class Paciente_model extends CI_Model
             WHERE
                 1 = 1
 
-            ORDER BY `paciente_id` DESC
+            ORDER BY p.`paciente_nombre` asc, p.`paciente_apellido` asc
 
-            " . $limit_condition . "
         ")->result_array();
 
         return $paciente;

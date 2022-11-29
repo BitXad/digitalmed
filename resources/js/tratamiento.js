@@ -72,6 +72,15 @@ function mostrar_tablastratamiento()
 {
     let base_url = document.getElementById('base_url').value;
     let registro_id = document.getElementById('registro_id').value;
+    let fechainicio_hemodialisis = document.getElementById('rinicio_hemodialisis').value;
+    
+    let fecha_hemodialisis = new Date(fechainicio_hemodialisis);
+    let fecha_tope = new Date('2019-02-28');
+    let hay_certmedico = "0";
+    if(fecha_hemodialisis.getTime() <= fecha_tope.getTime()){
+        hay_certmedico = "1";
+    }
+    
     let controlador = base_url+'tratamiento/mostrar_tratamientos';
     document.getElementById('loader').style.display = 'block'; //muestra el bloque del loader
     $("#encontrados").html(0);
@@ -107,6 +116,16 @@ function mostrar_tablastratamiento()
                             // nuevo informe mensual
                             html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
+                        }
+                        if(hay_certmedico >0){
+                            if(tratamientos[i]['certmedico_id'] >0){
+                                html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
+                                html += "<span class='fa fa-pencil-square-o'></span></a>";
+                                html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
+                            }else{
+                                html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevocertmedico("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar certificado médico'>";
+                                html += "<span class='fa fa-pencil-square-o'></span></a>";
+                            }
                         }
                         html += "</td>";
                         html += "</tr>";
@@ -341,4 +360,74 @@ function obtener_ultimoinfmensual()
             },
     });
     return last_infmensual;
+}
+
+/* carga modal para registrar certificado medico de un determinado tratamiento */
+function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
+{
+    let elultimo_certmedico = obtener_ultimocertmedico();
+    let ultimo_certmedico = "";
+    document.getElementById('loadercertmedico').style.display = 'none';
+    if(elultimo_certmedico != ""){
+        ultimo_certmedico = JSON.parse(elultimo_certmedico);
+        $("#certmedico_nombre").val(ultimo_certmedico["certmedico_nombre"]);
+        $("#certmedico_codigo").val(ultimo_certmedico["certmedico_codigo"]);
+        $("#certmedico_cabecerauno").val(ultimo_certmedico["certmedico_cabecerauno"]);
+        $("#certmedico_cabecerados").val(ultimo_certmedico["certmedico_cabecerados"]);
+        $("#certmedico_cabeceratres").val(ultimo_certmedico["certmedico_cabeceratres"]);
+        $("#certmedico_cabeceracuatro").val(ultimo_certmedico["certmedico_cabeceracuatro"]);
+        $("#certmedico_medicacion").val(ultimo_certmedico["certmedico_medicacion"]);
+    }else{
+        $("#certmedico_nombre").val("");
+        $("#certmedico_codigo").val("");
+        $("#certmedico_cabecerauno").val("");
+        $("#certmedico_cabecerados").val("");
+        $("#certmedico_cabeceratres").val("");
+        $("#certmedico_cabeceracuatro").val("");
+        $("#certmedico_medicacion").val("");
     }
+    let num_mes = "";
+    const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+    for (var i = 0; i < 12; i++) {
+        if((mes[i]) == elmes){
+            num_mes = i;
+            break;
+        }
+    }
+    num_mes = Number(num_mes+1);
+    if(num_mes<10){
+        num_mes = "0"+num_mes;
+    }
+    
+    lafecha = gestion+"-"+num_mes+"-"+"05";
+    var date = new Date(lafecha);
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    //alert (ultimoDia.getMonth());
+    $("#infmensual_fecha").val(moment(ultimoDia).format("YYYY-MM-DD"));
+    $("#tratamiento_id").val(tratamiento_id);
+    $('#modal_nuevocertmedico').on('shown.bs.modal', function (e) {
+        $('#infmensual_cabecera').focus();
+    });
+}
+
+/* obtiene el ultimo certificado medico de un paciente */
+function obtener_ultimocertmedico()
+{
+    var base_url = document.getElementById('base_url').value;
+    var paciente_id = document.getElementById('paciente_id').value;
+    var controlador = base_url+'tratamiento/obtener_certmedico';
+    let last_certmedico = "";
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{paciente_id:paciente_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                if(res != null){
+                    last_certmedico = JSON.stringify(res);
+                }
+            },
+    });
+    return last_certmedico;
+}
