@@ -166,7 +166,35 @@ class Sesion_model extends CI_Model
              throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
            }  
       } 
+    
+    /*
+     * Get all sesion 
+    */ 
+    function get_all_sesiontratamiento_mes($tratamiento_id)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    sum(s.sesion_eritropoyetina) as eritropoyetina, sum(s.sesion_hierroeve) as hierro,
+                    sum(s.sesion_complejobampolla) as complejobampolla, sum(s.sesion_omeprazol) as omeprazol,
+                    sum(s.sesion_acidofolico) as acidofolico, sum(s.sesion_calcio) as calcio,
+                    sum(s.sesion_amlodipina) as amlodipina, sum(s.sesion_enalpril) as enalpril,
+                    sum(s.sesion_losartan) as losartan, sum(s.sesion_atorvastina) as atorvastina,
+                    sum(s.sesion_asa) as asa, sum(s.sesion_complejob) as complejob
+                FROM
+                    sesion s
+                left join estado e on s.estado_id = e.estado_id
+                WHERE
+                    s.tratamiento_id = $tratamiento_id
+            ")->row_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
+    }
       
+      
+    
       
      /* 
           * function to delete sesion 

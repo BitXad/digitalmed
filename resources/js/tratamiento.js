@@ -119,11 +119,11 @@ function mostrar_tablastratamiento()
                         }
                         if(hay_certmedico >0){
                             if(tratamientos[i]['certmedico_id'] >0){
-                                html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
+                                html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_modificarcertmedico' onclick='cargarmodal_modificarcertmedico("+tratamientos[i]["certmedico_id"]+")' title='Modificar certificado medico'>";
                                 html += "<span class='fa fa-pencil-square-o'></span></a>";
                                 html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
                             }else{
-                                html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevocertmedico("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar certificado médico'>";
+                                html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_nuevocertmedico' onclick='cargarmodal_nuevocertmedico("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar certificado médico'>";
                                 html += "<span class='fa fa-pencil-square-o'></span></a>";
                             }
                         }
@@ -376,7 +376,7 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
         $("#certmedico_cabecerados").val(ultimo_certmedico["certmedico_cabecerados"]);
         $("#certmedico_cabeceratres").val(ultimo_certmedico["certmedico_cabeceratres"]);
         $("#certmedico_cabeceracuatro").val(ultimo_certmedico["certmedico_cabeceracuatro"]);
-        $("#certmedico_medicacion").val(ultimo_certmedico["certmedico_medicacion"]);
+        //$("#certmedico_medicacion").val(ultimo_certmedico["certmedico_medicacion"]);
     }else{
         $("#certmedico_nombre").val("");
         $("#certmedico_codigo").val("");
@@ -384,7 +384,54 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
         $("#certmedico_cabecerados").val("");
         $("#certmedico_cabeceratres").val("");
         $("#certmedico_cabeceracuatro").val("");
-        $("#certmedico_medicacion").val("");
+        //$("#certmedico_medicacion").val("");
+    }
+    $("#certmedico_medicacion").val("");
+    let medicamentos_mes = get_medicamentosmes(tratamiento_id);
+    let medicamentos = "";
+    if(medicamentos_mes != ""){
+        medicamentos = JSON.parse(medicamentos_mes);
+        let medicacion = "";
+        if(medicamentos["eritropoyetina"] > 0){
+            medicacion += "Eritropoyetina "+medicamentos["eritropoyetina"]+" al mes, ";
+        }
+        if(medicamentos["hierro"] > 0){
+            medicacion += "Hierro 100 mg EV 1 ampolla cada semana post hemodialisis, total ";
+            medicacion += medicamentos["hierro"]+" ampollas al mes, ";
+        }
+        if(medicamentos["complejobampolla"] > 0){
+            medicacion += "Complejo B 1 Ampolla post Hemodialisis total ";
+            medicacion += medicamentos["complejobampolla"]+" ampollas en el mes, ";
+        }
+        if(medicamentos["omeprazol"] > 0){
+            medicacion += "Omeprazol 20 mg VO cada dia total en el mes "+medicamentos["omeprazol"]+" capsulas, ";
+        }
+        if(medicamentos["acidofolico"] > 0){
+            medicacion += "Ac. Folico 5 mg. VO cada dia total en el mes "+medicamentos["acidofolico"]+" comprimidos";
+        }
+        if(medicamentos["calcio"] > 0){
+            medicacion += "Carbonato de Calcio / Calcitrol 0.25 mcg VO 4 capsulas al dia total en el mes "+medicamentos["calcio"]+" comprimidos, ";
+        }
+        if(medicamentos["amlodipina"] > 0){
+            medicacion += "Amlodipina "+medicamentos["amlodipina"]+" al mes, ";
+        }
+        if(medicamentos["enalpril"] > 0){
+            medicacion += "Enalapril "+medicamentos["enalpril"]+" al mes, ";
+        }
+        if(medicamentos["losartan"] > 0){
+            medicacion += "Losartan "+medicamentos["losartan"]+" al mes, ";
+        }
+        if(medicamentos["atorvastina"] > 0){
+            medicacion += "Atorvastatina "+medicamentos["atorvastina"]+" al mes, ";
+        }
+        if(medicamentos["asa"] > 0){
+            medicacion += "Asa "+medicamentos["asa"]+" al mes, ";
+        }
+        if(medicamentos["complejob"] > 0){
+            medicacion += "Complejo B 1 comp. VO cada dia total en el mes "+medicamentos["complejob"]+" comprimidos. ";
+        }
+        
+        $("#certmedico_medicacion").val(medicacion);
     }
     let num_mes = "";
     const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
@@ -403,10 +450,10 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
     var date = new Date(lafecha);
     var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     //alert (ultimoDia.getMonth());
-    $("#infmensual_fecha").val(moment(ultimoDia).format("YYYY-MM-DD"));
-    $("#tratamiento_id").val(tratamiento_id);
+    $("#certmedico_fecha").val(moment(ultimoDia).format("YYYY-MM-DD"));
+    $("#tratamiento_idcertmedico").val(tratamiento_id);
     $('#modal_nuevocertmedico').on('shown.bs.modal', function (e) {
-        $('#infmensual_cabecera').focus();
+        $('#certmedico_nombre').focus();
     });
 }
 
@@ -430,4 +477,86 @@ function obtener_ultimocertmedico()
             },
     });
     return last_certmedico;
+}
+
+/* obtiene medicamentos usados en el mes de un paciente */
+function get_medicamentosmes(tratamiento_id)
+{
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/obtener_medicamentosmes';
+    let last_medicamentomes = "";
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{tratamiento_id:tratamiento_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                if(res != null){
+                    last_medicamentomes = JSON.stringify(res);
+                }
+            },
+    });
+    return last_medicamentomes;
+}
+
+/* registra el certificado medico mensual de un tratamiento  */
+function registrar_certmedico()
+{
+    let certmedico_nombre = document.getElementById("certmedico_nombre").value;
+    let certmedico_codigo = document.getElementById("certmedico_codigo").value;
+    let certmedico_cabecerauno = document.getElementById("certmedico_cabecerauno").value;
+    let certmedico_cabecerados = document.getElementById("certmedico_cabecerados").value;
+    let certmedico_cabeceratres = document.getElementById("certmedico_cabeceratres").value;
+    let certmedico_cabeceracuatro = document.getElementById("certmedico_cabeceracuatro").value;
+    let certmedico_medicacion = document.getElementById("certmedico_medicacion").value;
+    let certmedico_fecha = document.getElementById("certmedico_fecha").value;
+    let tratamiento_id = document.getElementById("tratamiento_idcertmedico").value;
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/registrar_certmedico';
+    document.getElementById('loadercertmedico').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            data:{certmedico_nombre:certmedico_nombre, certmedico_codigo:certmedico_codigo,
+                  certmedico_cabecerauno:certmedico_cabecerauno, certmedico_cabecerados:certmedico_cabecerados,
+                  certmedico_cabeceratres:certmedico_cabeceratres, certmedico_cabeceracuatro:certmedico_cabeceracuatro,
+                  certmedico_medicacion:certmedico_medicacion, certmedico_fecha:certmedico_fecha,
+                  tratamiento_id:tratamiento_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                    alert("Certificado medico registrado con exito!.");
+                    $('#boton_cerrarmodalcertmedico').click();
+                    mostrar_tablastratamiento();
+            },
+    });
+}
+
+/* cargar modal para modificar certificado medico mensual */
+function cargarmodal_modificarcertmedico(certmedico_id)
+{
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/get_informemensual';
+    document.getElementById('loaderinfmensualmodif').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{infmensual_id:infmensual_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                document.getElementById('loaderinfmensualmodif').style.display = 'none';
+                $("#infmensual_cabeceramodif").val(res["infmensual_cabecera"]);
+                $("#infmensual_accesounomodif").val(res["infmensual_accesouno"]);
+                $("#infmensual_accesodosmodif").val(res["infmensual_accesodos"]);
+                $("#infmensual_laboratoriomodif").val(res["infmensual_laboratorio"]);
+                $("#infmensual_conclusionmodif").val(res["infmensual_conclusion"]);
+                $("#infmensual_fechamodif").val(res["infmensual_fecha"]);
+                $("#infmensual_id").val(infmensual_id);
+                $('#modal_modificarinfmensual').on('shown.bs.modal', function (e) {
+                    $('#infmensual_cabeceramodif').focus();
+                });
+            },
+    }); 
 }

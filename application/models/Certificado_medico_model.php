@@ -80,7 +80,7 @@ class Certificado_medico_model extends CI_Model
                     cm.*, r.paciente_id
                 FROM
                     `certificado_medico` cm
-                left join tratamiento t on t.certmedico_id = cm.certmedico_id
+                left join tratamiento t on t.tratamiento_id = cm.tratamiento_id
                 left join registro r on r.registro_id = t.registro_id
                 WHERE
                     r.paciente_id = $paciente_id

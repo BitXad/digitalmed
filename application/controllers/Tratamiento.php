@@ -12,6 +12,7 @@ class Tratamiento extends CI_Controller{
         $this->load->model('Paciente_model');
         $this->load->model('Informe_mensual_model');
         $this->load->model('Certificado_medico_model');
+        $this->load->model('Sesion_model');
     }
     
     /*
@@ -175,4 +176,44 @@ class Tratamiento extends CI_Controller{
             echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
     }
+    /* regsitra el certificado medico */
+    function registrar_certmedico(){
+        try{
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'certmedico_nombre' => $this->input->post('certmedico_nombre'),
+                    'certmedico_codigo' => $this->input->post('certmedico_codigo'),
+                    'certmedico_cabecerauno' => $this->input->post('certmedico_cabecerauno'),
+                    'certmedico_cabecerados' => $this->input->post('certmedico_cabecerados'),
+                    'certmedico_cabeceratres' => $this->input->post('certmedico_cabeceratres'),
+                    'certmedico_cabeceracuatro' => $this->input->post('certmedico_cabeceracuatro'),
+                    'certmedico_medicacion' => $this->input->post('certmedico_medicacion'),
+                    'certmedico_fecha' => $this->input->post('certmedico_fecha'),
+                    'tratamiento_id' => $this->input->post('tratamiento_id'),
+                );
+                $certmedico_id = $this->Certificado_medico_model->add_certificado_medico($params);
+            echo json_encode($certmedico_id);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    /* obtiene los medicamentos de un tratamiento */
+    function obtener_medicamentosmes(){
+        try{
+            if($this->input->is_ajax_request()){
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $medicamento_mes = $this->Sesion_model->get_all_sesiontratamiento_mes($tratamiento_id);
+                echo json_encode($medicamento_mes);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
  }

@@ -346,14 +346,14 @@
                     <label for="certmedico_fecha" class="control-label">Fecha de Informe</label>
                     <div class="form-group">
                         <input type="date" name="certmedico_fecha" class="form-control" id="certmedico_fecha" />
-                        <input type="hidden" name="tratamiento_id" class="form-control" id="tratamiento_id" />
+                        <input type="hidden" name="tratamiento_idcertmedico" class="form-control" id="tratamiento_idcertmedico" />
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="text-align: center">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-success" onclick="registrar_certmedico()"><fa class="fa fa-floppy-o"></fa> Registrar Certificado Medico</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalinfmensual"><fa class="fa fa-times"></fa> Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcertmedico"><fa class="fa fa-times"></fa> Cerrar</button>
                 </div>
             </div>
         </div>
@@ -361,67 +361,79 @@
 </div>
 <!------------------------ F I N  modal para Registrar certificado medico de paciente ------------------->
 
-<!------------------------ INICIO modal para Modificar informe mensual de paciente ------------------->
+<!------------------------ INICIO modal para Modificar certificado medico de paciente ------------------->
 <div class="modal fade" id="modal_modificarcertmedico" tabindex="-1" role="dialog" aria-labelledby="modal_modificarcertmedicolabel" style="font-family: Arial; font-size: 10pt;">
     <div class="modal-dialog modal-lg" role="document">
         <br><br>
         <div class="modal-content">
             <div class="modal-header text-center" style="background: #00ca6d">
-                <b style="color: white;">MODIFICAR INFORME MENSUAL</b>
+                <b style="color: white;">MODIFICAR CERTIFICADO MEDICO MENSUAL</b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
             </div>
             <div class="modal-body">
-                <div class="col-md-12 text-center" id="loaderinfmensualmodif" style="display:none;">
+                <div class="col-md-12 text-center" id="loadercertmedicomodif" style="display:none;">
                     <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
                 </div>
-                <div class="col-md-12">
-                    <label for="infmensual_cabeceramodif" class="control-label">Cabecera</label>
+                <div class="col-md-6">
+                    <label for="certmedico_nombremodif" class="control-label">Medico</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_cabeceramodif" id="infmensual_cabeceramodif"></textarea>
+                        <input type="text" name="certmedico_nombremodif" class="form-control" id="certmedico_nombremodif" />
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="infmensual_accesounomodif" class="control-label">Acceso uno</label>
+                    <label for="certmedico_codigomodif" class="control-label">Codigo</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_accesounomodif" id="infmensual_accesounomodif"></textarea>
+                        <input type="text" name="certmedico_codigomodif" class="form-control" id="certmedico_codigomodif" />
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="infmensual_accesodosmodif" class="control-label">Acceso dos</label>
+                    <label for="certmedico_cabeceraunomodif" class="control-label">Cabecera uno</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_accesodosmodif" id="infmensual_accesodosmodif"></textarea>
+                        <textarea class="form-control" name="certmedico_cabeceraunomodif" id="certmedico_cabeceraunomodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="certmedico_cabeceradosmodif" class="control-label">Cabecera dos</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="certmedico_cabeceradosmodif" id="certmedico_cabeceradosmodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="certmedico_cabeceratresmodif" class="control-label">Cabecera tres</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="certmedico_cabeceratresmodif" id="certmedico_cabeceratresmodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="certmedico_cabeceracuatromodif" class="control-label">Cabecera cuatro</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="certmedico_cabeceracuatromodif" id="certmedico_cabeceracuatromodif"></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <label for="infmensual_laboratoriomodif" class="control-label">Laboratorio</label>
+                    <label for="certmedico_medicacionmodif" class="control-label">Medicación</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_laboratoriomodif" id="infmensual_laboratoriomodif"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <label for="infmensual_conclusionmodif" class="control-label">Conclusiones</label>
-                    <div class="form-group">
-                        <textarea class="form-control" name="infmensual_conclusionmodif" id="infmensual_conclusionmodif"></textarea>
+                        <textarea class="form-control" name="certmedico_medicacionmodif" id="certmedico_medicacionmodif"></textarea>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label for="infmensual_fechamodif" class="control-label">Fecha de Informe</label>
+                    <label for="certmedico_fechamodif" class="control-label">Fecha de Informe</label>
                     <div class="form-group">
-                        <input type="date" name="infmensual_fechamodif" class="form-control" id="infmensual_fechamodif" />
-                        <input type="hidden" name="infmensual_id" class="form-control" id="infmensual_id" />
+                        <input type="date" name="certmedico_fechamodif" class="form-control" id="certmedico_fechamodif" />
+                        <input type="hidden" name="certmedico_id" class="form-control" id="certmedico_id" />
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="text-align: center">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-success" onclick="modificar_infmensual()"><fa class="fa fa-floppy-o"></fa> Modificar Informe Mensual</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalinfmensualmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="modificar_certmedico()"><fa class="fa fa-floppy-o"></fa> Modificar Certificado Medico</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcertmediconodif"><fa class="fa fa-times"></fa> Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!------------------------ F I N  modal para Modificar informe mensual de paciente ------------------->
+<!------------------------ F I N  modal para Modificar certificado medico de paciente ------------------->
 <div>
     <a href="<?php echo base_url("registro/registros/".$paciente["paciente_id"]); ?>" class="btn btn-danger">
         <i class="fa fa-reply"></i> Registros
