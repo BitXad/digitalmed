@@ -121,7 +121,7 @@ function mostrar_tablastratamiento()
                             if(tratamientos[i]['certmedico_id'] >0){
                                 html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_modificarcertmedico' onclick='cargarmodal_modificarcertmedico("+tratamientos[i]["certmedico_id"]+")' title='Modificar certificado medico'>";
                                 html += "<span class='fa fa-pencil-square-o'></span></a>";
-                                html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
+                                html += "<a href='"+base_url+"reportes/certificadomedico/"+tratamientos[i]['certmedico_id']+"' target='_blank' class='btn btn-google btn-xs' title='Certificado medico mensual'><span class='fa fa-calendar'></span></a>";
                             }else{
                                 html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_nuevocertmedico' onclick='cargarmodal_nuevocertmedico("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar certificado médico'>";
                                 html += "<span class='fa fa-pencil-square-o'></span></a>";
@@ -537,25 +537,28 @@ function registrar_certmedico()
 function cargarmodal_modificarcertmedico(certmedico_id)
 {
     var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'tratamiento/get_informemensual';
-    document.getElementById('loaderinfmensualmodif').style.display = 'block';
+    var controlador = base_url+'tratamiento/get_certificadomedico';
+    document.getElementById('loadercertmedicomodif').style.display = 'block';
     $.ajax({url:controlador,
             type:"POST",
             async: false,
-            data:{infmensual_id:infmensual_id
+            data:{certmedico_id:certmedico_id
             },
             success:function(result){
                 res = JSON.parse(result);
-                document.getElementById('loaderinfmensualmodif').style.display = 'none';
-                $("#infmensual_cabeceramodif").val(res["infmensual_cabecera"]);
-                $("#infmensual_accesounomodif").val(res["infmensual_accesouno"]);
-                $("#infmensual_accesodosmodif").val(res["infmensual_accesodos"]);
-                $("#infmensual_laboratoriomodif").val(res["infmensual_laboratorio"]);
-                $("#infmensual_conclusionmodif").val(res["infmensual_conclusion"]);
-                $("#infmensual_fechamodif").val(res["infmensual_fecha"]);
-                $("#infmensual_id").val(infmensual_id);
-                $('#modal_modificarinfmensual').on('shown.bs.modal', function (e) {
-                    $('#infmensual_cabeceramodif').focus();
+                document.getElementById('loadercertmedicomodif').style.display = 'none';
+                $("#certmedico_nombremodif").val(res["certmedico_nombre"]);
+                $("#certmedico_codigomodif").val(res["certmedico_codigo"]);
+                $("#certmedico_cabeceraunomodif").val(res["certmedico_cabecerauno"]);
+                $("#certmedico_cabeceradosmodif").val(res["certmedico_cabecerados"]);
+                $("#certmedico_cabeceratresmodif").val(res["certmedico_cabeceratres"]);
+                $("#certmedico_cabeceracuatromodif").val(res["certmedico_cabeceracuatro"]);
+                $("#certmedico_medicacionmodif").val(res["certmedico_medicacion"]);
+                $("#certmedico_fechamodif").val(res["certmedico_fecha"]);
+                $("#certmedico_id").val(res["certmedico_id"]);
+                
+                $('#modal_modificarcertmedico').on('shown.bs.modal', function (e) {
+                    $('#certmedico_nombremodif').focus();
                 });
             },
     }); 

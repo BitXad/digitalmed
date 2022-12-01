@@ -19,6 +19,7 @@ class Reportes extends CI_Controller{
         $this->load->model('Medicamento_model');
         $this->load->model('Medicacion_model');
         $this->load->model('Registro_model');
+        $this->load->model('Certificado_medico_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -192,6 +193,40 @@ class Reportes extends CI_Controller{
             echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
     }
+    
+    /*
+     * Reporte del Certificado medico Mensual
+     */
+    function certificadomedico($certmedico_id)
+    {
+        $tratamiento_id = 1;
+        //if($this->acceso(141)){
+        $this->load->model('Sesion_model');
+        $data['certificadomedico'] = $this->Certificado_medico_model->get_certificado_medico($certmedico_id);
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+        $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+        
+        $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+        
+        $peso_seco = "";
+        $total_sesion = sizeof($data['sesiones']);
+        if($total_sesion > 0){
+            $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
+        }
+        $data['peso_seco'] = $peso_seco;
+        $this->load->model('Parametro_model');
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        $data['page_title'] = "Informe clinico mensual";
+        $data['_view'] = 'reportes/certificadomedico';
+
+        $this->load->view('layouts/main',$data);
+        //}
+    }
+    
+    
     
     
     

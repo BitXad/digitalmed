@@ -349,6 +349,30 @@ class Paciente extends CI_Controller{
             show_error('The paciente you are trying to delete does not exist.');
     }
     
-
+    /*
+     * dar de baja a un paciente
+     */
+    function darde_baja($paciente_id)
+    {
+        $estado_baja = 2; // da de baja a un asociado
+        $params = array(
+            'estado_id' => $estado_baja,
+        );
+        $this->Paciente_model->update_paciente($paciente_id,$params);            
+        redirect('paciente/index');
+    }
+    
+    /*
+     * dar de alta a un paciente
+     */
+    function darde_alta($paciente_id)
+    {
+        $estado_alta = 1; // da de alta a un asociado
+        $params = array(
+            'estado_id' => $estado_alta,
+        );
+        $this->Paciente_model->update_paciente($paciente_id,$params);            
+        redirect('paciente/index');
+    }
     
 }

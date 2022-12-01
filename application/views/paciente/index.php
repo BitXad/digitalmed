@@ -77,7 +77,6 @@
                             <?php
                             if ($p['paciente_foto']!=NULL && $p['paciente_foto']!="") { ?>
                                     <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $i; ?>" style="padding: 0px;">
-                                        <img>
                                         <?php
                                         echo '<img src="'.site_url('/resources/images/pacientes/'.$p['paciente_foto']).'" width="50px" height="50px" />';
                                         ?>
@@ -148,7 +147,18 @@
                         <td class="text-center">
                             <a href="<?php echo site_url('paciente/edit/'.$p['paciente_id']); ?>" class="btn btn-info btn-xs" title="Modificar paciente"><span class="fa fa-pencil"></span></a> 
                             <a href="<?php echo site_url('registro/registros/'.$p['paciente_id']); ?>" class="btn btn-facebook btn-xs" title="Ver registros de pacientes"><span class="fa fa-list-alt"></span></a>
-                            <a href="<?php echo site_url('paciente/darde_ebaja/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Dar de baja a un paciente"><span class="fa fa-trash"></span></a>
+                            <?php
+                            if($p['estado_id'] == 1){
+                            ?>
+                            <a href="<?php echo site_url('paciente/darde_baja/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Dar de baja a un paciente"><span class="fa fa-trash"></span></a>
+                            <?php
+                            }else{
+                            ?>
+                            <a href="<?php echo site_url('paciente/darde_alta/'.$p['paciente_id']); ?>" class="btn btn-success btn-xs" title="Dar de alta a un paciente"><span class="fa fa-check"></span></a>
+                            <?php
+                            }
+                            ?>
+                            <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-success btn-xs" title="Ver registros de pacientes" target="_blank"><span class="fa fa-file-image-o"></span></a>
                         </td>
                     </tr>
                     <?php

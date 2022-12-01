@@ -216,4 +216,17 @@ class Tratamiento extends CI_Controller{
         }
     }
     
+    function get_certificadomedico(){
+        try{
+            if($this->input->is_ajax_request()){
+                $certmedico_id = $this->input->post('certmedico_id');
+                $certificado_medico = $this->Certificado_medico_model->get_certificado_medico($certmedico_id);
+                echo json_encode($certificado_medico);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
  }
