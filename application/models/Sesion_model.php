@@ -53,7 +53,7 @@ class Sesion_model extends CI_Model
         try{
             $sesion = $this->db->query("
                 SELECT
-                    p.*, r.registro_id, ex.extencion_descripcion
+                    p.*, r.registro_id, r.registro_iniciohemodialisis, ex.extencion_descripcion
                 FROM
                     paciente p
                     left join registro r on p.paciente_id = r.paciente_id

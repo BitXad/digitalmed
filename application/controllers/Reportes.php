@@ -199,13 +199,15 @@ class Reportes extends CI_Controller{
      */
     function certificadomedico($certmedico_id)
     {
-        $tratamiento_id = 1;
         //if($this->acceso(141)){
         $this->load->model('Sesion_model');
-        $data['certificadomedico'] = $this->Certificado_medico_model->get_certificado_medico($certmedico_id);
-        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        $data['certificado_medico'] = $this->Certificado_medico_model->get_certificado_medico($certmedico_id);
+        $tratamiento_id = $data['certificado_medico']['tratamiento_id'];
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        
+        
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
         $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
         
         $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);

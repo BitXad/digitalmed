@@ -108,7 +108,7 @@
                             
                             
                             
-                            <?php echo $p['paciente_nombre']." ".$p['paciente_apellido']; ?>
+                            <?php echo $p['paciente_apellido']." ".$p['paciente_nombre']; ?>
                         </div>
                         </td>
                         <td class="text-center">
@@ -158,7 +158,7 @@
                             <?php
                             }
                             ?>
-                            <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-success btn-xs" title="Ver registros de pacientes" target="_blank"><span class="fa fa-file-image-o"></span></a>
+                            <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-success btn-xs" title="Ver documentos del paciente" target="_blank"><span class="fa fa-file-image-o"></span></a>
                         </td>
                     </tr>
                     <?php

@@ -92,7 +92,7 @@ class Paciente_model extends CI_Model
             WHERE
                 1 = 1
 
-            ORDER BY p.`paciente_nombre` asc, p.`paciente_apellido` asc
+            ORDER BY p.`paciente_apellido` asc, p.`paciente_nombre` asc
 
         ")->result_array();
 
@@ -124,4 +124,30 @@ class Paciente_model extends CI_Model
     {
         return $this->db->delete('paciente',array('paciente_id'=>$paciente_id));
     }
+    
+    /*
+     * buscar el paciente
+     */
+    function buscar_paciente($parametro)
+    {
+        $paciente = $this->db->query("
+            SELECT
+                p.*, e.estado_color, e. estado_descripcion, 
+                g.genero_nombre, ex.extencion_descripcion
+            FROM
+                `paciente` p
+            left join genero g on p.genero_id = g.genero_id
+            left join estado e on p.estado_id = e.estado_id
+            left join extencion ex on p.extencion_id = ex.extencion_id
+            WHERE
+                p.estado_id = 1
+                and(p.paciente_nombre like '%".$parametro."%' or p.paciente_apellido like '%".$parametro."%'
+                or p.paciente_ci like '%".$parametro."%')
+            ORDER BY p.`paciente_apellido` asc, p.`paciente_nombre` asc
+
+        ")->result_array();
+
+        return $paciente;
+    }
+    
 }

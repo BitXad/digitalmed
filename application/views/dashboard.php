@@ -1,7 +1,7 @@
-<body onload="mostrar_grafica()">
+<!--<body onload="mostrar_grafica()">-->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PruebasLab | Sistema registro de prueba</title>
+  <title>Digitalmed | Sistema registro Hemodialisis</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -28,12 +28,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
-<!--<script src="<?php echo base_url('resources/js/verventas_enprocesodashb.js'); ?>"></script>-->
+<!--<script src="<?php /*echo base_url('resources/js/verventas_enprocesodashb.js'); ?>"></script>-->
 <!--<script src="<?php echo base_url('resources/js/pedido_dCiario.js'); ?>"></script>-->
-<script src="<?php echo base_url('resources/js/highcharts.js'); ?>"></script>
-<script src="<?php echo base_url('resources/js/graficas.js'); ?>"></script>
+<!--<script src="<?php echo base_url('resources/js/highcharts.js'); ?>"></script>
+<script src="<?php echo base_url('resources/js/graficas.js');*/ ?>"></script>-->
 
-<input type="text" value="<?php echo $empresa["empresa_nombre"]; ?>" id="empresa_nombre"  hidden>
+<input type="text" value="<?php echo $empresa["empresa_nombre"]; ?>" id="empresa_nombre" hidden>
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
 <input type="text" value="<?php echo date("Y"); ?>" id="anio_sel" hidden>
 <input type="text" value="<?php echo date("m"); ?>" id="mes_sel" hidden>
@@ -118,33 +118,33 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 hidden">
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-                <h3><b><?php echo "52"; ?></b></h3>
+                <h3><b><?php echo "&nbsp;"; ?></b></h3>
 
-              <p>Pruebas pendientes</p>
+              <p>Programación sesiones</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="<?php echo base_url('prueba'); ?>" class="small-box-footer">Ver pruebas <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('tratamiento/lostratamientos'); ?>" class="small-box-footer">Programar sesion <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 hidden">
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-red">
+          <div class="small-box bg-aqua">
             <div class="inner">
-                <h3><b><?php echo $ingresos[0]["ingresos"]; ?> Bs </b></h3>
+                <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
 
-              <p><?php echo "Inventario"; ?></p>
+              <p>Registro sesiones</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-edit"></i>
             </div>
-            <a href="<?php echo base_url('compra'); ?>" class="small-box-footer">Ver inventario <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('lassesiones'); ?>" class="small-box-footer">Registrar sesion <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

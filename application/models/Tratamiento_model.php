@@ -92,123 +92,52 @@ class Tratamiento_model extends CI_Model
             throw new Exception('Tratamiento_model model : Error in update_tratamiento function - ' . $ex);
         }  
     }
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /*
-        * Get tratamiento by  column name
-      */ 
-      function get_tratamientobyclm_name($clm_name,$clm_value)
-      {
+    
+    /*
+    * obtiene todos los tratamientos de paciente
+    */ 
+    function get_tratamientospaciente($paciente_id)
+    {
         try{
-           return $this->db->get_where('tratamiento',array($clm_name=>$clm_value))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model Madel : Error in get_tratamientobyclm_name function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All tratamiento count 
-      */ 
-      function get_all_tratamiento_count()
-      {
+            $tratamiento = $this->db->query("
+                SELECT
+                    t.*
+                FROM
+                    `paciente` p
+                left join registro r on p.paciente_id = r.paciente_id
+                left join tratamiento t on r.registro_id = t.registro_id
+                WHERE
+                    p.paciente_id = $paciente_id
+                order by t.tratamiento_id desc
+            ")->result_array();
+            
+            return $tratamiento;
+        }catch (Exception $ex) {
+           throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
+        }
+    }
+    
+    /*
+    * obtiene el ultimo registro de un paciente
+    */ 
+    function get_registropaciente($paciente_id)
+    {
         try{
-           $this->db->from('tratamiento');
-           return $this->db->count_all_results();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in get_all_tratamiento_count function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All with associated tables join tratamientocount 
-      */ 
-      function get_all_with_asso_tratamiento()
-      {
-        try{
-          $query = $this->db->get(); 
-            if($query->num_rows() != 0){
-               return $query->result_array();
-            }else{
-                return false;
-            }
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in get_all_with_asso_tratamiento function - ' . $ex);
-           }  
-      }
-      /*
-          * Get all tratamiento 
-      */ 
-      function get_all_tratamiento($params = array())
-      {
-        try{
-              $this->db->order_by('tratamiento_id', 'desc');
-              if(isset($params) && !empty($params)){
-               $this->db->limit($params['limit'], $params['offset']);
-              }
-               return $this->db->get('tratamiento')->result_array();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in get_all_tratamiento function - ' . $ex);
-           }  
-      } 
-     /* 
-          * function to delete tratamiento 
-      */
-       function delete_tratamiento($tratamiento_id)
-       {
-        try{
-             return $this->db->delete('tratamiento',array('tratamiento_id'=>$tratamiento_id));
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in delete_tratamiento function - ' . $ex);
-           }  
-       }
-      /*
-        * Get tratamiento by  column name where not in particular id
-      */ 
-      function get_tratamientobyclm_name_not_id($clm_name,$clm_value,$where_cond)
-      {
-        try{
-            $this->db->where('tratamiento_id!=', $where_cond);
-           return $this->db->get_where('tratamiento',array($clm_name=>$clm_value))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in get_tratamientobyclm_name_not_id function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All with associated tables join tratamientocount 
-      */ 
-      function get_all_with_asso_tratamiento_by_cat($column_name=null,$value_id=null,$params=array())
-      {
-        try{
-          $query = $this->db->get(); 
-            if($query->num_rows() != 0){
-               return $query->result_array();
-            }else{
-                return false;
-            }
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in get_all_with_asso_tratamiento_by_cat function - ' . $ex);
-           }  
-      }
-      /*
-          * Get all tratamiento_by_cat 
-      */ 
-      function get_all_tratamiento_by_cat($column_name=null,$value_id=null,$params=array())
-      {
-        try{
-              $this->db->order_by('tratamiento_id', 'desc');
-              $this->db->where($column_name, $value_id);
-              if(isset($params) && !empty($params)){
-               $this->db->limit($params['limit'], $params['offset']);
-              }
-               return $this->db->get('tratamiento')->result_array();
-           } catch (Exception $ex) {
-             throw new Exception('Tratamiento_model model : Error in get_all_tratamiento_by_cat function - ' . $ex);
-           }  
-      } 
+            $registro = $this->db->query("
+                SELECT
+                    r.*
+                FROM
+                    `paciente` p
+                left join registro r on p.paciente_id = r.paciente_id
+                WHERE
+                    p.paciente_id = $paciente_id
+                order by r.registro_id desc
+            ")->row_array();
+            
+            return $registro;
+        }catch (Exception $ex) {
+           throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
+        }
+    }
+    
  }
