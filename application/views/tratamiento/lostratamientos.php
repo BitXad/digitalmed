@@ -1,7 +1,10 @@
 <script src="<?php echo base_url('resources/js/lostratamientos.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
-<input type="hidden" name="registro_id" id="registro_id" value="<?php echo $registro["registro_id"]; ?>" />
-<input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente["paciente_id"]; ?>" />
+<input type="hidden" name="elpaciente" id="elpaciente" />
+<input type="hidden" name="paciente_id" id="paciente_id" />
+<input type="hidden" name="registro_id" id="registro_id" />
+
+
 <input type="hidden" name="rinicio_hemodialisis" id="rinicio_hemodialisis" value="<?php echo $registro["registro_iniciohemodialisis"]; ?>" />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->

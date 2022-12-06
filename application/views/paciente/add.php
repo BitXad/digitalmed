@@ -1,3 +1,5 @@
+<script src="<?php echo base_url('resources/js/paciente_nuevo.js'); ?>" type="text/javascript"></script>
+
 <div class="row" style="font-family: Arial">
     <div class="col-md-12">
         <div class="box-header with-border">
@@ -107,6 +109,85 @@
                             <label for="paciente_cifirmante" class="control-label">C.I. Firmante</label>
                             <div class="form-group">
                                 <input type="text" name="paciente_cifirmante" value="<?php echo $this->input->post('paciente_cifirmante'); ?>" class="form-control" id="paciente_cifirmante" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden">
+                            <label for="registro_fecha" class="control-label">Fecha</label>
+                            <div class="form-group">
+                                <input type="date" name="registro_fecha" class="form-control" id="registro_fecha" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden">
+                            <label for="registro_hora" class="control-label">Hora</label>
+                            <div class="form-group">
+                                <input type="time" step="any" name="registro_hora" value="0" class="form-control" id="registro_hora"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_mes" class="control-label">Mes</label>
+                            <div class="form-group">
+                                <span id="elmes"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_gestion" class="control-label">Gestión</label>
+                            <div class="form-group">
+                                <span id="lagestion"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_iniciohemodialisis" class="control-label">Inicio de Hemodialisis para Certificado Medico</label>
+                            <div class="form-group">
+                                <input type="date" name="registro_iniciohemodialisis" class="form-control" id="registro_iniciohemodialisis" />
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_numaquina" class="control-label">Maquina N°</label>
+                            <div class="form-group">
+                                <input type="number" min="0" name="registro_numaquina" class="form-control" id="registro_numaquina"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_tipofiltro" class="control-label">Tipo de Filtro</label>
+                            <div class="form-group">
+                                <select class="form-control" name="registro_tipofiltro" id="registro_tipofiltro">
+                                    <option value="F8HPS">F8HPS</option>
+                                    <option value="FX100">FX100</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="avascular_nombre" class="control-label">Tipo de Acceso</label>
+                            <div class="form-group">
+                                <select class="form-control" name="avascular_nombre" id="avascular_nombre" onchange="detalle_acceso()">
+                                    <option value="0">-- Acceso Vascular --</option>
+                                    <option value="Cateter">Cateter</option>
+                                    <option value="Fistula">Fistula</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="avascular_detalle" class="control-label">Acceso Vascular</label>
+                            <div class="form-group">
+                                <span id="avasculardetalle"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_numerosesion" class="control-label">Numero Sesión</label>
+                            <div class="form-group">
+                                <input type="number" min="1" name="registro_numerosesion" class="form-control" id="registro_numerosesion" />
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background: #d4dbc3">
+                            <label for="registro_filtro" class="control-label">Reutilización Filtro</label>
+                            <div class="form-group">
+                                <input type="number" name="registro_filtro" class="form-control" id="registro_filtro" />
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="background: #d4dbc3">
+                            <label for="registro_diagnostico" class="control-label">Diagnostico</label>
+                            <div class="form-group">
+                                <input type="text" name="registro_diagnostico" class="form-control" id="registro_diagnostico" />
                             </div>
                         </div>
                     </div>

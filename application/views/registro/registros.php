@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="registro_iniciohemodialisis" class="control-label">Inicio de Hemodialisis</label>
+                    <label for="registro_iniciohemodialisis" class="control-label">Inicio de Hemodialisis para Certificado Medico</label>
                     <div class="form-group">
                         <input type="date" name="registro_iniciohemodialisis" class="form-control" id="registro_iniciohemodialisis" />
                     </div>

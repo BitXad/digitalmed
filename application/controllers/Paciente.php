@@ -10,6 +10,8 @@ class Paciente extends CI_Controller{
         parent::__construct();
         $this->load->model('Paciente_model');
         $this->load->model('Usuario_model');
+        $this->load->model('Registro_model');
+        $this->load->model('Acceso_vascular_model');
     } 
 
     /*
@@ -119,6 +121,33 @@ class Paciente extends CI_Controller{
             );
             
             $paciente_id = $this->Paciente_model->add_paciente($params);
+            
+            $usuario_id = 1;
+            $params = array(
+                'usuario_id' => $usuario_id,
+                'paciente_id' => $paciente_id,
+                'estado_id' => $estado_id,
+                'registro_fecha' => $this->input->post('registro_fecha'),
+                'registro_hora' => $this->input->post('registro_hora'),
+                'registro_mes' => $this->input->post('registro_mes'),
+                'registro_gestion' => $this->input->post('registro_gestion'),
+                'registro_diagnostico' => $this->input->post('registro_diagnostico'),
+                'registro_numerosesion' => $this->input->post('registro_numerosesion'),
+                'registro_iniciohemodialisis' => $this->input->post('registro_iniciohemodialisis'),
+                'registro_filtro' => $this->input->post('registro_filtro'),
+                'registro_numaquina' => $this->input->post('registro_numaquina'),
+                'registro_tipofiltro' => $this->input->post('registro_tipofiltro'),
+            );
+            $registro_id = $this->Registro_model->add_registro($params);
+
+            $params = array(
+                'registro_id' => $registro_id,
+                'paciente_id' => $this->input->post('paciente_id'),
+                'avascular_nombre' => $this->input->post('avascular_nombre'),
+                'avascular_detalle' => $this->input->post('avascular_detalle'),
+            );
+            $avascular_id = $this->Acceso_vascular_model->add_acceso_vascular($params);
+            
             redirect('paciente/index');
         }
         else

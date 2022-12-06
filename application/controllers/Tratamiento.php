@@ -13,6 +13,9 @@ class Tratamiento extends CI_Controller{
         $this->load->model('Informe_mensual_model');
         $this->load->model('Certificado_medico_model');
         $this->load->model('Sesion_model');
+        
+        $this->load->model('Acceso_vascular_model');
+        $this->load->model('Medicacion_model');
     }
     
     /*
@@ -310,11 +313,6 @@ class Tratamiento extends CI_Controller{
                     );
                     $tratamiento_id = $this->Tratamiento_model->add_tratamiento($params);
                     
-                    
-                    
-                    
-                    
-                    $tratamiento_id = $this->input->post('tratamiento_id');
                     $registro = $this->Registro_model->get_registro_detratamiento($tratamiento_id);
                     $numero_registro = $registro["registro_numerosesion"];
                     $registro_numaquina = $registro["registro_numaquina"];
@@ -347,7 +345,7 @@ class Tratamiento extends CI_Controller{
                         }
                         
                         $params = array(
-                            'tratamiento_id' => $this->input->post('tratamiento_id'),
+                            'tratamiento_id' => $tratamiento_id,
                             'sesion_numero' => $i,
                             'sesion_fecha' => $sesion_fechainicio,
                             'sesion_eritropoyetina' => $this->input->post('sesion_eritropoyetina'),

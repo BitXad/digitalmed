@@ -29,9 +29,11 @@ class Registro extends CI_Controller{
         try{
             if($this->input->is_ajax_request()){
                 $usuario_id = 1;
+                $estado_id = 1; // 1 ==> ACTIVO
                 $params = array(
                     'usuario_id' => $usuario_id,
                     'paciente_id' => $this->input->post('paciente_id'),
+                    'estado_id' => $this->input->post('estado_id'),
                     'registro_fecha' => $this->input->post('registro_fecha'),
                     'registro_hora' => $this->input->post('registro_hora'),
                     'registro_mes' => $this->input->post('registro_mes'),

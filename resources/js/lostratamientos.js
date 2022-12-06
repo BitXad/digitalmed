@@ -17,6 +17,7 @@ function buscarpaciente(e) {
 
 function mostrar_tablapacientes()
 {
+    limpiar_inf_asociado();
     let base_url = document.getElementById('base_url').value;
     let filtrar = document.getElementById('filtrar').value;
     let controlador = base_url+'tratamiento/get_pacientes';
@@ -78,9 +79,20 @@ function mostrar_tablapacientes()
 }
 
 function ocultar_tabla(){
-    
     var html = "";
     $("#tablaresultadospaciente").html(html);
+}
+
+function limpiar_inf_asociado(){
+    var html = "";
+    $("#tablaresultadostratamiento").html(html);
+    $("#elpaciente").val("");
+    $("#registro_id").val("");
+    $("#nombre_paciente").html("-");
+    $("#ci_paciente").html("-");
+    $("#telefono_paciente").html("-");
+    $("#direccion_paciente").html("-");
+    $("#nueva_sesion").css("display", "none");
 }
 
 /* poner informacion del paciente seleccionado */
@@ -88,8 +100,12 @@ function este_asociado(paciente)
 {
     let paciente_id = paciente['paciente_id'];
     let registro = get_registro_paciente(paciente_id);
-    if(registro['registro_id'] != null){
+    if(registro != ""){
         registro = JSON.parse(registro);
+        let elpaciente = JSON.stringify(paciente);
+        $("#elpaciente").val(elpaciente);
+        $("#paciente_id").val(paciente_id);
+        $("#registro_id").val(registro['registro_id']);
         $("#nombre_paciente").html(paciente['paciente_apellido']+" "+paciente['paciente_nombre']);
         $("#ci_paciente").html(paciente['paciente_ci']);
         $("#telefono_paciente").html(paciente['paciente_telefono']+" - "+paciente['paciente_celular']);
@@ -170,7 +186,10 @@ function get_registro_paciente(paciente_id)
             success:function(result){
                 res = JSON.parse(result);
                 if(res != null){
-                    registro = JSON.stringify(res);
+                    if(res["registro_id"] > 0){
+                        registro = JSON.stringify(res);
+                        //alert(registro);
+                    }
                     document.getElementById('loader').style.display = 'none';
                 }
             },
@@ -237,7 +256,6 @@ function generar_nuevas_sesiones()
     var sesion_hierroev = document.getElementById("sesion_hierroev").value;
     var sesion_complejobampolla = document.getElementById("sesion_complejobampolla").value;
     var sesion_costosesion = document.getElementById("sesion_costosesion").value;
-    var tratamiento_id = document.getElementById("tratamiento_id").value;
     
     if(sesion_numero > 0){
         //let d = new Date(sesion_fechainicio);
@@ -254,7 +272,6 @@ function generar_nuevas_sesiones()
                           registro_id:registro_id, sesion_numero:sesion_numero, sesion_fechainicio:sesion_fechainicio,
                           sesion_eritropoyetina:sesion_eritropoyetina, sesion_hierroev:sesion_hierroev,
                           sesion_complejobampolla:sesion_complejobampolla, sesion_costosesion:sesion_costosesion,
-                          tratamiento_id:tratamiento_id
                     },
                     success:function(result){
                         res = JSON.parse(result);
@@ -264,8 +281,10 @@ function generar_nuevas_sesiones()
                         }else{
                             alert("Sesiones generadas correctamente");
                             $('#boton_cerrarmodal').click();
-                            mostrar_tablas();
                             
+                            let paciente = document.getElementById('elpaciente').value;
+                            paciente =  JSON.parse(paciente);
+                            este_asociado(paciente);
                         }
                     },
             });

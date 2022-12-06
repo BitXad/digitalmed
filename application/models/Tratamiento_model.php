@@ -25,6 +25,7 @@ class Tratamiento_model extends CI_Model
                 left join certificado_medico cm on t.tratamiento_id = cm.tratamiento_id
                 WHERE
                     registro_id = $registro_id
+                order by t.tratamiento_id desc
             ")->result_array();
             
             return $tratamiento;
