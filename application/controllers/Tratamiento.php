@@ -234,16 +234,11 @@ class Tratamiento extends CI_Controller{
     }
     
     /*
-    * Listing de los tratamientos a registrar
+    * muestra los tratamientos de un paciente, despues de la busqueda!.
     */
     public function lostratamientos()
     {
         try{
-            $registro_id = 1;
-            //obtiene los tratamientos de un determinado registro
-            $data['registro'] = $this->Registro_model->get_registro($registro_id);
-            $data['paciente'] = $this->Tratamiento_model->get_pacienteregistro($registro_id);
-            
             $data['_view'] = 'tratamiento/lostratamientos';
             $this->load->view('layouts/main',$data);
         } catch (Exception $ex) {

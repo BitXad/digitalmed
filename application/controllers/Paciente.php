@@ -142,7 +142,7 @@ class Paciente extends CI_Controller{
 
             $params = array(
                 'registro_id' => $registro_id,
-                'paciente_id' => $this->input->post('paciente_id'),
+                'paciente_id' => $paciente_id,
                 'avascular_nombre' => $this->input->post('avascular_nombre'),
                 'avascular_detalle' => $this->input->post('avascular_detalle'),
             );

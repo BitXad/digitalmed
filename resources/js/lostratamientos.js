@@ -123,39 +123,41 @@ function este_asociado(paciente)
                 success:function(respuesta){
                     var tratamientos =  JSON.parse(respuesta);
                     if (tratamientos != null){
-                        let n = tratamientos.length;
-                        $("#encontrados").html(n);
-                        let html = "";
-                        html += "<div class='box'>";
-                        html += "<div class='box-body table-responsive no-padding'>";
-                        html += "<table id='mitabla' class='table table-striped'>";
-                        html += "<thead>";
-                        html += "    <tr>";
-                        html += "        <th>#</th>";
-                        html += "        <th>MES</th>";
-                        html += "        <th>GESTION</th>";
-                        html += "        <th>FECHA</th>";
-                        html += "        <th>HORA</th>";
-                        html += "    </tr>";
-                        html += "</thead>";
-                        html += "<tbody class='buscar'>";
-                        for(var i = 0; i < n ; i++){
-                            //html += "<tr style='background-color: #"+tratamientos[i]['estado_color']+"'>"; 
-                            html += "<tr>";
-                            html += "<td class='text-center'>"+(i+1)+"</td>";
-                            html += "<td class='text-center'>"+tratamientos[i]['tratamiento_mes']+"</td>";
-                            html += "<td class='text-center'>"+tratamientos[i]['tratamiento_gestion']+"</td>";
-                            html += "<td class='text-center'>"+moment(tratamientos[i]["tratamiento_fecha"]).format("DD/MM/YYYY")+"</td>";
-                            html += "<td class='text-center'>"+tratamientos[i]['tratamiento_hora']+"</td>";
-                            html += "</tr>";
-                        }
-                        html += "</tbody>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</table";
+                        if(tratamientos[0]["registro_id"] > 0){
+                            let n = tratamientos.length;
+                            $("#encontrados").html(n);
+                            let html = "";
+                            html += "<div class='box'>";
+                            html += "<div class='box-body table-responsive no-padding'>";
+                            html += "<table id='mitabla' class='table table-striped'>";
+                            html += "<thead>";
+                            html += "    <tr>";
+                            html += "        <th>#</th>";
+                            html += "        <th>MES</th>";
+                            html += "        <th>GESTION</th>";
+                            html += "        <th>FECHA</th>";
+                            html += "        <th>HORA</th>";
+                            html += "    </tr>";
+                            html += "</thead>";
+                            html += "<tbody class='buscar'>";
+                            for(var i = 0; i < n ; i++){
+                                //html += "<tr style='background-color: #"+tratamientos[i]['estado_color']+"'>"; 
+                                html += "<tr>";
+                                html += "<td class='text-center'>"+(i+1)+"</td>";
+                                html += "<td class='text-center'>"+tratamientos[i]['tratamiento_mes']+"</td>";
+                                html += "<td class='text-center'>"+tratamientos[i]['tratamiento_gestion']+"</td>";
+                                html += "<td class='text-center'>"+moment(tratamientos[i]["tratamiento_fecha"]).format("DD/MM/YYYY")+"</td>";
+                                html += "<td class='text-center'>"+tratamientos[i]['tratamiento_hora']+"</td>";
+                                html += "</tr>";
+                            }
+                            html += "</tbody>";
+                            html += "</div>";
+                            html += "</div>";
+                            html += "</table";
 
-                        $("#tablaresultadostratamiento").html(html);
-                        document.getElementById('loader').style.display = 'none';
+                            $("#tablaresultadostratamiento").html(html);
+                            document.getElementById('loader').style.display = 'none';
+                        }
                     }
                     document.getElementById('loader').style.display = 'none';
             },

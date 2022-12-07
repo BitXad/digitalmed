@@ -93,69 +93,11 @@ class Sesion_model extends CI_Model
         }
     }
     
-      
-    
-    
-    
-    
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /*
-        * Get sesion by  column name
-      */ 
-      function get_sesionbyclm_name($clm_name,$clm_value)
-      {
-        try{
-           return $this->db->get_where('sesion',array($clm_name=>$clm_value))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model Madel : Error in get_sesionbyclm_name function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All sesion count 
-      */ 
-      function get_all_sesion_count()
-      {
-        try{
-           $this->db->from('sesion');
-           return $this->db->count_all_results();
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in get_all_sesion_count function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All with associated tables join sesioncount 
-      */ 
-      function get_all_with_asso_sesion()
-      {
-        try{
-          $query = $this->db->get(); 
-            if($query->num_rows() != 0){
-               return $query->result_array();
-            }else{
-                return false;
-            }
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in get_all_with_asso_sesion function - ' . $ex);
-           }  
-      }
-      /*
-          * Get all sesion 
-      */ 
-      function get_all_sesion($params = array())
-      {
+    /*
+    * Get all sesion 
+    */ 
+    function get_all_sesion($params = array())
+    {
         try{
               $this->db->order_by('sesion_id', 'desc');
               if(isset($params) && !empty($params)){
@@ -165,7 +107,7 @@ class Sesion_model extends CI_Model
            } catch (Exception $ex) {
              throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
            }  
-      } 
+    } 
     
     /*
      * Get all sesion 
@@ -192,63 +134,41 @@ class Sesion_model extends CI_Model
             throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
         }  
     }
-      
-      
     
-      
-     /* 
-          * function to delete sesion 
-      */
-       function delete_sesion($sesion_id)
-       {
+    /* 
+    * function to delete sesion 
+    */
+    function delete_sesion($sesion_id)
+    {
         try{
              return $this->db->delete('sesion',array('sesion_id'=>$sesion_id));
            } catch (Exception $ex) {
              throw new Exception('Sesion_model model : Error in delete_sesion function - ' . $ex);
            }  
-       }
-      /*
-        * Get sesion by  column name where not in particular id
-      */ 
-      function get_sesionbyclm_name_not_id($clm_name,$clm_value,$where_cond)
-      {
+    }
+    
+    /*
+     * Get all sesion 
+    */ 
+    function getall_sesionallenar_paciente($paciente_id)
+    {
         try{
-            $this->db->where('sesion_id!=', $where_cond);
-           return $this->db->get_where('sesion',array($clm_name=>$clm_value))->row_array();
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in get_sesionbyclm_name_not_id function - ' . $ex);
-           }  
-      }
-     /*
-        * Get All with associated tables join sesioncount 
-      */ 
-      function get_all_with_asso_sesion_by_cat($column_name=null,$value_id=null,$params=array())
-      {
-        try{
-          $query = $this->db->get(); 
-            if($query->num_rows() != 0){
-               return $query->result_array();
-            }else{
-                return false;
-            }
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in get_all_with_asso_sesion_by_cat function - ' . $ex);
-           }  
-      }
-      /*
-          * Get all sesion_by_cat 
-      */ 
-      function get_all_sesion_by_cat($column_name=null,$value_id=null,$params=array())
-      {
-        try{
-              $this->db->order_by('sesion_id', 'desc');
-              $this->db->where($column_name, $value_id);
-              if(isset($params) && !empty($params)){
-               $this->db->limit($params['limit'], $params['offset']);
-              }
-               return $this->db->get('sesion')->result_array();
-           } catch (Exception $ex) {
-             throw new Exception('Sesion_model model : Error in get_all_sesion_by_cat function - ' . $ex);
-           }  
-      } 
+            $sesion = $this->db->query("
+                SELECT
+                    s.*, t.tratamiento_gestion, t.tratamiento_mes
+                FROM
+                    sesion s
+                left join tratamiento t on s.tratamiento_id = t.tratamiento_id
+                left join registro r on t.registro_id = r.registro_id
+                left join paciente p on r.paciente_id = p.paciente_id
+                WHERE
+                	(s.estado_id = 3 or s.estado_id = 4) and
+                	p.paciente_id = $paciente_id
+            ")->result_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
+    }
+       
  }

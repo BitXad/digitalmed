@@ -1,22 +1,16 @@
-<script src="<?php echo base_url('resources/js/lostratamientos.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('resources/js/lassesiones.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="elpaciente" id="elpaciente" />
 <input type="hidden" name="paciente_id" id="paciente_id" />
-<input type="hidden" name="registro_id" id="registro_id" />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!--------------------------------------------------------> 
 
 <div class="box-header">
-    <font size='3' face='Arial'><b>PROGRAMACION DE SESIONES</b></font>
+    <font size='3' face='Arial'><b>REGISTRO DE SESIONES</b></font>
     <div class="text-center">
         <font size='3' face='Arial'><b><span id="nombre_paciente">-</span></b></font>
-    </div>
-    
-    <div class="box-tools no-print">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_unanuevasesion" onclick="cargarmodal_nuevas_sesiones()" id="nueva_sesion" style="display: none">
-            <span class="fa fa-pencil-square-o"></span> Nueva Sesion</a>
     </div>
     <div>
         C.I.: <span id="ci_paciente">-</span><br>

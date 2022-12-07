@@ -135,6 +135,20 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
+          <div class="small-box bg-blue-active">
+            <div class="inner">
+                <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
+
+              <p>Registro detalle de sesiones</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-edit"></i>
+            </div>
+            <a href="<?php echo base_url('sesion/lassesiones'); ?>" class="small-box-footer">Registrar detalle sesion <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
                 <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
@@ -144,7 +158,21 @@
             <div class="icon">
               <i class="fa fa-edit"></i>
             </div>
-            <a href="<?php echo base_url('lassesiones'); ?>" class="small-box-footer">Registrar sesion <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('sesion/lassesionesmodif'); ?>" class="small-box-footer">Registrar sesion <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-gray-active">
+            <div class="inner">
+                <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
+
+              <p>Reportes</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-file-text-o"></i>
+            </div>
+            <a href="<?php echo base_url('reportes/losreportes'); ?>" class="small-box-footer">Reportes <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

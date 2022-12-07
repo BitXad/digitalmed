@@ -1551,4 +1551,17 @@ function torta3($anio,$mes)
         }
     }
     
+    /*
+    * muestra las sesiones de un paciente
+    */
+    public function losreportes()
+    {
+        try{
+            $data['_view'] = 'reportes/losreportes';
+            $this->load->view('layouts/main',$data);
+        } catch (Exception $ex) {
+            throw new Exception('Reporte Controller : Error in index function - ' . $ex);
+        }
+    }
+    
 }

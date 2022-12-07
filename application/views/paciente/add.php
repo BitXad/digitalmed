@@ -175,7 +175,7 @@
                         <div class="col-md-4" style="background: #d4dbc3">
                             <label for="registro_numerosesion" class="control-label">Numero Sesión</label>
                             <div class="form-group">
-                                <input type="number" min="1" name="registro_numerosesion" class="form-control" id="registro_numerosesion" />
+                                <input type="number" min="0" name="registro_numerosesion" class="form-control" id="registro_numerosesion" />
                             </div>
                         </div>
                         <div class="col-md-4" style="background: #d4dbc3">

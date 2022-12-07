@@ -614,132 +614,175 @@ class Sesion extends CI_Controller{
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /*
-    * Listing of sesion
+    * muestra las sesiones de un paciente
     */
-    /*public function index()
+    public function lassesiones()
     {
         try{
-          $data['noof_page'] = 0;
-         $data['sesion'] = $this->Sesion_model->get_all_sesion();
-          $data['_view'] = 'sesion/index';
-          $this->load->view('layouts/main',$data);
+            $data['_view'] = 'sesion/lassesiones';
+            $this->load->view('layouts/main',$data);
         } catch (Exception $ex) {
-        throw new Exception('Sesion Controller : Error in index function - ' . $ex);
-      }  
-    }*/
-     /*
-      * Adding a new sesion
-      */
-     function add()
-     {  
-    try{
-          $params = array(
-           'usuario_id'=> $this->input->post('usuario_id'),
-           'paciente_id'=> $this->input->post('paciente_id'),
-           'sesion_fecha'=> $this->input->post('sesion_fecha'),
-           'sesion_hora'=> $this->input->post('sesion_hora'),
-           'sesion_mes'=> $this->input->post('sesion_mes'),
-           'sesion_gestion'=> $this->input->post('sesion_gestion'),
-           'sesion_diagnostico'=> $this->input->post('sesion_diagnostico'),
-            );
-           $this->load->library('upload');
-           $this->load->library('form_validation');
-           if(isset($_POST) && count($_POST) > 0)     
-            {  
-                $sesion_id= $this->Sesion_model->add_sesion($params);
-                 $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Succesfully added.</div>');
-                  redirect('sesion/index');
-            }
-            else
-            { 
-               $data['_view'] = 'sesion/add';
-                $this->load->view('layouts/main',$data);
-            }
-      } catch (Exception $ex) {
-        throw new Exception('Sesion Controller : Error in add function - ' . $ex);
-      }  
-     }  
-      /*
-      * Editing a sesion
-     */
-     public function edit($sesion_id)
-     {   
-      try{
-       $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
-           $this->load->library('upload');
-           $this->load->library('form_validation');
-         if(isset($data['sesion']['sesion_id']))
-          {
-            $params = array(
-               'usuario_id'=> $this->input->post('usuario_id'),
-               'paciente_id'=> $this->input->post('paciente_id'),
-               'sesion_fecha'=> $this->input->post('sesion_fecha'),
-               'sesion_hora'=> $this->input->post('sesion_hora'),
-               'sesion_mes'=> $this->input->post('sesion_mes'),
-               'sesion_gestion'=> $this->input->post('sesion_gestion'),
-               'sesion_diagnostico'=> $this->input->post('sesion_diagnostico'),
-            );
-              if(isset($_POST) && count($_POST) > 0)     
-               {  
-               $this->Sesion_model->update_sesion($sesion_id,$params);
-                 $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Succesfully updated.</div>');
-                    redirect('sesion/index');
-               }
-               else
-              {
-                  $data['_view'] = 'sesion/edit';
-                  $this->load->view('layouts/main',$data);
-              }
-      }
-      else
-      show_error('The sesion you are trying to edit does not exist.');
-      } catch (Exception $ex) {
-        throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
-      }  
-    } 
-    /*
-      * Deleting sesion
-      */
-      function remove($sesion_id)
-       {
+            throw new Exception('Sesion Controller : Error in index function - ' . $ex);
+        }
+    }
+    
+    function mostrar_sesiones_aregistrar(){
         try{
-          $sesion = $this->Sesion_model->get_sesion($sesion_id);
-      // check if the sesion exists before trying to delete it
-           if(isset($sesion['sesion_id']))
-           {
-             $this->Sesion_model->delete_sesion($sesion_id);
-                 $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Succesfully Removed.</div>');
-               redirect('sesion/index');
-           }
-           else
-           show_error('The sesion you are trying to delete does not exist.');
-      } catch (Exception $ex) {
-        throw new Exception('Sesion Controller : Error in remove function - ' . $ex);
-      }  
-      }
+            if($this->input->is_ajax_request()){
+                $paciente_id = $this->input->post('paciente_id');
+                $sesion = $this->Sesion_model->getall_sesionallenar_paciente($paciente_id);
+                echo json_encode($sesion);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    /*
+    * modificar una sesión por enfermeras y doctoras
+     * usa del panel registro detalle de sesiones y registro sesiones
+    */
+    public function detalle_procedimientoed($sesion_id)
+    {
+        try{
+            //$data['tratamiento_id'] = $tratamiento_id;
+            $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
+            /*$tipo = 1;
+            $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
+            */
+            $this->load->library('upload');
+            $this->load->library('form_validation');
+            if(isset($data['sesion']['sesion_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {
+                    $params = array(
+                        'sesion_horaingreso'=> $this->input->post('sesion_horaingreso'),
+                        'sesion_horasalida'=> $this->input->post('sesion_horasalida'),
+                        'sesion_numerosesionhd'=> $this->input->post('sesion_numerosesionhd'),
+                        'sesion_fecha'=> $this->input->post('sesion_fecha'),
+                        'sesion_paingreso'=> $this->input->post('sesion_paingreso'),
+                        'sesion_ingest'=> $this->input->post('sesion_ingest'),
+                        'sesion_pesoseco'=> $this->input->post('sesion_pesoseco'),
+                        'sesion_pesoingreso'=> $this->input->post('sesion_pesoingreso'),
+                        'sesion_pesoegreso'=> $this->input->post('sesion_pesoegreso'),
+                        'sesion_nummaquina'=> $this->input->post('sesion_nummaquina'),
+                        'sesion_ultrafilsesion'=> $this->input->post('sesion_ultrafilsesion'),
+                        'sesion_ultrafilfinal'=> $this->input->post('sesion_ultrafilfinal'),
+                        'sesion_tipofiltro'=> $this->input->post('sesion_tipofiltro'),
+                        'sesion_reutlizacionfiltro'=> $this->input->post('sesion_reutlizacionfiltro'),
+                        'sesion_lineasav'=> $this->input->post('sesion_lineasav'),
+                        'sesion_devolucion'=> $this->input->post('sesion_devolucion'),
+                        'sesion_heparina'=> $this->input->post('sesion_heparina'),
+                        'sesion_ktv'=> $this->input->post('sesion_ktv'),
+                        'sesion_evaluacionenfermeria'=> $this->input->post('sesion_evaluacionenfermeria'),
+                        'sesion_cateter'=> $this->input->post('sesion_cateter'),
+                        'sesion_fistula'=> $this->input->post('sesion_fistula'),
+                        'sesion_evaluacionclinica'=> $this->input->post('sesion_evaluacionclinica'),
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                    $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
+                    redirect('sesion/lassesiones');
+                }else{
+                    $data['_view'] = 'sesion/detalle_procedimientoed';
+                    $this->load->view('layouts/main',$data);
+                }
+            }else
+                show_error('La sesion que intentas modifcar no existe!.');
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
+    }
+    /*
+    * muestra las sesiones de un paciente
+    */
+    public function lassesionesmodif()
+    {
+        try{
+            $data['_view'] = 'sesion/lassesionesmodif';
+            $this->load->view('layouts/main',$data);
+        } catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in index function - ' . $ex);
+        }
+    }
+    /*
+    * modificar una sesión desde dashboard
+    */
+    public function modificarmodif($sesion_id)
+    {
+        try{
+            //$data['tratamiento_id'] = $tratamiento_id;
+            $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
+            $tipo = 2;
+            $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
+            
+            $this->load->library('upload');
+            $this->load->library('form_validation');
+            if(isset($data['sesion']['sesion_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {
+                    $params = array(
+                        'sesion_eritropoyetina'=> $this->input->post('sesion_eritropoyetina'),
+                        'sesion_hierroeve'=> $this->input->post('sesion_hierroeve'),
+                        'sesion_complejobampolla'=> $this->input->post('sesion_complejobampolla'),
+                        'sesion_costosesion'=> $this->input->post('sesion_costosesion'),
+                        'sesion_omeprazol'=> $this->input->post('sesion_omeprazol'),
+                        'sesion_acidofolico'=> $this->input->post('sesion_acidofolico'),
+                        'sesion_calcio'=> $this->input->post('sesion_calcio'),
+                        'sesion_amlodipina'=> $this->input->post('sesion_amlodipina'),
+                        'sesion_enalpril'=> $this->input->post('sesion_enalpril'),
+                        'sesion_losartan'=> $this->input->post('sesion_losartan'),
+                        'sesion_atorvastina'=> $this->input->post('sesion_atorvastina'),
+                        'sesion_asa'=> $this->input->post('sesion_asa'),
+                        'sesion_complejob'=> $this->input->post('sesion_complejob'),
+                        'estado_id'=> $this->input->post('estado_id'),
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                    
+                    $medicamento_id = 21; // Jeringa descartable1 ml. c./aguja
+                    $lamedicacion = $this->Medicacion_model->get_medicamento_sesion($sesion_id, $medicamento_id);
+                    if($this->input->post('sesion_eritropoyetina') > 0){
+                        if(isset($lamedicacion)){
+                            $params = array(
+                                'medicacion_cantidad'=> $this->input->post('sesion_eritropoyetina'),
+                                'estado_id'=> 1,
+                            );
+                            $this->Medicacion_model->update_medicacion($lamedicacion["medicacion_id"], $params);
+                        }else{
+                            $params = array(
+                                'sesion_id'=> $sesion_id,
+                                'medicamento_id'=> 21, // Jeringa descartable1 ml. c./aguja
+                                'estado_id'=> 1,
+                                'medicacion_cantidad'=> $this->input->post('sesion_eritropoyetina'),
+                            );
+                            $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                        }
+                    }else{
+                        if(isset($lamedicacion)){
+                            $params = array(
+                                'estado_id'=> 2,
+                            );
+                            $this->Medicacion_model->update_medicacion($lamedicacion["medicacion_id"], $params);
+                        }
+                    }
+                    
+                    
+                    $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
+                    redirect('sesion/lassesionesmodif/');
+                }else{
+                    $data['_view'] = 'sesion/modificarmodif';
+                    $this->load->view('layouts/main',$data);
+                }
+            }else
+                show_error('La sesion que intentas modifcar no existe!.');
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
+    }
  }
