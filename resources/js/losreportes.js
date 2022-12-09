@@ -48,7 +48,7 @@ function mostrar_tablapacientes()
                     html += "</thead>";
                     html += "<tbody class='buscar'>";
                     for(var i = 0; i < n ; i++){
-                        html += "<tr onclick='este_pacientesesiones("+JSON.stringify(pacientes[i])+"); ocultar_tabla()' style='cursor: pointer'>";
+                        html += "<tr onclick='este_pacientereportes("+JSON.stringify(pacientes[i])+"); ocultar_tabla()' style='cursor: pointer'>";
                         html += "<td class='text-center'>"+(i+1)+"</td>";
                         html += "<td>"+pacientes[i]['paciente_apellido']+"</td>";
                         html += "<td>"+pacientes[i]['paciente_nombre']+"</td>";
@@ -91,12 +91,16 @@ function limpiar_inf_asociado(){
     $("#ci_paciente").html("-");
     $("#telefono_paciente").html("-");
     $("#direccion_paciente").html("-");
+    $("#reporte_gestion").html("-");
+    $("#reporte_mes").html("-");
+    $("#reporte_elegido").css("display", "none");
+    $("#los_reportes").css("display", "none");
 }
 
 /* Poner información del paciente seleccionado y obtiene
 *  las sesiones no cerradas (pendiente, proceso)
 */
-function este_pacientesesiones(paciente)
+function este_pacientereportes(paciente)
 {
     let paciente_id = paciente['paciente_id'];
     //let registro = get_registro_paciente(paciente_id);
@@ -112,7 +116,7 @@ function este_pacientesesiones(paciente)
         $("#direccion_paciente").html(paciente['paciente_direccion']);
 
         let base_url = document.getElementById('base_url').value;
-        let controlador = base_url+'sesion/mostrar_sesiones_aregistrar';
+        let controlador = base_url+'sesion/mostrar_sesionesde_paciente';
 
         document.getElementById('loader').style.display = 'block'; //muestra el bloque del loader
         $("#encontrados").html(0);
@@ -144,7 +148,7 @@ function este_pacientesesiones(paciente)
                             html += "</thead>";
                             html += "<tbody class='buscar'>";
                             for(var i = 0; i < n ; i++){
-                                html += "<tr onclick='ir_adetalleprocedimiento("+sesiones[i]["sesion_id"]+"); ocultar_tabla()' style='cursor: pointer'>";
+                                html += "<tr onclick='elegir_sesionmes("+JSON.stringify(sesiones[i])+");' style='cursor: pointer'>";
                                 html += "<td class='text-center'>"+(i+1)+"</td>";
                                 html += "<td class='text-center'>"+sesiones[i]['tratamiento_gestion']+"</td>";
                                 html += "<td class='text-center'>"+sesiones[i]['tratamiento_mes']+"</td>";
@@ -180,8 +184,72 @@ function este_pacientesesiones(paciente)
     }*/
 }
 
-function ir_adetalleprocedimiento(sesion_id){
+function elegir_sesionmes(sesion){
+    let dirurl = document.getElementById('base_url').value;
+    $("#reporte_gestion").html(sesion['tratamiento_gestion']);
+    $("#reporte_mes").html(sesion['tratamiento_mes']);
+    $("#sesion_numero").html(sesion['sesion_numero']);
+    $("#reporte_elegido").css("display", "block");
+    $("#los_reportes").css("display", "block");
+    
+    html = "<a style='width: 150px; height: 50px;' href='"+dirurl+"reportes/reportesesiones/"+sesion['tratamiento_id']+"' target='_blank' class='btn btn-facebook btn-xs' title='Planilla oral y EV'>";
+    html += "    <span class='fa fa-file-text fa-2x'></span><br> Planilla oral y EV";
+    html += "</a>";
+    $("#planilla_oral").html(html);
+    
+    let ladireccion = "";
+    if(sesion['infmensual_id'] > 0){
+        ladireccion = "href='"+dirurl+"reportes/informecmensual/"+sesion['tratamiento_id']+"'";
+    }else{
+        let mensaje = "Aun no se registro el Informe Clinico Mensual !.";
+        ladireccion = "onclick='mostrar_mensaje("+JSON.stringify(mensaje)+")'";
+    }
+    html = "<a style='width: 150px; height: 50px;' "+ladireccion+" target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'>";
+    html += "    <span class='fa fa-calendar fa-2x'></span><br> Informe Clinico Mensual";
+    html += "</a>";
+    $("#informe_cmensual").html(html);
+    
+    ladireccion = "";
+    if(sesion['certmedico_id'] > 0){
+        ladireccion = "href='"+dirurl+"reportes/certificadomedico/"+sesion['certmedico_id']+"'";
+    }else{
+        let mensaje = "Aun no se registro el certificado medico!.";
+        ladireccion = "onclick='mostrar_mensaje("+JSON.stringify(mensaje)+")'";
+    }
+    //html = "<a style='width: 150px; height: 50px;' href='"+dirurl+"reportes/certificadomedico/"+sesion['certmedico_id']+"' target='_blank' class='btn btn-google btn-xs' title='Certificado medico mensual'>";
+    html = "<a style='width: 150px; height: 50px;' "+ladireccion+" target='_blank' class='btn btn-google btn-xs' title='Certificado medico mensual'>";
+    html += "    <span class='fa fa-file-text fa-2x'></span><br> Certificado Medico Mensual";
+    html += "</a>";
+    $("#certificadom_mensual").html(html);
+    
+    html = "<a style='width: 150px; height: 50px;' href='"+dirurl+"reportes/detalle_procedimiento/"+sesion['sesion_id']+"' target='_blank' class='btn btn-success btn-xs' title='Detalle de procedimiento de hemodialisis'>";
+    html += "    <span class='fa fa-file-text-o fa-2x'></span><br> Detalle del Procedimiento";
+    html += "</a>";
+    $("#detalle_procedimiento").html(html);
+    
+    html = "<a style='width: 150px; height: 50px;' href='"+dirurl+"reportes/medinsumos/"+sesion['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Medicamentos e insumos medicos otorgados y autorizados'>";
+    html += "    <span class='fa fa-list-ol fa-2x'></span><br> Medicamentos e insumos";
+    html += "</a>";
+    $("#medicamentos_einsumos").html(html);
+    
+    
+    
+    
+    
+    
+    // nota: los meses en java script cuentan dedsde 0..... ojo con eso!... comprara menores al 01 de marzo del 2019
+    let fecha_limite = new Date('2019-02-01');
+    let fecha_iniciohemod = new Date(sesion['registro_iniciohemodialisis']);
+    if(fecha_iniciohemod < fecha_limite){
+        $("#el_certificadomedico").css("display", "block");
+    }
+    
+    
     let base_url = document.getElementById('base_url').value;
-    let dir_url  = base_url+"sesion/detalle_procedimientoed/"+sesion_id;
-    window.open(dir_url, '_blank');
+    //let dir_url  = base_url+"sesion/detalle_procedimientoed/"+sesion_id;
+    //window.open(dir_url, '_blank');
+}
+
+function mostrar_mensaje(mensaje){
+    alert(mensaje);
 }

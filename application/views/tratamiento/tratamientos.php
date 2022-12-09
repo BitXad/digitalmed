@@ -169,7 +169,7 @@
         <br><br>
         <div class="modal-content">
             <div class="modal-header text-center" style="background: #00ca6d">
-                <b style="color: white;">REGISTRAR INFORME MENSUAL</b>
+                <b style="color: white;">REGISTRAR INFORME CLINICO MENSUAL</b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
             </div>
             <div class="modal-body">

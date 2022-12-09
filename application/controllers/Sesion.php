@@ -785,4 +785,19 @@ class Sesion extends CI_Controller{
             throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
         }
     }
+    /* es para reportes desde dashboard */
+    function mostrar_sesionesde_paciente(){
+        try{
+            if($this->input->is_ajax_request()){
+                $paciente_id = $this->input->post('paciente_id');
+                $sesion = $this->Sesion_model->getall_sesion_paciente($paciente_id);
+                echo json_encode($sesion);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
  }

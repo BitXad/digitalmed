@@ -148,7 +148,7 @@ class Sesion_model extends CI_Model
     }
     
     /*
-     * Get all sesion 
+     * Get all sesion en estado Pendiente o en proceso de un paciente
     */ 
     function getall_sesionallenar_paciente($paciente_id)
     {
@@ -170,5 +170,32 @@ class Sesion_model extends CI_Model
             throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
         }  
     }
-       
+    
+    /*
+     * Get all sesiones de un paciente
+    */ 
+    function getall_sesion_paciente($paciente_id)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    s.*, t.tratamiento_gestion, t.tratamiento_mes, r.registro_iniciohemodialisis,
+                    c.certmedico_id, i.infmensual_id
+                FROM
+                    sesion s
+                left join tratamiento t on s.tratamiento_id = t.tratamiento_id
+                left join registro r on t.registro_id = r.registro_id
+                left join paciente p on r.paciente_id = p.paciente_id
+                left join certificado_medico c on t.tratamiento_id = c.tratamiento_id
+                left join informe_mensual i on t.tratamiento_id = i.tratamiento_id
+                WHERE
+                	p.paciente_id = $paciente_id
+                order by s.sesion_id desc
+            ")->result_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
+    }
+    
  }

@@ -105,7 +105,7 @@ function mostrar_tablastratamiento()
                         html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificartratamiento' onclick='cargarmodal_modificartratamiento("+JSON.stringify(tratamientos[i])+")' title='Modificar registro'>";
                         html += "<span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"sesion/sesiones/"+tratamientos[i]['tratamiento_id']+"' class='btn btn-yahoo btn-xs' title='Sesiones'><span class='fa fa-list'></span></a>";
-                        html += "<a href='"+base_url+"reportes/reportesesiones/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-facebook btn-xs' title='Reporte de Sesiones'><span class='fa fa-file-text'></span></a>";
+                        html += "<a href='"+base_url+"reportes/reportesesiones/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-facebook btn-xs' title='Planilla oral y EV'><span class='fa fa-file-text'></span></a>";
                         if(tratamientos[i]['infmensual_id'] >0){
                             // modificar informe mensual
                             html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";

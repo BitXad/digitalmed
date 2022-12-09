@@ -109,7 +109,7 @@ function mostrar_tablas()
                         html += "<td class='text-center'>";
                         html += "<a href='"+base_url+"sesion/detalle_procedimiento/"+registros[i]['sesion_id']+"' class='btn btn-facebook btn-xs' title='Detalle de procedimiento de hemodialisis'><span class='fa fa-file-text'></span></a>";
                         html += "<a href='"+base_url+"sesion/detalle_medicacion/"+registros[i]['sesion_id']+"' class='btn btn-soundcloud btn-xs' title='Medicamentos e insumos usados' target='_blank'><span class='fa fa-medkit'></span></a>";
-                        html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar información de la sesión'><span class='fa fa-pencil'></span></a>";
+                        html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar medicacion oral y EV'><span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"reportes/detalle_procedimiento/"+registros[i]['sesion_id']+"' target='_blank' class='btn btn-success btn-xs' title='Imprimir detalle de procedimiento de hemodialisis'><span class='fa fa-file-text-o'></span></a>";
                         html += "</td>";
                         html += "</tr>";

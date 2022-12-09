@@ -153,12 +153,12 @@
             <div class="inner">
                 <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
 
-              <p>Registro sesiones</p>
+              <p>Modificar medicacion de pacientes</p>
             </div>
             <div class="icon">
               <i class="fa fa-edit"></i>
             </div>
-            <a href="<?php echo base_url('sesion/lassesionesmodif'); ?>" class="small-box-footer">Registrar sesion <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('sesion/lassesionesmodif'); ?>" class="small-box-footer">Modificar medicación <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-xs-6">
