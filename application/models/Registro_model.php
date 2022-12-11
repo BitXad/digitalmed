@@ -93,4 +93,11 @@ class Registro_model extends CI_Model
             throw new Exception('Registro_model model : Error in get_all_registro function - ' . $ex);
         }  
     }
+    /*
+     * function to delete registro
+     */
+    function delete_registro($registro_id)
+    {
+        return $this->db->delete('registro',array('registro_id'=>$registro_id));
+    }
  }

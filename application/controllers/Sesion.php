@@ -800,4 +800,22 @@ class Sesion extends CI_Controller{
         }
     }
     
+    /*
+     * Deleting sesion
+     */
+    function remove($sesion_id)
+    {
+        $sesion = $this->Sesion_model->get_sesion($sesion_id);
+        
+        // check if the sesion exists before trying to delete it
+        if(isset($sesion['sesion_id']))
+        {
+            $tratamiento_id = $sesion['tratamiento_id'];
+            $this->Sesion_model->delete_sesion($sesion_id);
+            redirect('sesion/sesiones/'.$tratamiento_id);
+        }
+        else
+            show_error('La Sesion que intentas eliminar no existe!....');
+    }
+    
  }

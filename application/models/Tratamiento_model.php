@@ -140,5 +140,11 @@ class Tratamiento_model extends CI_Model
            throw new Exception('Tratamiento_model Model : Error in get_tratamiento function - ' . $ex);
         }
     }
-    
+    /*
+     * function to delete tratamiento
+     */
+    function delete_tratamiento($tratamiento_id)
+    {
+        return $this->db->delete('tratamiento',array('tratamiento_id'=>$tratamiento_id));
+    }
  }

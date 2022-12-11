@@ -127,6 +127,7 @@ function mostrar_tablastratamiento()
                                 html += "<span class='fa fa-pencil-square-o'></span></a>";
                             }
                         }
+                        html += "<a onclick='eliminar_tratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-danger btn-xs' title='Eliminar tratamiento del sistema'><span class='fa fa-trash'></span></a>";
                         html += "</td>";
                         html += "</tr>";
                     }
@@ -562,4 +563,14 @@ function cargarmodal_modificarcertmedico(certmedico_id)
                 });
             },
     }); 
+}
+
+function eliminar_tratamiento(tratamiento_id){
+    let confirmacion =  confirm('Esta seguro que quiere eliminiar a este Tratamiento del sistema?\n Nota.- esta operacion es irreversible!.')
+    if(confirmacion == true){
+        let base_url = document.getElementById('base_url').value;
+        dir_url = base_url+"tratamiento/remove/"+tratamiento_id;
+        location.href =dir_url;
+    }
+    
 }

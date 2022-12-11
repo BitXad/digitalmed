@@ -48,41 +48,44 @@ function cargarmodal_nuevoregistro()
 
 function registrar_registro()
 {
-    let registro_fecha = document.getElementById("registro_fecha").value;
-    let registro_hora = document.getElementById("registro_hora").value;
-    let registro_mes = document.getElementById("registro_mes").value;
-    let registro_gestion = document.getElementById("registro_gestion").value;
-    let registro_numaquina = document.getElementById("registro_numaquina").value;
-    let registro_tipofiltro = document.getElementById("registro_tipofiltro").value;
     let avascular_nombre = document.getElementById("avascular_nombre").value;
-    let avascular_detalle = document.getElementById("avascular_detalle").value;
-    let registro_numerosesion = document.getElementById("registro_numerosesion").value;
-    let registro_iniciohemodialisis = document.getElementById("registro_iniciohemodialisis").value;
-    let registro_filtro = document.getElementById("registro_filtro").value;
-    let registro_diagnostico = document.getElementById("registro_diagnostico").value;
-    let paciente_id = document.getElementById("paciente_id").value;
-    
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'registro/registrar_registro';
-    document.getElementById('loaderregistro').style.display = 'block';
-    $.ajax({url:controlador,
-            type:"POST",
-            data:{registro_fecha:registro_fecha, registro_hora:registro_hora,
-                registro_mes:registro_mes, registro_gestion:registro_gestion,
-                registro_diagnostico:registro_diagnostico, paciente_id:paciente_id,
-                registro_numaquina:registro_numaquina, registro_tipofiltro:registro_tipofiltro,
-                avascular_nombre:avascular_nombre, avascular_detalle:avascular_detalle,
-                registro_numerosesion:registro_numerosesion, registro_iniciohemodialisis:registro_iniciohemodialisis,
-                registro_filtro:registro_filtro
-            },
-            success:function(result){
-                res = JSON.parse(result);
-                    alert("Registro generado correctamente");
-                    $('#boton_cerrarmodal').click();
-                    mostrar_tablasregistro();
-            },
-    });
-            
+    if(avascular_nombre == 0){
+        alert("Debe elegir un tipo de accceso!.");
+    }else{
+        let registro_fecha = document.getElementById("registro_fecha").value;
+        let registro_hora = document.getElementById("registro_hora").value;
+        let registro_mes = document.getElementById("registro_mes").value;
+        let registro_gestion = document.getElementById("registro_gestion").value;
+        let registro_numaquina = document.getElementById("registro_numaquina").value;
+        let registro_tipofiltro = document.getElementById("registro_tipofiltro").value;
+        let avascular_detalle = document.getElementById("avascular_detalle").value;
+        let registro_numerosesion = document.getElementById("registro_numerosesion").value;
+        let registro_iniciohemodialisis = document.getElementById("registro_iniciohemodialisis").value;
+        let registro_filtro = document.getElementById("registro_filtro").value;
+        let registro_diagnostico = document.getElementById("registro_diagnostico").value;
+        let paciente_id = document.getElementById("paciente_id").value;
+
+        var base_url = document.getElementById('base_url').value;
+        var controlador = base_url+'registro/registrar_registro';
+        document.getElementById('loaderregistro').style.display = 'block';
+        $.ajax({url:controlador,
+                type:"POST",
+                data:{registro_fecha:registro_fecha, registro_hora:registro_hora,
+                    registro_mes:registro_mes, registro_gestion:registro_gestion,
+                    registro_diagnostico:registro_diagnostico, paciente_id:paciente_id,
+                    registro_numaquina:registro_numaquina, registro_tipofiltro:registro_tipofiltro,
+                    avascular_nombre:avascular_nombre, avascular_detalle:avascular_detalle,
+                    registro_numerosesion:registro_numerosesion, registro_iniciohemodialisis:registro_iniciohemodialisis,
+                    registro_filtro:registro_filtro
+                },
+                success:function(result){
+                    res = JSON.parse(result);
+                        alert("Registro generado correctamente");
+                        $('#boton_cerrarmodal').click();
+                        mostrar_tablasregistro();
+                },
+        });
+    }
 }
 
 function mostrar_tablasregistro()
@@ -114,6 +117,7 @@ function mostrar_tablasregistro()
                         html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificarregistro' onclick='cargarmodal_modificarregistro("+JSON.stringify(registros[i])+")'>";
                         html += "<span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"tratamiento/tratamientos/"+registros[i]['registro_id']+"' class='btn btn-facebook btn-xs' title='Tratamientos de un registro'><span class='fa fa-file-text'></span></a>";
+                        html += "<a onclick='eliminar_registro("+registros[i]['registro_id']+")' class='btn btn-danger btn-xs' title='Eliminar registro del sistema'><span class='fa fa-trash'></span></a>";
                         //html += "<a href='"+base_url+"acceso_vascular/historial/"+registros[i]['registro_id']+"' class='btn btn-dropbox btn-xs' title='Historial de accesos' target='_blank'><span class='fa fa-list-ol'></span></a>";
                         html += "</td>";
                         html += "</tr>";
@@ -235,5 +239,14 @@ function detalle_acceso()
         html += "<option value='MSI'>MSI</option>";
         html += "</select>";
         $('#avasculardetalle').html(html);
+    }
+}
+
+function eliminar_registro(registro_id){
+    let confirmacion =  confirm('Esta seguro que quiere eliminiar a este Registro del sistema?\n Nota.- esta operacion es irreversible!.')
+    if(confirmacion == true){
+        let base_url = document.getElementById('base_url').value;
+        dir_url = base_url+"registro/remove/"+registro_id;
+        location.href =dir_url;
     }
 }

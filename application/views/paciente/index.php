@@ -147,10 +147,11 @@
                         <td class="text-center">
                             <a href="<?php echo site_url('paciente/edit/'.$p['paciente_id']); ?>" class="btn btn-info btn-xs" title="Modificar paciente"><span class="fa fa-pencil"></span></a> 
                             <a href="<?php echo site_url('registro/registros/'.$p['paciente_id']); ?>" class="btn btn-facebook btn-xs" title="Ver registros de pacientes"><span class="fa fa-list-alt"></span></a>
+                            <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-warning btn-xs" title="Ver documentos del paciente" target="_blank"><span class="fa fa-file-image-o"></span></a>
                             <?php
                             if($p['estado_id'] == 1){
                             ?>
-                            <a href="<?php echo site_url('paciente/darde_baja/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Dar de baja a un paciente"><span class="fa fa-trash"></span></a>
+                            <a href="<?php echo site_url('paciente/darde_baja/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Dar de baja a un paciente"><span class="fa fa-minus-circle"></span></a>
                             <?php
                             }else{
                             ?>
@@ -158,7 +159,7 @@
                             <?php
                             }
                             ?>
-                            <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-success btn-xs" title="Ver documentos del paciente" target="_blank"><span class="fa fa-file-image-o"></span></a>
+                            <a onclick="return confirm('Esta seguro que quiere eliminiar a este paciente del sistema?\n Nota.- esta operacion es irreversible!.')" href="<?php echo site_url('paciente/remove/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Eliminar paciente del sistema"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                     <?php

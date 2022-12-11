@@ -372,7 +372,7 @@ class Paciente extends CI_Controller{
         if(isset($paciente['paciente_id']))
         {
             $this->Paciente_model->delete_paciente($paciente_id);
-            redirect('paciente/index');
+            redirect('paciente');
         }
         else
             show_error('The paciente you are trying to delete does not exist.');

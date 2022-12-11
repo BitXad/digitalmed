@@ -695,4 +695,23 @@ class Tratamiento extends CI_Controller{
             echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
     }
+    
+    /*
+     * Deleting tratamiento
+     */
+    function remove($tratamiento_id)
+    {
+        $tratamiento = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        
+        // check if the tratamiento exists before trying to delete it
+        if(isset($tratamiento['tratamiento_id']))
+        {
+            $registro_id = $tratamiento['registro_id'];
+            $this->Tratamiento_model->delete_tratamiento($tratamiento_id);
+            redirect('tratamiento/tratamientos/'.$registro_id);
+        }
+        else
+            show_error('El Tratamiento que intentas eliminar no existe!....');
+    }
+    
  }

@@ -103,5 +103,22 @@ class Registro extends CI_Controller{
             echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
     }
+    /*
+     * Deleting registro
+     */
+    function remove($registro_id)
+    {
+        $registro = $this->Registro_model->get_registro($registro_id);
+        
+        // check if the registro exists before trying to delete it
+        if(isset($registro['registro_id']))
+        {
+            $paciente_id = $registro['paciente_id'];
+            $this->Registro_model->delete_registro($registro_id);
+            redirect('registro/registros/'.$paciente_id);
+        }
+        else
+            show_error('El registro que intentas eliminar no existe!....');
+    }
     
  }
