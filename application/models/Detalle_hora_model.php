@@ -70,7 +70,24 @@ class Detalle_hora_model extends CI_Model
         }
     }
     
-    
+    /*
+     * Get detalle hora activas de una sesion estop para el reporte detalle de procedimiento
+     */
+    function get_detalle_horasesionactivas($sesion_id)
+    {
+        $detalle_hora = $this->db->query("
+            SELECT
+                dh.*, e.estado_color, e.estado_descripcion
+            FROM
+                detalle_hora dh
+            left join estado e on dh.estado_id = e.estado_id
+            WHERE
+                dh.sesion_id = $sesion_id
+                and dh.estado_id = 1
+        ")->result_array();
+
+        return $detalle_hora;
+    }
     
     
     

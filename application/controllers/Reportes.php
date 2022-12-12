@@ -67,18 +67,38 @@ class Reportes extends CI_Controller{
     function detalle_procedimiento($sesion_id)
     {
         //if($this->acceso(141)){
-        $this->load->model('Sesion_model');
-        $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
-        $this->load->model('Detalle_hora_model');
-        $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesion($sesion_id);
-        
         $this->load->model('Parametro_model');
         $data['parametro'] = $this->Parametro_model->get_parametros();
-        
+        $this->load->model('Detalle_hora_model');
         $data['page_title'] = "Detalle Procedimiento";
-        $data['_view'] = 'reportes/detalle_procedimiento';
-
+        
+        $this->load->model('Sesion_model');
+        $sesion = $this->Sesion_model->get_sesion($sesion_id);
+        $eltratamiento_id = $sesion["tratamiento_id"];
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($sesion['tratamiento_id']);
+        
+        $cantidad = $this->Sesion_model->getcount_sesiontratamiento($eltratamiento_id);
+        $sesion_numero = $sesion["sesion_numero"];
+        
+        if($sesion_numero % 2 == 0){ //numero de sesion es par
+            $data['sesion'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero-1));
+            $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($data['sesion']['sesion_id']);
+            $data['sesion2'] =  $sesion;
+            $data['detalle_hora2'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
+            $data['_view'] = 'reportes/detalle_procedimiento';
+        }else{ //numero de sesion es impar
+            $data['sesion'] =  $sesion;
+            if($sesion_numero == $cantidad){
+                $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
+                $data['_view'] = 'reportes/detalle_pultimoimpar';
+            }else{
+                $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
+                $data['sesion2'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero+1));
+                $data['detalle_hora2'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($data['sesion2']['sesion_id']);
+                $data['_view'] = 'reportes/detalle_procedimiento';
+            }
+        }
+        
         $this->load->view('layouts/main',$data);
         //}
     }

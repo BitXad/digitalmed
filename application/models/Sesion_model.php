@@ -9,7 +9,6 @@ class Sesion_model extends CI_Model
     {
         parent::__construct();
     }
-      
     
     /*
        * function to add new sesion 
@@ -46,7 +45,7 @@ class Sesion_model extends CI_Model
     }
     
     /*
-     * Obtiene informacion del pasiente, dado un tratamiento
+     * Obtiene informacion del paciente, dado un tratamiento
     */ 
     function get_pacientetratamiento($tratamiento_id)
     {
@@ -192,6 +191,48 @@ class Sesion_model extends CI_Model
                 	p.paciente_id = $paciente_id
                 order by s.sesion_id desc
             ")->result_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }
+    }
+    /*
+     * Get all sesion 
+    */ 
+    function getcount_sesiontratamiento($tratamiento_id)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    count(s.sesion_id) as cantidad_sesion
+                FROM
+                    sesion s
+                WHERE
+                    s.tratamiento_id = $tratamiento_id
+                    and s.estado_id != 7
+            ")->row_array();
+            return $sesion["cantidad_sesion"];
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
+    }
+    
+    /*
+     * Obtiene la sesion (anterior o posterior) en base al tratamiento y numeo de sesion
+    */ 
+    function get_otrasesion($tratamiento_id, $sesion_numero)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    s.*
+                FROM
+                    sesion s
+                WHERE
+                    s.tratamiento_id = $tratamiento_id
+                    and s.sesion_numero = $sesion_numero
+                    and s.estado_id != 7
+            ")->row_array();
             return $sesion;
         } catch (Exception $ex) {
             throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
