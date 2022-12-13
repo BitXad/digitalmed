@@ -224,11 +224,11 @@ function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
         $("#infmensual_laboratorio").val(ultimo_informe["infmensual_laboratorio"]);
         $("#infmensual_conclusion").val(ultimo_informe["infmensual_conclusion"]);
     }else{
-        $("#infmensual_cabecera").val("");
-        $("#infmensual_accesouno").val("");
-        $("#infmensual_accesodos").val("");
-        $("#infmensual_laboratorio").val("");
-        $("#infmensual_conclusion").val("");
+        $("#infmensual_cabecera").val("con antecedentes de Litiasis Renoureteral el 2018 y Atrofia Renal Izquierda ha desarrollado Enfermedad Renal Crónica V por Nefropatia Obstructiva Secundaria a Litiasis Renoureteral.");
+        $("#infmensual_accesouno").val("con adecuado funcionamiento. Desarrolla sus actividades cotidianas de forma regular.");
+        $("#infmensual_accesodos").val("con excesivas ganacias de peso iinterdialitico, se insiste restriccion hidrica. se modifica peso seco a tolerancia. Triage COVID 19 negativo.");
+        $("#infmensual_laboratorio").val("Laboratorio Acceso vascular: Fistula Arterio venosa - MSI con adecuado funcionamiento. Desarrolla sus actividades cotidianas de forma regular. Peso seco de 70.000Kg. con xcesivas ganacias de peso iinterdialitico, se insiste restriccion hidrica. se modifica peso seco a tolerancia. Triage COVID 19 negativo");
+        $("#infmensual_conclusion").val("Conclusiones Paciente debe cumplir restriccion hidrica, adedmaas de continuar tratamiento hemodialitico. es cuanto iniormo para los fines consiguientes");
     }
     let num_mes = "";
     const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
@@ -379,12 +379,12 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
         $("#certmedico_cabeceracuatro").val(ultimo_certmedico["certmedico_cabeceracuatro"]);
         //$("#certmedico_medicacion").val(ultimo_certmedico["certmedico_medicacion"]);
     }else{
-        $("#certmedico_nombre").val("");
-        $("#certmedico_codigo").val("");
-        $("#certmedico_cabecerauno").val("");
-        $("#certmedico_cabecerados").val("");
-        $("#certmedico_cabeceratres").val("");
-        $("#certmedico_cabeceracuatro").val("");
+        $("#certmedico_nombre").val("Dr. Jose Enrique Gutiérrez Méndez");
+        $("#certmedico_codigo").val("G-795/G-156");
+        $("#certmedico_cabecerauno").val("Con Antencedente de Pre-Eclampsia previa y Glomerulonefritis Mesangioproliferativa que evolucionó a Enfermedad Renal Crónica, con requerimiento de tratamiento Hemodialitico");
+        $("#certmedico_cabecerados").val("Al momento el paciente se encuentra estable, realiza sus sesiones de dialisis en la Unidad de hemodialisis José E. Gutiérrez M.en turno mañana los dias Martes, Jueves y Sabado, maquina Hemodiafiltración seronegativa, 4 horas a travez de");
+        $("#certmedico_cabeceratres").val("QB 450 ml/min, QD 540 ml/min, UF controlada, buffer bicarbonato");
+        $("#certmedico_cabeceracuatro").val("Triage COVID 19 negativo");
         //$("#certmedico_medicacion").val("");
     }
     $("#certmedico_medicacion").val("");
