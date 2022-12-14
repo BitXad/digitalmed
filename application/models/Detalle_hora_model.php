@@ -9,6 +9,23 @@ class Detalle_hora_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    /*
+     * Get detalle hora
+     */
+    function get_detalle_hora($detallehora_id)
+    {
+        $detalle_hora = $this->db->query("
+            SELECT
+                dh.*
+            FROM
+                detalle_hora dh
+            WHERE
+                dh.detallehora_id = $detallehora_id
+        ")->row_array();
+
+        return $detalle_hora;
+    }
      
     /*
      * Get cantidad de horas registradas de una sesion
@@ -89,10 +106,12 @@ class Detalle_hora_model extends CI_Model
         return $detalle_hora;
     }
     
-    
-    
-    
-    
-    
+    /*
+     * function to delete registro
+     */
+    function delete_detallehora($detallehora_id)
+    {
+        return $this->db->delete('detalle_hora',array('detallehora_id'=>$detallehora_id));
+    }
     
  }

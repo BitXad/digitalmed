@@ -118,11 +118,12 @@ function mostrar_tablashora()
                         html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificarhorasesion' onclick='mostrar_modalmodificarhora("+JSON.stringify(registros[i])+")'>";
                         html += "    <span class='fa fa-pencil'></span>";
                         html += "</a>";
-                        if(registros[i]['estado_id'] == 5){
-                            html += "<a class='btn btn-danger btn-xs' title='Anular el detalle de registro de la hora' onclick='anular_registrohora("+registros[i]["detallehora_id"]+")'><span class='fa fa-trash'></span></a>";
+                        /*if(registros[i]['estado_id'] == 5){
+                            html += "<a class='btn btn-danger btn-xs' title='Anular el detalle de registro de la hora' onclick='anular_registrohora("+registros[i]["detallehora_id"]+")'><span class='fa fa-minus-circle'></span></a>";
                         }else{
                             html += "<a class='btn btn-success btn-xs' title='Activar el detalle de registro de la hora' onclick='activar_registrohora("+registros[i]["detallehora_id"]+")'><span class='fa fa-check'></span></a>";
-                        }
+                        }*/
+                        html += "<a class='btn btn-danger btn-xs' title='Eliminar el detalle de registro de la hora' onclick='eliminar_registrohora("+registros[i]["detallehora_id"]+")'><span class='fa fa-trash'></span></a>";
                         html += "</td>";
                         html += "</tr>";
                     }
@@ -226,3 +227,33 @@ function activar_registrohora(detallehora_id)
             },
     });
 }
+
+function eliminar_registrohora(detallehora_id)
+{
+    let confirmacion =  confirm('Esta seguro que quiere eliminiar este Registro Hora del sistema?\n Nota.- esta operacion es irreversible!.')
+    if(confirmacion == true){
+        var base_url = document.getElementById('base_url').value;
+        var controlador = base_url+'detalle_hora/eliminar_detallehora';
+        document.getElementById('loader').style.display = 'block';
+        $.ajax({url:controlador,
+                type:"POST",
+                data:{detallehora_id:detallehora_id
+                },
+                success:function(result){
+                    res = JSON.parse(result);
+                        alert("Eliminación exitosa");
+                        mostrar_tablashora();
+                },
+        });
+    }
+}
+
+/*
+function eliminar_registrohora(detallehora_id){
+    let confirmacion =  confirm('Esta seguro que quiere eliminiar este Registro Hora del sistema?\n Nota.- esta operacion es irreversible!.')
+    if(confirmacion == true){
+        let base_url = document.getElementById('base_url').value;
+        dir_url = base_url+"detalle_hora/remove/"+detallehora_id;
+        location.href =dir_url;
+    }
+}*/

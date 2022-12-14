@@ -28,7 +28,7 @@ class Detalle_hora extends CI_Controller{
     function registrar_hora(){
         try{
             if($this->input->is_ajax_request()){
-                $estado_id = 5; //estado = ACTIVO
+                $estado_id = 1; //estado = ACTIVO
                 $params = array(
                     'sesion_id' => $this->input->post('sesion_id'),
                     'estado_id' => $estado_id,
@@ -94,7 +94,7 @@ class Detalle_hora extends CI_Controller{
         try{
             if($this->input->is_ajax_request()){
                 $detallehora_id = $this->input->post('detallehora_id');
-                $estado_id = 6;
+                $estado_id = 2;
                 $params = array(
                     'estado_id' => $estado_id,
                 );
@@ -112,7 +112,7 @@ class Detalle_hora extends CI_Controller{
         try{
             if($this->input->is_ajax_request()){
                 $detallehora_id = $this->input->post('detallehora_id');
-                $estado_id = 5;
+                $estado_id = 1;
                 $params = array(
                     'estado_id' => $estado_id,
                 );
@@ -125,4 +125,20 @@ class Detalle_hora extends CI_Controller{
             echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
     }
+    
+    /* eliminar detalle hora */
+    function eliminar_detallehora(){
+        try{
+            if($this->input->is_ajax_request()){
+                $detallehora_id = $this->input->post('detallehora_id');
+                $this->Detalle_hora_model->delete_detallehora($detallehora_id);
+                echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
  }
