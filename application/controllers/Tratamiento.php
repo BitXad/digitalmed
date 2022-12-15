@@ -100,6 +100,7 @@ class Tratamiento extends CI_Controller{
                     'infmensual_accesouno' => $this->input->post('infmensual_accesouno'),
                     'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
                     'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
+                    'infmensual_paratohormona' => $this->input->post('infmensual_paratohormona'),
                     'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
                     'infmensual_fecha' => $this->input->post('infmensual_fecha'),
                 );
@@ -136,6 +137,7 @@ class Tratamiento extends CI_Controller{
                     'infmensual_accesouno' => $this->input->post('infmensual_accesouno'),
                     'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
                     'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
+                    'infmensual_paratohormona' => $this->input->post('infmensual_paratohormona'),
                     'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
                     'infmensual_fecha' => $this->input->post('infmensual_fecha'),
                 );

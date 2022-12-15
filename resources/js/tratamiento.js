@@ -222,12 +222,14 @@ function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
         $("#infmensual_accesouno").val(ultimo_informe["infmensual_accesouno"]);
         $("#infmensual_accesodos").val(ultimo_informe["infmensual_accesodos"]);
         $("#infmensual_laboratorio").val(ultimo_informe["infmensual_laboratorio"]);
+        $("#infmensual_paratohormona").val(ultimo_informe["infmensual_paratohormona"]);
         $("#infmensual_conclusion").val(ultimo_informe["infmensual_conclusion"]);
     }else{
         $("#infmensual_cabecera").val("con antecedentes de Litiasis Renoureteral el 2018 y Atrofia Renal Izquierda ha desarrollado Enfermedad Renal Crónica V por Nefropatia Obstructiva Secundaria a Litiasis Renoureteral.");
         $("#infmensual_accesouno").val("con adecuado funcionamiento. Desarrolla sus actividades cotidianas de forma regular.");
         $("#infmensual_accesodos").val("con excesivas ganacias de peso iinterdialitico, se insiste restriccion hidrica. se modifica peso seco a tolerancia. Triage COVID 19 negativo.");
-        $("#infmensual_laboratorio").val("Laboratorio Acceso vascular: Fistula Arterio venosa - MSI con adecuado funcionamiento. Desarrolla sus actividades cotidianas de forma regular. Peso seco de 70.000Kg. con xcesivas ganacias de peso iinterdialitico, se insiste restriccion hidrica. se modifica peso seco a tolerancia. Triage COVID 19 negativo");
+        $("#infmensual_laboratorio").val("Laboratorio");
+        $("#infmensual_paratohormona").val("Paciente tiene reporte de Paratohormona de ");
         $("#infmensual_conclusion").val("Conclusiones Paciente debe cumplir restriccion hidrica, adedmaas de continuar tratamiento hemodialitico. es cuanto iniormo para los fines consiguientes");
     }
     let num_mes = "";
@@ -260,7 +262,9 @@ function registrar_infmensual()
     let infmensual_cabecera = document.getElementById("infmensual_cabecera").value;
     let infmensual_accesouno = document.getElementById("infmensual_accesouno").value;
     let infmensual_accesodos = document.getElementById("infmensual_accesodos").value;
-    let infmensual_laboratorio = document.getElementById("infmensual_laboratorio").value;
+    //let infmensual_laboratorio = document.getElementById("infmensual_laboratorio").value;
+    let infmensual_laboratorio = CKEDITOR.instances.infmensual_laboratorio.getData();
+    let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormona.getData();
     let infmensual_conclusion = document.getElementById("infmensual_conclusion").value;
     let infmensual_fecha = document.getElementById("infmensual_fecha").value;
     let tratamiento_id = document.getElementById("tratamiento_id").value;
@@ -273,7 +277,7 @@ function registrar_infmensual()
             data:{infmensual_cabecera:infmensual_cabecera, infmensual_accesouno:infmensual_accesouno,
                 infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
                 infmensual_fecha:infmensual_fecha, tratamiento_id:tratamiento_id,
-                infmensual_accesodos:infmensual_accesodos
+                infmensual_accesodos:infmensual_accesodos, infmensual_paratohormona:infmensual_paratohormona
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -302,6 +306,7 @@ function cargarmodal_modificarinfmensual(infmensual_id)
                 $("#infmensual_accesounomodif").val(res["infmensual_accesouno"]);
                 $("#infmensual_accesodosmodif").val(res["infmensual_accesodos"]);
                 $("#infmensual_laboratoriomodif").val(res["infmensual_laboratorio"]);
+                $("#infmensual_paratohormonamodif").val(res["infmensual_paratohormona"]);
                 $("#infmensual_conclusionmodif").val(res["infmensual_conclusion"]);
                 $("#infmensual_fechamodif").val(res["infmensual_fecha"]);
                 $("#infmensual_id").val(infmensual_id);
@@ -317,7 +322,10 @@ function modificar_infmensual()
     let infmensual_cabecera = document.getElementById("infmensual_cabeceramodif").value;
     let infmensual_accesouno = document.getElementById("infmensual_accesounomodif").value;
     let infmensual_accesodos = document.getElementById("infmensual_accesodosmodif").value;
-    let infmensual_laboratorio = document.getElementById("infmensual_laboratoriomodif").value;
+    //let infmensual_laboratorio = document.getElementById("infmensual_laboratoriomodif").value;
+    let infmensual_laboratorio = CKEDITOR.instances.infmensual_laboratoriomodif.getData();
+    let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormonamodif.getData();
+    //let infmensual_laboratorio = document.getElementById("cke_infmensual_laboratoriomodif").value;
     let infmensual_conclusion = document.getElementById("infmensual_conclusionmodif").value;
     let infmensual_fecha = document.getElementById("infmensual_fechamodif").value;
     let infmensual_id = document.getElementById("infmensual_id").value;
@@ -330,7 +338,7 @@ function modificar_infmensual()
             data:{infmensual_cabecera:infmensual_cabecera, infmensual_accesouno:infmensual_accesouno,
                 infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
                 infmensual_fecha:infmensual_fecha, infmensual_id:infmensual_id,
-                infmensual_accesodos:infmensual_accesodos
+                infmensual_accesodos:infmensual_accesodos, infmensual_paratohormona:infmensual_paratohormona
             },
             success:function(result){
                 res = JSON.parse(result);

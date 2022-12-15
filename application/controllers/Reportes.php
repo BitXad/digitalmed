@@ -119,11 +119,11 @@ class Reportes extends CI_Controller{
         if($total_sesion > 0){
             $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
             $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
-            if($sesion_cateter != "" && $sesion_cateter != null){
+            if($sesion_cateter != "CATETER - " && $sesion_cateter != null){
                 $acceso_vascular = $sesion_cateter;
             }
             if($sesion_fistula != "" && $sesion_fistula != null){
-                $acceso_vascular = $sesion_fistula;
+                $acceso_vascular = "FISTULA ARTERIO VENOSA - ".$sesion_fistula;
             }
         }
         

@@ -1,4 +1,6 @@
 <script src="<?php echo base_url('resources/js/tratamiento.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('ckeditor/ckeditor.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('ckeditor/adapters/jquery.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="registro_id" id="registro_id" value="<?php echo $registro["registro_id"]; ?>" />
 <input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente["paciente_id"]; ?>" />
@@ -194,10 +196,40 @@
                         <textarea class="form-control" name="infmensual_accesodos" id="infmensual_accesodos"></textarea>
                     </div>
                 </div>
+                <!--<div class="col-md-12">
+                    <label for="infmensual_laboratorio" class="control-label">Laboratorio</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_laboratorio" id="infmensual_laboratorio"></textarea>
+                    </div>
+                </div>-->
                 <div class="col-md-12">
                     <label for="infmensual_laboratorio" class="control-label">Laboratorio</label>
                     <div class="form-group">
                         <textarea class="form-control" name="infmensual_laboratorio" id="infmensual_laboratorio"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_laboratorio" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_paratohormona" class="control-label">Paratohormona</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_paratohormona" id="infmensual_paratohormona"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_paratohormona" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -231,7 +263,7 @@
         <br><br>
         <div class="modal-content">
             <div class="modal-header text-center" style="background: #00ca6d">
-                <b style="color: white;">MODIFICAR INFORME MENSUAL</b>
+                <b style="color: white;">MODIFICAR INFORME CLINICO MENSUAL</b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
             </div>
             <div class="modal-body">
@@ -256,10 +288,40 @@
                         <textarea class="form-control" name="infmensual_accesodosmodif" id="infmensual_accesodosmodif"></textarea>
                     </div>
                 </div>
+                <!--<div class="col-md-12">
+                    <label for="infmensual_laboratoriomodif" class="control-label">Laboratorio</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_laboratoriomodif" id="infmensual_laboratoriomodif"></textarea>
+                    </div>
+                </div>-->
                 <div class="col-md-12">
                     <label for="infmensual_laboratoriomodif" class="control-label">Laboratorio</label>
                     <div class="form-group">
                         <textarea class="form-control" name="infmensual_laboratoriomodif" id="infmensual_laboratoriomodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_laboratoriomodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_paratohormonamodif" class="control-label">Paratohormona</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_paratohormonamodif" id="infmensual_paratohormonamodif" rows="5"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_paratohormonamodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-9">
