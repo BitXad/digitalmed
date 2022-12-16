@@ -20,6 +20,7 @@ class Reportes extends CI_Controller{
         $this->load->model('Medicacion_model');
         $this->load->model('Registro_model');
         $this->load->model('Certificado_medico_model');
+        $this->load->model('Anemia_glicemia_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -119,8 +120,8 @@ class Reportes extends CI_Controller{
         if($total_sesion > 0){
             $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
             $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
-            if($sesion_cateter != "CATETER - " && $sesion_cateter != null){
-                $acceso_vascular = $sesion_cateter;
+            if($sesion_cateter != "" && $sesion_cateter != null){
+                $acceso_vascular = "CATETER - ".$sesion_cateter;
             }
             if($sesion_fistula != "" && $sesion_fistula != null){
                 $acceso_vascular = "FISTULA ARTERIO VENOSA - ".$sesion_fistula;
@@ -247,6 +248,39 @@ class Reportes extends CI_Controller{
         $this->load->view('layouts/main',$data);
         //}
     }
+    /*
+     * Informe de Anemia y Glicemia
+     */
+    function infanemiaglicemia($tratamiento_id)
+    {
+        //if($this->acceso(141)){
+        $this->load->model('Sesion_model');
+        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        //$data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+        $data['anemia_glicemia'] = $this->Anemia_glicemia_model->getall_anemia_glicemiatratamiento($tratamiento_id);
+        //$data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+        
+        /*$data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+        
+        $peso_seco = "";
+        $total_sesion = sizeof($data['sesiones']);
+        if($total_sesion > 0){
+            $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
+        }
+        $data['peso_seco'] = $peso_seco;
+        */
+        $this->load->model('Parametro_model');
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        $data['page_title'] = "Informe clinico mensual";
+        $data['_view'] = 'reportes/infanemiaglicemia';
+
+        $this->load->view('layouts/main',$data);
+        //}
+    }
+    
+    
     
     
     

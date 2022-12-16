@@ -4,6 +4,8 @@
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="registro_id" id="registro_id" value="<?php echo $registro["registro_id"]; ?>" />
 <input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente["paciente_id"]; ?>" />
+<!--<input type="hidden" name="elfirmante_nombre" id="elfirmante_nombre" value="<?php /*echo $paciente["paciente_nombrefirmante"]; ?>" />
+<input type="hidden" name="elfirmante_ci" id="elfirmante_ci" value="<?php echo $paciente["paciente_cifirmante"];*/ ?>" />-->
 <input type="hidden" name="rinicio_hemodialisis" id="rinicio_hemodialisis" value="<?php echo $registro["registro_iniciohemodialisis"]; ?>" />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
@@ -232,6 +234,18 @@
                         ?>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <label for="infmensual_glucemia" class="control-label">Glucemia</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_glucemia" id="infmensual_glucemia"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_firmante" class="control-label">Firmante</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_firmante" id="infmensual_firmante"></textarea>
+                    </div>
+                </div>
                 <div class="col-md-9">
                     <label for="infmensual_conclusion" class="control-label">Conclusiones</label>
                     <div class="form-group">
@@ -322,6 +336,18 @@
                         );
                         jquery_ckeditor($ck_config);
                         ?>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_glucemiamodif" class="control-label">Glucemia</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_glucemiamodif" id="infmensual_glucemiamodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="infmensual_firmantenmodif" class="control-label">Firmante</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="infmensual_firmantenmodif" id="infmensual_firmantenmodif"></textarea>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -496,6 +522,142 @@
     </div>
 </div>
 <!------------------------ F I N  modal para Modificar certificado medico de paciente ------------------->
+<!------------------------ INICIO modal para Registrar informe mensual de Anemia/Glicemia ------------------->
+<div class="modal fade" id="modal_nueva_anemiaglicemia" tabindex="-1" role="dialog" aria-labelledby="modal_nueva_anemiaglicemialabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog modal-lg" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">REGISTRAR INFORME DE ANEMIA GLICEMIA</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderanemiaglicemia" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-12">
+                    <label for="anemiaglic_titulo" class="control-label">Título</label>
+                    <div class="form-group">
+                        <input type="text" name="anemiaglic_titulo"  class="form-control " id="anemiaglic_titulo" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_enfermedad" class="control-label">Enfermedad</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="anemiaglic_enfermedad" id="anemiaglic_enfermedad" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_diagnostico" class="control-label">Diagnostico</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="anemiaglic_diagnostico" id="anemiaglic_diagnostico" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_hemoglobina" class="control-label">Hemoglobina</label>
+                    <div class="form-group">
+                        <input type="text" name="anemiaglic_hemoglobina"  class="form-control " id="anemiaglic_hemoglobina" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_hematocrito" class="control-label">Hematrocito</label>
+                    <div class="form-group">
+                        <input type="text" name="anemiaglic_hematocrito"  class="form-control " id="anemiaglic_hematocrito" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="anemiaglic_administra" class="control-label">Administra</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="anemiaglic_administra" id="anemiaglic_administra"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="anemiaglic_fecha" class="control-label">Fecha de Informe</label>
+                    <div class="form-group">
+                        <input type="date" name="anemiaglic_fecha" class="form-control" id="anemiaglic_fecha" />
+                        <input type="hidden" name="tratamiento_idag" class="form-control" id="tratamiento_idag" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="registrar_infanemiaglicemia()"><fa class="fa fa-floppy-o"></fa> Registrar Informe Mensual Anemia</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalag"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Registrar informe mensual de Anemia/Glicemia ------------------->
+
+<!------------------------ INICIO modal para Modificar informe mensual de Anemia/Glicemia ------------------->
+<div class="modal fade" id="modal_modificaranemiaglicemia" tabindex="-1" role="dialog" aria-labelledby="modal_modificaranemiaglicemialabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog modal-lg" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">MODIFICAR INFORME DE ANEMIA GLICEMIA</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderanemiaglicemiamodif" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-12">
+                    <label for="anemiaglic_titulomodif" class="control-label">Título</label>
+                    <div class="form-group">
+                        <input type="text" name="anemiaglic_titulomodif"  class="form-control " id="anemiaglic_titulomodif" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_enfermedadmodif" class="control-label">Enfermedad</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="anemiaglic_enfermedadmoodif" id="anemiaglic_enfermedadmodif" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_diagnosticomodif" class="control-label">Diagnostico</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="anemiaglic_diagnosticomodif" id="anemiaglic_diagnosticomodif" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_hemoglobinamodif" class="control-label">Hemoglobina</label>
+                    <div class="form-group">
+                        <input type="text" name="anemiaglic_hemoglobinamodif"  class="form-control " id="anemiaglic_hemoglobinamodif" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="anemiaglic_hematocritomodif" class="control-label">Hematrocito</label>
+                    <div class="form-group">
+                        <input type="text" name="anemiaglic_hematocritomodif"  class="form-control " id="anemiaglic_hematocritomodif" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="anemiaglic_administramodif" class="control-label">Administra</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="anemiaglic_administramodif" id="anemiaglic_administramodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="anemiaglic_fechamodif" class="control-label">Fecha de Informe</label>
+                    <div class="form-group">
+                        <input type="date" name="anemiaglic_fechamodif" class="form-control" id="anemiaglic_fechamodif" />
+                        <input type="hidden" name="anemiaglic_id" class="form-control" id="anemiaglic_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="modificar_infanemiaglicemia()"><fa class="fa fa-floppy-o"></fa> Modificar Informe Mensual</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalagmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Modificar informe mensual de Anemia/Glicemia ------------------->
+
 <div>
     <a href="<?php echo base_url("registro/registros/".$paciente["paciente_id"]); ?>" class="btn btn-danger">
         <i class="fa fa-reply"></i> Registros

@@ -127,6 +127,16 @@ function mostrar_tablastratamiento()
                                 html += "<span class='fa fa-pencil-square-o'></span></a>";
                             }
                         }
+                        if(tratamientos[i]['anemiaglic_id'] >0){
+                            // modificar informe mensual
+                            html += "<a class='btn btn-linkedin btn-xs' data-toggle='modal' data-target='#modal_modificaranemiaglicemia' onclick='cargarmodal_modificar_anemiaglicemia("+tratamientos[i]["anemiaglic_id"]+")' title='Modificar informe mensual de anemia/glicemia'>";
+                            html += "<span class='fa fa-pencil-square-o'></span></a>";
+                            html += "<a href='"+base_url+"reportes/infanemiaglicemia/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-linkedin btn-xs' title='Informe mensual de anemia/glicemia'><span class='fa fa-calendar'></span></a>";
+                        }else{
+                            // nuevo informe mensual
+                            html += "<a class='btn btn-linkedin btn-xs' data-toggle='modal' data-target='#modal_nueva_anemiaglicemia' onclick='cargarmodal_nueva_anemiaglicemia("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual de anemia/glicemia'>";
+                            html += "<span class='fa fa-pencil-square-o'></span></a>";
+                        }
                         html += "<a onclick='eliminar_tratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-danger btn-xs' title='Eliminar tratamiento del sistema'><span class='fa fa-trash'></span></a>";
                         html += "</td>";
                         html += "</tr>";
@@ -223,6 +233,8 @@ function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
         $("#infmensual_accesodos").val(ultimo_informe["infmensual_accesodos"]);
         $("#infmensual_laboratorio").val(ultimo_informe["infmensual_laboratorio"]);
         $("#infmensual_paratohormona").val(ultimo_informe["infmensual_paratohormona"]);
+        $("#infmensual_glucemia").val(ultimo_informe["infmensual_glucemia"]);
+        $("#infmensual_firmante").val(ultimo_informe["infmensual_firmante"]);
         $("#infmensual_conclusion").val(ultimo_informe["infmensual_conclusion"]);
     }else{
         $("#infmensual_cabecera").val("con antecedentes de Litiasis Renoureteral el 2018 y Atrofia Renal Izquierda ha desarrollado Enfermedad Renal Crónica V por Nefropatia Obstructiva Secundaria a Litiasis Renoureteral.");
@@ -230,8 +242,21 @@ function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
         $("#infmensual_accesodos").val("con excesivas ganacias de peso iinterdialitico, se insiste restriccion hidrica. se modifica peso seco a tolerancia. Triage COVID 19 negativo.");
         $("#infmensual_laboratorio").val("Laboratorio");
         $("#infmensual_paratohormona").val("Paciente tiene reporte de Paratohormona de ");
+        $("#infmensual_glucemia").val("");
+        $("#infmensual_firmante").val("");
+        
+        
         $("#infmensual_conclusion").val("Conclusiones Paciente debe cumplir restriccion hidrica, adedmaas de continuar tratamiento hemodialitico. es cuanto iniormo para los fines consiguientes");
     }
+    /*let elfirmante = $("#elfirmante_nombre").val();
+    if(elfirmante != "" && elfirmante != null){
+        let elfirmanteci = $("#elfirmante_ci").val();
+        if(elfirmanteci != "" && elfirmanteci != null){
+            $("#infmensual_firmante").val(elfirmante+" con C.I.: "+elfirmanteci);
+        }else{
+            $("#infmensual_firmante").val(elfirmante);
+        }
+    }*/
     let num_mes = "";
     const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
     for (var i = 0; i < 12; i++) {
@@ -265,6 +290,8 @@ function registrar_infmensual()
     //let infmensual_laboratorio = document.getElementById("infmensual_laboratorio").value;
     let infmensual_laboratorio = CKEDITOR.instances.infmensual_laboratorio.getData();
     let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormona.getData();
+    let infmensual_glucemia = document.getElementById("infmensual_glucemia").value;
+    let infmensual_firmante = document.getElementById("infmensual_firmante").value;
     let infmensual_conclusion = document.getElementById("infmensual_conclusion").value;
     let infmensual_fecha = document.getElementById("infmensual_fecha").value;
     let tratamiento_id = document.getElementById("tratamiento_id").value;
@@ -277,7 +304,8 @@ function registrar_infmensual()
             data:{infmensual_cabecera:infmensual_cabecera, infmensual_accesouno:infmensual_accesouno,
                 infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
                 infmensual_fecha:infmensual_fecha, tratamiento_id:tratamiento_id,
-                infmensual_accesodos:infmensual_accesodos, infmensual_paratohormona:infmensual_paratohormona
+                infmensual_accesodos:infmensual_accesodos, infmensual_paratohormona:infmensual_paratohormona,
+                infmensual_glucemia:infmensual_glucemia, infmensual_firmante:infmensual_firmante
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -307,6 +335,8 @@ function cargarmodal_modificarinfmensual(infmensual_id)
                 $("#infmensual_accesodosmodif").val(res["infmensual_accesodos"]);
                 $("#infmensual_laboratoriomodif").val(res["infmensual_laboratorio"]);
                 $("#infmensual_paratohormonamodif").val(res["infmensual_paratohormona"]);
+                $("#infmensual_glucemiamodif").val(res["infmensual_glucemia"]);
+                $("#infmensual_firmantemodif").val(res["infmensual_firmante"]);
                 $("#infmensual_conclusionmodif").val(res["infmensual_conclusion"]);
                 $("#infmensual_fechamodif").val(res["infmensual_fecha"]);
                 $("#infmensual_id").val(infmensual_id);
@@ -326,6 +356,8 @@ function modificar_infmensual()
     let infmensual_laboratorio = CKEDITOR.instances.infmensual_laboratoriomodif.getData();
     let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormonamodif.getData();
     //let infmensual_laboratorio = document.getElementById("cke_infmensual_laboratoriomodif").value;
+    let infmensual_glucemia = document.getElementById("infmensual_glucemiamodif").value;
+    let infmensual_firmante = document.getElementById("infmensual_firmantenmodif").value;
     let infmensual_conclusion = document.getElementById("infmensual_conclusionmodif").value;
     let infmensual_fecha = document.getElementById("infmensual_fechamodif").value;
     let infmensual_id = document.getElementById("infmensual_id").value;
@@ -338,7 +370,8 @@ function modificar_infmensual()
             data:{infmensual_cabecera:infmensual_cabecera, infmensual_accesouno:infmensual_accesouno,
                 infmensual_laboratorio:infmensual_laboratorio, infmensual_conclusion:infmensual_conclusion,
                 infmensual_fecha:infmensual_fecha, infmensual_id:infmensual_id,
-                infmensual_accesodos:infmensual_accesodos, infmensual_paratohormona:infmensual_paratohormona
+                infmensual_accesodos:infmensual_accesodos, infmensual_paratohormona:infmensual_paratohormona,
+                infmensual_glucemia:infmensual_glucemia, infmensual_firmante:infmensual_firmante
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -581,4 +614,129 @@ function eliminar_tratamiento(tratamiento_id){
         location.href =dir_url;
     }
     
+}
+
+/* carga modal para registrar informe mensual de un determinado tratamiento */
+function cargarmodal_nueva_anemiaglicemia(tratamiento_id, elmes, gestion)
+{
+    document.getElementById('loaderanemiaglicemia').style.display = 'none';
+    $("#anemiaglic_titulo").val("ANEMIA");
+    $("#anemiaglic_enfermedad").val("");
+    $("#anemiaglic_diagnostico").val("");
+    $("#anemiaglic_hemoglobina").val("");
+    $("#anemiaglic_hematocrito").val("");
+    $("#anemiaglic_administra").val("");
+    
+    let num_mes = "";
+    const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+    for (var i = 0; i < 12; i++) {
+        if((mes[i]) == elmes){
+            num_mes = i;
+            break;
+        }
+    }
+    num_mes = Number(num_mes+1);
+    if(num_mes<10){
+        num_mes = "0"+num_mes;
+    }
+    
+    lafecha = gestion+"-"+num_mes+"-"+"05";
+    var date = new Date(lafecha);
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    //alert (ultimoDia.getMonth());
+    $("#anemiaglic_fecha").val(moment(ultimoDia).format("YYYY-MM-DD"));
+    $("#tratamiento_idag").val(tratamiento_id);
+    $('#modal_nueva_anemiaglicemia').on('shown.bs.modal', function (e) {
+        $('#anemiaglic_titulo').focus();
+    });
+}
+
+/* regsitra el informe clinico mensual de anemia/glicemia */
+function registrar_infanemiaglicemia()
+{
+    let anemiaglic_titulo = document.getElementById("anemiaglic_titulo").value;
+    let anemiaglic_enfermedad = document.getElementById("anemiaglic_enfermedad").value;
+    let anemiaglic_diagnostico = document.getElementById("anemiaglic_diagnostico").value;
+    let anemiaglic_hemoglobina = document.getElementById("anemiaglic_hemoglobina").value;
+    let anemiaglic_hematocrito = document.getElementById("anemiaglic_hematocrito").value;
+    let anemiaglic_administra = document.getElementById("anemiaglic_administra").value;
+    let anemiaglic_fecha = document.getElementById("anemiaglic_fecha").value;
+    let tratamiento_id = document.getElementById("tratamiento_idag").value;
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/registrar_infanemiaglicemia';
+    document.getElementById('loaderinfmensual').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            data:{tratamiento_id:tratamiento_id, anemiaglic_titulo:anemiaglic_titulo, 
+                  anemiaglic_enfermedad:anemiaglic_enfermedad, anemiaglic_diagnostico:anemiaglic_diagnostico,
+                  anemiaglic_hemoglobina:anemiaglic_hemoglobina, anemiaglic_hematocrito:anemiaglic_hematocrito,
+                  anemiaglic_administra:anemiaglic_administra, anemiaglic_fecha:anemiaglic_fecha
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                    alert("Informe mensual de Anemia y Glicemia registrado con exito!.");
+                    $('#boton_cerrarmodalag').click();
+                    mostrar_tablastratamiento();
+            },
+    });
+}
+
+/* carga modal para modificar informe de anemi/glicecmia de un  determinado tratamiento */
+function cargarmodal_modificar_anemiaglicemia(anemiaglic_id)
+{
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/get_informeanemiaglicemia';
+    document.getElementById('loaderanemiaglicemiamodif').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{anemiaglic_id:anemiaglic_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                document.getElementById('loaderanemiaglicemiamodif').style.display = 'none';
+                $("#anemiaglic_titulomodif").val(res["anemiaglic_titulo"]);
+                $("#anemiaglic_enfermedadmodif").val(res["anemiaglic_enfermedad"]);
+                $("#anemiaglic_diagnosticomodif").val(res["anemiaglic_diagnostico"]);
+                $("#anemiaglic_hemoglobinamodif").val(res["anemiaglic_hemoglobina"]);
+                $("#anemiaglic_hematocritomodif").val(res["anemiaglic_hematocrito"]);
+                $("#anemiaglic_administramodif").val(res["anemiaglic_administra"]);
+                $("#anemiaglic_fechamodif").val(res["anemiaglic_fecha"]);
+                $("#anemiaglic_id").val(anemiaglic_id);
+                $('#modal_modificaranemiaglicemia').on('shown.bs.modal', function (e) {
+                    $('#anemiaglic_titulomodif').focus();
+                });
+            },
+    }); 
+}
+/* modifica el informe mensual de anemia/glicemia */
+function modificar_infanemiaglicemia()
+{
+    let anemiaglic_titulo = document.getElementById("anemiaglic_titulomodif").value;
+    let anemiaglic_enfermedad = document.getElementById("anemiaglic_enfermedadmodif").value;
+    let anemiaglic_diagnostico = document.getElementById("anemiaglic_diagnosticomodif").value;
+    let anemiaglic_hemoglobina = document.getElementById("anemiaglic_hemoglobinamodif").value;
+    let anemiaglic_hematocrito = document.getElementById("anemiaglic_hematocritomodif").value;
+    let anemiaglic_administra = document.getElementById("anemiaglic_administramodif").value;
+    let anemiaglic_fecha = document.getElementById("anemiaglic_fechamodif").value;
+    let anemiaglic_id = document.getElementById("anemiaglic_id").value;
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/modificar_infanemiaglicemia';
+    document.getElementById('loaderanemiaglicemiamodif').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            data:{anemiaglic_id:anemiaglic_id, anemiaglic_titulo:anemiaglic_titulo, 
+                  anemiaglic_enfermedad:anemiaglic_enfermedad, anemiaglic_diagnostico:anemiaglic_diagnostico,
+                  anemiaglic_hemoglobina:anemiaglic_hemoglobina, anemiaglic_hematocrito:anemiaglic_hematocrito,
+                  anemiaglic_administra:anemiaglic_administra, anemiaglic_fecha:anemiaglic_fecha
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                    alert("Informe mensual de Anemia/Glicemia modificado con exito!.");
+                    $('#boton_cerrarmodalagmodif').click();
+                    mostrar_tablastratamiento();
+            },
+    });            
 }

@@ -13,6 +13,7 @@ class Tratamiento extends CI_Controller{
         $this->load->model('Informe_mensual_model');
         $this->load->model('Certificado_medico_model');
         $this->load->model('Sesion_model');
+        $this->load->model('Anemia_glicemia_model');
         
         $this->load->model('Acceso_vascular_model');
         $this->load->model('Medicacion_model');
@@ -101,6 +102,8 @@ class Tratamiento extends CI_Controller{
                     'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
                     'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
                     'infmensual_paratohormona' => $this->input->post('infmensual_paratohormona'),
+                    'infmensual_glucemia' => $this->input->post('infmensual_glucemia'),
+                    'infmensual_firmante' => $this->input->post('infmensual_firmante'),
                     'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
                     'infmensual_fecha' => $this->input->post('infmensual_fecha'),
                 );
@@ -138,6 +141,8 @@ class Tratamiento extends CI_Controller{
                     'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
                     'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
                     'infmensual_paratohormona' => $this->input->post('infmensual_paratohormona'),
+                    'infmensual_glucemia' => $this->input->post('infmensual_glucemia'),
+                    'infmensual_firmante' => $this->input->post('infmensual_firmante'),
                     'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
                     'infmensual_fecha' => $this->input->post('infmensual_fecha'),
                 );
@@ -716,4 +721,64 @@ class Tratamiento extends CI_Controller{
             show_error('El Tratamiento que intentas eliminar no existe!....');
     }
     
+    /* registra el informe mensual de anemia/glicemia */
+    function registrar_infanemiaglicemia(){
+        try{
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'tratamiento_id' => $this->input->post('tratamiento_id'),
+                    'anemiaglic_titulo' => $this->input->post('anemiaglic_titulo'),
+                    'anemiaglic_enfermedad' => $this->input->post('anemiaglic_enfermedad'),
+                    'anemiaglic_diagnostico' => $this->input->post('anemiaglic_diagnostico'),
+                    'anemiaglic_hemoglobina' => $this->input->post('anemiaglic_hemoglobina'),
+                    'anemiaglic_hematocrito' => $this->input->post('anemiaglic_hematocrito'),
+                    'anemiaglic_administra' => $this->input->post('anemiaglic_administra'),
+                    'anemiaglic_fecha' => $this->input->post('anemiaglic_fecha'),
+                );
+                $anemiaglic_id = $this->Anemia_glicemia_model->add_anemia_glicemia($params);
+            echo json_encode($anemiaglic_id);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    
+    function get_informeanemiaglicemia(){
+        try{
+            if($this->input->is_ajax_request()){
+                $anemiaglic_id = $this->input->post('anemiaglic_id');
+                $anemia_glicemia = $this->Anemia_glicemia_model->get_anemia_glicemia($anemiaglic_id);
+                echo json_encode($anemia_glicemia);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    /* modificar el informe mensual de Anemia/glicemia */
+    function modificar_infanemiaglicemia(){
+        try{
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'anemiaglic_titulo' => $this->input->post('anemiaglic_titulo'),
+                    'anemiaglic_enfermedad' => $this->input->post('anemiaglic_enfermedad'),
+                    'anemiaglic_diagnostico' => $this->input->post('anemiaglic_diagnostico'),
+                    'anemiaglic_hemoglobina' => $this->input->post('anemiaglic_hemoglobina'),
+                    'anemiaglic_hematocrito' => $this->input->post('anemiaglic_hematocrito'),
+                    'anemiaglic_administra' => $this->input->post('anemiaglic_administra'),
+                    'anemiaglic_fecha' => $this->input->post('anemiaglic_fecha'),
+                );
+                $anemiaglic_id = $this->input->post('anemiaglic_id');
+                $this->Anemia_glicemia_model->update_anemia_glicemia($anemiaglic_id, $params);
+            echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
  }

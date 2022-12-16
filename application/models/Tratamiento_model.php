@@ -18,11 +18,12 @@ class Tratamiento_model extends CI_Model
         try{
             $tratamiento = $this->db->query("
                 SELECT
-                    t.*, im.infmensual_id, cm.certmedico_id
+                    t.*, im.infmensual_id, cm.certmedico_id, ag.anemiaglic_id
                 FROM
                     `tratamiento` t
                 left join informe_mensual im on t.tratamiento_id = im.tratamiento_id
                 left join certificado_medico cm on t.tratamiento_id = cm.tratamiento_id
+                left join anemia_glicemia ag on t.tratamiento_id = ag.tratamiento_id
                 WHERE
                     registro_id = $registro_id
                 order by t.tratamiento_id desc
