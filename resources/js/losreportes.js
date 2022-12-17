@@ -210,6 +210,18 @@ function elegir_sesionmes(sesion){
     $("#informe_cmensual").html(html);
     
     ladireccion = "";
+    if(sesion['anemiaglic_id'] > 0){
+        ladireccion = "href='"+dirurl+"reportes/infanemiaglicemia/"+sesion['tratamiento_id']+"'";
+    }else{
+        let mensaje = "Aun no se registro el Informe Mensual de Anemia y/o Glicemia !.";
+        ladireccion = "onclick='mostrar_mensaje("+JSON.stringify(mensaje)+")'";
+    }
+    html = "<a style='width: 150px; height: 50px;' "+ladireccion+" target='_blank' class='btn btn-yahoo btn-xs' title='Informe mensual de anemia/glicemia'>";
+    html += "    <span class='fa fa-calendar fa-2x'></span><br> Informe Anemia/Glicemia";
+    html += "</a>";
+    $("#informe_anemiaglicemia").html(html);
+    
+    ladireccion = "";
     if(sesion['certmedico_id'] > 0){
         ladireccion = "href='"+dirurl+"reportes/certificadomedico/"+sesion['certmedico_id']+"'";
     }else{

@@ -54,6 +54,9 @@
             <span class="fa fa-calendar fa-2x"></span><br> Informe Clinico Mensual
         </a>-->
     </div>
+    <div class="col-md-2">
+        <span id="informe_anemiaglicemia"></span>
+    </div>
     <div class="col-md-2" id="el_certificadomedico" style="display: none">
         <span id="certificadom_mensual"></span>
         <!--<a style="width: 150px; height: 50px;" href="<?php //echo site_url('reportes/certificadomedico/2'); ?>" target="_blank" class="btn btn-google btn-xs" title="Certificado medico mensual">

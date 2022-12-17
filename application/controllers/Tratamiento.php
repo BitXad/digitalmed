@@ -211,6 +211,30 @@ class Tratamiento extends CI_Controller{
         }
     }
     
+    /* modificar el certificado medico */
+    function modificar_certmedico(){
+        try{
+            if($this->input->is_ajax_request()){
+                $params = array(
+                    'certmedico_nombre' => $this->input->post('certmedico_nombre'),
+                    'certmedico_codigo' => $this->input->post('certmedico_codigo'),
+                    'certmedico_cabecerauno' => $this->input->post('certmedico_cabecerauno'),
+                    'certmedico_cabecerados' => $this->input->post('certmedico_cabecerados'),
+                    'certmedico_cabeceratres' => $this->input->post('certmedico_cabeceratres'),
+                    'certmedico_cabeceracuatro' => $this->input->post('certmedico_cabeceracuatro'),
+                    'certmedico_medicacion' => $this->input->post('certmedico_medicacion'),
+                    'certmedico_fecha' => $this->input->post('certmedico_fecha'),
+                );
+                $certmedico_id = $this->input->post('certmedico_id');
+                $this->Certificado_medico_model->update_certificado_medico($certmedico_id,$params);
+            echo json_encode("ok");
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
     /* obtiene los medicamentos de un tratamiento */
     function obtener_medicamentosmes(){
         try{

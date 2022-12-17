@@ -108,13 +108,13 @@ function mostrar_tablastratamiento()
                         html += "<a href='"+base_url+"reportes/reportesesiones/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-facebook btn-xs' title='Planilla oral y EV'><span class='fa fa-file-text'></span></a>";
                         if(tratamientos[i]['infmensual_id'] >0){
                             // modificar informe mensual
-                            html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
+                            html += "<a class='btn btn-dropbox btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                             html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
                             html += "<a href='"+base_url+"reportes/medinsumos/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='medicamentos e insumos medicos otorgados y autorizados'><span class='fa fa-list-ol'></span></a>";
                         }else{
                             // nuevo informe mensual
-                            html += "<a class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual'>";
+                            html += "<a class='btn btn-dropbox btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                         }
                         if(hay_certmedico >0){
@@ -129,12 +129,12 @@ function mostrar_tablastratamiento()
                         }
                         if(tratamientos[i]['anemiaglic_id'] >0){
                             // modificar informe mensual
-                            html += "<a class='btn btn-linkedin btn-xs' data-toggle='modal' data-target='#modal_modificaranemiaglicemia' onclick='cargarmodal_modificar_anemiaglicemia("+tratamientos[i]["anemiaglic_id"]+")' title='Modificar informe mensual de anemia/glicemia'>";
+                            html += "<a class='btn btn-yahoo btn-xs' data-toggle='modal' data-target='#modal_modificaranemiaglicemia' onclick='cargarmodal_modificar_anemiaglicemia("+tratamientos[i]["anemiaglic_id"]+")' title='Modificar informe mensual de anemia/glicemia'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
-                            html += "<a href='"+base_url+"reportes/infanemiaglicemia/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-linkedin btn-xs' title='Informe mensual de anemia/glicemia'><span class='fa fa-calendar'></span></a>";
+                            html += "<a href='"+base_url+"reportes/infanemiaglicemia/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-yahoo btn-xs' title='Informe mensual de anemia/glicemia'><span class='fa fa-calendar'></span></a>";
                         }else{
                             // nuevo informe mensual
-                            html += "<a class='btn btn-linkedin btn-xs' data-toggle='modal' data-target='#modal_nueva_anemiaglicemia' onclick='cargarmodal_nueva_anemiaglicemia("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual de anemia/glicemia'>";
+                            html += "<a class='btn btn-yahoo btn-xs' data-toggle='modal' data-target='#modal_nueva_anemiaglicemia' onclick='cargarmodal_nueva_anemiaglicemia("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual de anemia/glicemia'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                         }
                         html += "<a onclick='eliminar_tratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-danger btn-xs' title='Eliminar tratamiento del sistema'><span class='fa fa-trash'></span></a>";
@@ -604,6 +604,39 @@ function cargarmodal_modificarcertmedico(certmedico_id)
                 });
             },
     }); 
+}
+
+/* modificar el certificado medico mensual de un tratamiento */
+function modificar_certmedico()
+{
+    let certmedico_nombre = document.getElementById("certmedico_nombremodif").value;
+    let certmedico_codigo = document.getElementById("certmedico_codigomodif").value;
+    let certmedico_cabecerauno = document.getElementById("certmedico_cabeceraunomodif").value;
+    let certmedico_cabecerados = document.getElementById("certmedico_cabeceradosmodif").value;
+    let certmedico_cabeceratres = document.getElementById("certmedico_cabeceratresmodif").value;
+    let certmedico_cabeceracuatro = document.getElementById("certmedico_cabeceracuatromodif").value;
+    let certmedico_medicacion = document.getElementById("certmedico_medicacionmodif").value;
+    let certmedico_fecha = document.getElementById("certmedico_fechamodif").value;
+    let certmedico_id = document.getElementById("certmedico_id").value;
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/modificar_certmedico';
+    document.getElementById('loadercertmedicomodif').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            data:{certmedico_nombre:certmedico_nombre, certmedico_codigo:certmedico_codigo,
+                  certmedico_cabecerauno:certmedico_cabecerauno, certmedico_cabecerados:certmedico_cabecerados,
+                  certmedico_cabeceratres:certmedico_cabeceratres, certmedico_cabeceracuatro:certmedico_cabeceracuatro,
+                  certmedico_medicacion:certmedico_medicacion, certmedico_fecha:certmedico_fecha,
+                  certmedico_id:certmedico_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                    alert("Certificado medico modificado con exito!.");
+                    $('#boton_cerrarmodalcertmediconodif').click();
+                    mostrar_tablastratamiento();
+            },
+    });
 }
 
 function eliminar_tratamiento(tratamiento_id){

@@ -477,13 +477,13 @@
                 <div class="col-md-6">
                     <label for="certmedico_cabeceraunomodif" class="control-label">Cabecera uno</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="certmedico_cabeceraunomodif" id="certmedico_cabeceraunomodif"></textarea>
+                        <textarea class="form-control" name="certmedico_cabeceraunomodif" id="certmedico_cabeceraunomodif" rows="4"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label for="certmedico_cabeceradosmodif" class="control-label">Cabecera dos</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="certmedico_cabeceradosmodif" id="certmedico_cabeceradosmodif"></textarea>
+                        <textarea class="form-control" name="certmedico_cabeceradosmodif" id="certmedico_cabeceradosmodif" rows="4"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -501,7 +501,7 @@
                 <div class="col-md-12">
                     <label for="certmedico_medicacionmodif" class="control-label">Medicación</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="certmedico_medicacionmodif" id="certmedico_medicacionmodif"></textarea>
+                        <textarea class="form-control" name="certmedico_medicacionmodif" id="certmedico_medicacionmodif" rows="4"></textarea>
                     </div>
                 </div>
                 <div class="col-md-3">
