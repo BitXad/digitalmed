@@ -1,6 +1,6 @@
 $(document).on("ready",inicio);
 function inicio(){
-    mostrar_tablastratamiento();
+    mostrar_tablastratamiento(); 
 } 
 
 /* carga modal de nuevo tratamiento */
@@ -290,9 +290,9 @@ function registrar_infmensual()
     //let infmensual_laboratorio = document.getElementById("infmensual_laboratorio").value;
     let infmensual_laboratorio = CKEDITOR.instances.infmensual_laboratorio.getData();
     let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormona.getData();
-    let infmensual_glucemia = document.getElementById("infmensual_glucemia").value;
+    let infmensual_glucemia = CKEDITOR.instances.infmensual_glucemia.getData();
     let infmensual_firmante = document.getElementById("infmensual_firmante").value;
-    let infmensual_conclusion = document.getElementById("infmensual_conclusion").value;
+    let infmensual_conclusion = CKEDITOR.instances.infmensual_conclusion.getData();
     let infmensual_fecha = document.getElementById("infmensual_fecha").value;
     let tratamiento_id = document.getElementById("tratamiento_id").value;
     
@@ -356,9 +356,9 @@ function modificar_infmensual()
     let infmensual_laboratorio = CKEDITOR.instances.infmensual_laboratoriomodif.getData();
     let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormonamodif.getData();
     //let infmensual_laboratorio = document.getElementById("cke_infmensual_laboratoriomodif").value;
-    let infmensual_glucemia = document.getElementById("infmensual_glucemiamodif").value;
+    let infmensual_glucemia = CKEDITOR.instances.infmensual_glucemiamodif.getData();
     let infmensual_firmante = document.getElementById("infmensual_firmantenmodif").value;
-    let infmensual_conclusion = document.getElementById("infmensual_conclusionmodif").value;
+    let infmensual_conclusion = CKEDITOR.instances.infmensual_conclusionmodif.getData();
     let infmensual_fecha = document.getElementById("infmensual_fechamodif").value;
     let infmensual_id = document.getElementById("infmensual_id").value;
     
@@ -420,7 +420,7 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
         $("#certmedico_cabeceracuatro").val(ultimo_certmedico["certmedico_cabeceracuatro"]);
         //$("#certmedico_medicacion").val(ultimo_certmedico["certmedico_medicacion"]);
     }else{
-        $("#certmedico_nombre").val("Dr. Jose Enrique Gutiérrez Méndez");
+        $("#certmedico_nombre").val("Dr. José Enrique Gutiérrez Méndez");
         $("#certmedico_codigo").val("G-795/G-156");
         $("#certmedico_cabecerauno").val("Con Antencedente de Pre-Eclampsia previa y Glomerulonefritis Mesangioproliferativa que evolucionó a Enfermedad Renal Crónica, con requerimiento de tratamiento Hemodialitico");
         $("#certmedico_cabecerados").val("Al momento el paciente se encuentra estable, realiza sus sesiones de dialisis en la Unidad de hemodialisis José E. Gutiérrez M.en turno mañana los dias Martes, Jueves y Sabado, maquina Hemodiafiltración seronegativa, 4 horas a travez de");
@@ -551,6 +551,7 @@ function registrar_certmedico()
     let certmedico_cabecerados = document.getElementById("certmedico_cabecerados").value;
     let certmedico_cabeceratres = document.getElementById("certmedico_cabeceratres").value;
     let certmedico_cabeceracuatro = document.getElementById("certmedico_cabeceracuatro").value;
+    let certmedico_diagnostico = CKEDITOR.instances.certmedico_diagnostico.getData();
     let certmedico_medicacion = document.getElementById("certmedico_medicacion").value;
     let certmedico_fecha = document.getElementById("certmedico_fecha").value;
     let tratamiento_id = document.getElementById("tratamiento_idcertmedico").value;
@@ -564,7 +565,7 @@ function registrar_certmedico()
                   certmedico_cabecerauno:certmedico_cabecerauno, certmedico_cabecerados:certmedico_cabecerados,
                   certmedico_cabeceratres:certmedico_cabeceratres, certmedico_cabeceracuatro:certmedico_cabeceracuatro,
                   certmedico_medicacion:certmedico_medicacion, certmedico_fecha:certmedico_fecha,
-                  tratamiento_id:tratamiento_id
+                  tratamiento_id:tratamiento_id, certmedico_diagnostico:certmedico_diagnostico
             },
             success:function(result){
                 res = JSON.parse(result);
@@ -595,6 +596,7 @@ function cargarmodal_modificarcertmedico(certmedico_id)
                 $("#certmedico_cabeceradosmodif").val(res["certmedico_cabecerados"]);
                 $("#certmedico_cabeceratresmodif").val(res["certmedico_cabeceratres"]);
                 $("#certmedico_cabeceracuatromodif").val(res["certmedico_cabeceracuatro"]);
+                $("#certmedico_diagnosticomodif").val(res["certmedico_diagnostico"]);
                 $("#certmedico_medicacionmodif").val(res["certmedico_medicacion"]);
                 $("#certmedico_fechamodif").val(res["certmedico_fecha"]);
                 $("#certmedico_id").val(res["certmedico_id"]);
@@ -615,6 +617,7 @@ function modificar_certmedico()
     let certmedico_cabecerados = document.getElementById("certmedico_cabeceradosmodif").value;
     let certmedico_cabeceratres = document.getElementById("certmedico_cabeceratresmodif").value;
     let certmedico_cabeceracuatro = document.getElementById("certmedico_cabeceracuatromodif").value;
+    let certmedico_diagnostico = CKEDITOR.instances.certmedico_diagnosticomodif.getData();
     let certmedico_medicacion = document.getElementById("certmedico_medicacionmodif").value;
     let certmedico_fecha = document.getElementById("certmedico_fechamodif").value;
     let certmedico_id = document.getElementById("certmedico_id").value;
@@ -628,7 +631,7 @@ function modificar_certmedico()
                   certmedico_cabecerauno:certmedico_cabecerauno, certmedico_cabecerados:certmedico_cabecerados,
                   certmedico_cabeceratres:certmedico_cabeceratres, certmedico_cabeceracuatro:certmedico_cabeceracuatro,
                   certmedico_medicacion:certmedico_medicacion, certmedico_fecha:certmedico_fecha,
-                  certmedico_id:certmedico_id
+                  certmedico_id:certmedico_id, certmedico_diagnostico:certmedico_diagnostico
             },
             success:function(result){
                 res = JSON.parse(result);

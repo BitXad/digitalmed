@@ -4,14 +4,23 @@
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="registro_id" id="registro_id" value="<?php echo $registro["registro_id"]; ?>" />
 <input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente["paciente_id"]; ?>" />
+<!--<input type="hidden" name="paciente_fechanac" id="paciente_fechanac" value="<?php //echo $paciente["paciente_fechanac"]; ?>" />-->
 <!--<input type="hidden" name="elfirmante_nombre" id="elfirmante_nombre" value="<?php /*echo $paciente["paciente_nombrefirmante"]; ?>" />
 <input type="hidden" name="elfirmante_ci" id="elfirmante_ci" value="<?php echo $paciente["paciente_cifirmante"];*/ ?>" />-->
 <input type="hidden" name="rinicio_hemodialisis" id="rinicio_hemodialisis" value="<?php echo $registro["registro_iniciohemodialisis"]; ?>" />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
-<!--------------------------------------------------------> 
-
+<!-------------------------------------------------------->
+<script type="text/javascript">
+    CKEDITOR.config.toolbar = [
+        ['Bold','Italic','Underline','StrikeThrough','Subscript','Superscript','-','Undo','Redo','-','Outdent','Indent'],
+        ['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+        ['Styles','Format','FontSize'],
+        ['Table']
+    ];
+    CKEDITOR.config.height = 150; 
+</script>
 <div class="box-header">
     <font size='3' face='Arial'><b>TRATAMIENTOS DEL PACIENTE</b></font>
     <div class="text-center">
@@ -238,6 +247,15 @@
                     <label for="infmensual_glucemia" class="control-label">Glucemia</label>
                     <div class="form-group">
                         <textarea class="form-control" name="infmensual_glucemia" id="infmensual_glucemia"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_glucemia" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -250,6 +268,15 @@
                     <label for="infmensual_conclusion" class="control-label">Conclusiones</label>
                     <div class="form-group">
                         <textarea class="form-control" name="infmensual_conclusion" id="infmensual_conclusion"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_conclusion" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -342,6 +369,15 @@
                     <label for="infmensual_glucemiamodif" class="control-label">Glucemia</label>
                     <div class="form-group">
                         <textarea class="form-control" name="infmensual_glucemiamodif" id="infmensual_glucemiamodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_glucemiamodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -354,6 +390,15 @@
                     <label for="infmensual_conclusionmodif" class="control-label">Conclusiones</label>
                     <div class="form-group">
                         <textarea class="form-control" name="infmensual_conclusionmodif" id="infmensual_conclusionmodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "infmensual_conclusionmodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -422,6 +467,21 @@
                     <label for="certmedico_cabeceracuatro" class="control-label">Cabecera cuatro</label>
                     <div class="form-group">
                         <textarea class="form-control" name="certmedico_cabeceracuatro" id="certmedico_cabeceracuatro"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="certmedico_diagnostico" class="control-label">Diagnostico</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="certmedico_diagnostico" id="certmedico_diagnostico"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "certmedico_diagnostico" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -496,6 +556,21 @@
                     <label for="certmedico_cabeceracuatromodif" class="control-label">Cabecera cuatro</label>
                     <div class="form-group">
                         <textarea class="form-control" name="certmedico_cabeceracuatromodif" id="certmedico_cabeceracuatromodif"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="certmedico_diagnosticomodif" class="control-label">Diagnostico</label>
+                    <div class="form-group">
+                        <textarea class="form-control" name="certmedico_diagnosticomodif" id="certmedico_diagnosticomodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "certmedico_diagnosticomodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-12">

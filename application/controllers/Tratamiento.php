@@ -197,6 +197,7 @@ class Tratamiento extends CI_Controller{
                     'certmedico_cabecerados' => $this->input->post('certmedico_cabecerados'),
                     'certmedico_cabeceratres' => $this->input->post('certmedico_cabeceratres'),
                     'certmedico_cabeceracuatro' => $this->input->post('certmedico_cabeceracuatro'),
+                    'certmedico_diagnostico' => $this->input->post('certmedico_diagnostico'),
                     'certmedico_medicacion' => $this->input->post('certmedico_medicacion'),
                     'certmedico_fecha' => $this->input->post('certmedico_fecha'),
                     'tratamiento_id' => $this->input->post('tratamiento_id'),
@@ -222,6 +223,7 @@ class Tratamiento extends CI_Controller{
                     'certmedico_cabecerados' => $this->input->post('certmedico_cabecerados'),
                     'certmedico_cabeceratres' => $this->input->post('certmedico_cabeceratres'),
                     'certmedico_cabeceracuatro' => $this->input->post('certmedico_cabeceracuatro'),
+                    'certmedico_diagnostico' => $this->input->post('certmedico_diagnostico'),
                     'certmedico_medicacion' => $this->input->post('certmedico_medicacion'),
                     'certmedico_fecha' => $this->input->post('certmedico_fecha'),
                 );
