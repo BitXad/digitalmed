@@ -571,6 +571,7 @@ class Sesion extends CI_Controller{
                         'sesion_cateter'=> $this->input->post('sesion_cateter'),
                         'sesion_fistula'=> $this->input->post('sesion_fistula'),
                         'sesion_evaluacionclinica'=> $this->input->post('sesion_evaluacionclinica'),
+                        'sesion_tratamiento'=> $this->input->post('sesion_tratamiento'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
@@ -683,6 +684,7 @@ class Sesion extends CI_Controller{
                         'sesion_cateter'=> $this->input->post('sesion_cateter'),
                         'sesion_fistula'=> $this->input->post('sesion_fistula'),
                         'sesion_evaluacionclinica'=> $this->input->post('sesion_evaluacionclinica'),
+                        'sesion_tratamiento'=> $this->input->post('sesion_tratamiento'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
