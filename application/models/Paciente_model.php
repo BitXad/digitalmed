@@ -122,6 +122,51 @@ class Paciente_model extends CI_Model
      */
     function delete_paciente($paciente_id)
     {
+        $losregistros = $this->db->query("
+            SELECT
+                r.registro_id
+            FROM
+                `registro` r
+            WHERE
+                r.paciente_id = $paciente_id
+        ")->result_array();
+        
+        foreach ($losregistros as $registro) {
+            $registro_id = $registro["registro_id"];
+            $lostratamientos = $this->db->query("
+                SELECT
+                    t.tratamiento_id
+                FROM
+                    `tratamiento` t
+                WHERE
+                    t.registro_id = $registro_id
+            ")->result_array();
+            foreach ($lostratamientos as $tratamiento){
+                $tratamiento_id = $tratamiento["tratamiento_id"];
+                $this->db->delete('certificado_medico',array('tratamiento_id'=>$tratamiento_id));
+                $this->db->delete('informe_mensual',array('tratamiento_id'=>$tratamiento_id));
+                $this->db->delete('anemia_glicemia',array('tratamiento_id'=>$tratamiento_id));
+                
+                $lassesiones = $this->db->query("
+                    SELECT
+                        s.sesion_id
+                    FROM
+                        `sesion` s
+                    WHERE
+                        s.tratamiento_id = $tratamiento_id
+                ")->result_array();
+                foreach ($lassesiones as $sesion){
+                    $sesion_id = $sesion["sesion_id"];
+                    $this->db->delete('detalle_hora',array('sesion_id'=>$sesion_id));
+                    $this->db->delete('medicacion',array('sesion_id'=>$sesion_id));
+                }
+                
+                $this->db->delete('sesion',array('tratamiento_id'=>$tratamiento_id));
+                $this->db->delete('tratamiento',array('tratamiento_id'=>$tratamiento_id));
+            }
+            $this->db->delete('acceso_vascular',array('registro_id'=>$registro_id));
+            $this->db->delete('registro',array('registro_id'=>$registro_id));
+        }
         return $this->db->delete('paciente',array('paciente_id'=>$paciente_id));
     }
     

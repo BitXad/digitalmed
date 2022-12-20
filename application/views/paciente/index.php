@@ -159,7 +159,7 @@
                             <?php
                             }
                             ?>
-                            <a onclick="return confirm('Esta seguro que quiere eliminiar a este paciente del sistema?\n Nota.- esta operacion es irreversible!.')" href="<?php echo site_url('paciente/remove/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Eliminar paciente del sistema"><span class="fa fa-trash"></span></a>
+                            <a onclick="return confirm('Esta seguro que quiere eliminar a este paciente del sistema?\nNota.- esta operacion borrara toda la informacion del paciente y no habra forma de recuperarla.')" href="<?php echo site_url('paciente/remove/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Eliminar paciente del sistema"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                     <?php
