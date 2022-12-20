@@ -159,8 +159,8 @@
                         <div class="col-md-4" style="background: #d4dbc3">
                             <label for="avascular_nombre" class="control-label">Tipo de Acceso</label>
                             <div class="form-group">
-                                <select class="form-control" name="avascular_nombre" id="avascular_nombre" onchange="detalle_acceso()">
-                                    <option value="0">-- Acceso Vascular --</option>
+                                <select class="form-control" name="avascular_nombre" id="avascular_nombre" onchange="detalle_acceso()" required >
+                                    <option value="">-- Acceso Vascular --</option>
                                     <option value="Cateter">Cateter</option>
                                     <option value="Fistula">Fistula</option>
                                 </select>

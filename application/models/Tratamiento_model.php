@@ -149,6 +149,20 @@ class Tratamiento_model extends CI_Model
         $this->db->delete('certificado_medico',array('tratamiento_id'=>$tratamiento_id));
         $this->db->delete('informe_mensual',array('tratamiento_id'=>$tratamiento_id));
         $this->db->delete('anemia_glicemia',array('tratamiento_id'=>$tratamiento_id));
+        
+        $lassesiones = $this->db->query("
+            SELECT
+                s.sesion_id
+            FROM
+                `sesion` s
+            WHERE
+                s.tratamiento_id = $tratamiento_id
+        ")->result_array();
+        foreach ($lassesiones as $sesion){
+            $sesion_id = $sesion["sesion_id"];
+            $this->db->delete('detalle_hora',array('sesion_id'=>$sesion_id));
+            $this->db->delete('medicacion',array('sesion_id'=>$sesion_id));
+        }
         $this->db->delete('sesion',array('tratamiento_id'=>$tratamiento_id));
         return $this->db->delete('tratamiento',array('tratamiento_id'=>$tratamiento_id));
     }

@@ -140,6 +140,8 @@ class Sesion_model extends CI_Model
     function delete_sesion($sesion_id)
     {
         try{
+             $this->db->delete('detalle_hora',array('sesion_id'=>$sesion_id));
+             $this->db->delete('medicacion',array('sesion_id'=>$sesion_id));
              return $this->db->delete('sesion',array('sesion_id'=>$sesion_id));
            } catch (Exception $ex) {
              throw new Exception('Sesion_model model : Error in delete_sesion function - ' . $ex);

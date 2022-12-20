@@ -463,10 +463,19 @@
                         <textarea class="form-control" name="certmedico_cabeceratres" id="certmedico_cabeceratres"></textarea>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="certmedico_cabeceracuatro" class="control-label">Cabecera cuatro</label>
                     <div class="form-group">
                         <textarea class="form-control" name="certmedico_cabeceracuatro" id="certmedico_cabeceracuatro"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "certmedico_cabeceracuatro" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -552,10 +561,19 @@
                         <textarea class="form-control" name="certmedico_cabeceratresmodif" id="certmedico_cabeceratresmodif"></textarea>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="certmedico_cabeceracuatromodif" class="control-label">Cabecera cuatro</label>
                     <div class="form-group">
                         <textarea class="form-control" name="certmedico_cabeceracuatromodif" id="certmedico_cabeceracuatromodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "certmedico_cabeceracuatromodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -616,16 +634,34 @@
                         <input type="text" name="anemiaglic_titulo"  class="form-control " id="anemiaglic_titulo" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="anemiaglic_enfermedad" class="control-label">Enfermedad</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="anemiaglic_enfermedad" id="anemiaglic_enfermedad" rows="4"></textarea>
+                        <textarea class="form-control" name="anemiaglic_enfermedad" id="anemiaglic_enfermedad"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "anemiaglic_enfermedad" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="anemiaglic_diagnostico" class="control-label">Diagnostico</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="anemiaglic_diagnostico" id="anemiaglic_diagnostico" rows="4"></textarea>
+                        <textarea class="form-control" name="anemiaglic_diagnostico" id="anemiaglic_diagnostico"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "anemiaglic_diagnostico" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -641,9 +677,18 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <label for="anemiaglic_administra" class="control-label">Administra</label>
+                    <label for="anemiaglic_administra" class="control-label">Admininstra</label>
                     <div class="form-group">
                         <textarea class="form-control" name="anemiaglic_administra" id="anemiaglic_administra"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "anemiaglic_administra" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -684,16 +729,34 @@
                         <input type="text" name="anemiaglic_titulomodif"  class="form-control " id="anemiaglic_titulomodif" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="anemiaglic_enfermedadmodif" class="control-label">Enfermedad</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="anemiaglic_enfermedadmoodif" id="anemiaglic_enfermedadmodif" rows="4"></textarea>
+                        <textarea class="form-control" name="anemiaglic_enfermedadmodif" id="anemiaglic_enfermedadmodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "anemiaglic_enfermedadmodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="anemiaglic_diagnosticomodif" class="control-label">Diagnostico</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="anemiaglic_diagnosticomodif" id="anemiaglic_diagnosticomodif" rows="4"></textarea>
+                        <textarea class="form-control" name="anemiaglic_diagnosticomodif" id="anemiaglic_diagnosticomodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "anemiaglic_diagnosticomodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -712,6 +775,15 @@
                     <label for="anemiaglic_administramodif" class="control-label">Administra</label>
                     <div class="form-group">
                         <textarea class="form-control" name="anemiaglic_administramodif" id="anemiaglic_administramodif"></textarea>
+                        <?php
+                        $ck_config = array(
+                            "replace" => "anemiaglic_administramodif" // id del objeto a reemplazar
+                            , "options" => array( // las opciones (opcionales)
+                                "skin" => "'v2'"
+                            )
+                        );
+                        jquery_ckeditor($ck_config);
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-3">

@@ -141,7 +141,7 @@ function mostrar_tablas()
 }
 
 function eliminar_sesion(sesion_id){
-    let confirmacion =  confirm('Esta seguro que quiere eliminiar esta Sesion del sistema?\n Nota.- esta operacion es irreversible!.')
+    let confirmacion =  confirm('Esta seguro que quiere eliminar esta Sesion del sistema?\n Nota.- esta operacion es irreversible!.')
     if(confirmacion == true){
         let base_url = document.getElementById('base_url').value;
         dir_url = base_url+"sesion/remove/"+sesion_id;

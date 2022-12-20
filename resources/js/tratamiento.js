@@ -422,10 +422,14 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
     }else{
         $("#certmedico_nombre").val("Dr. José Enrique Gutiérrez Méndez");
         $("#certmedico_codigo").val("G-795/G-156");
-        $("#certmedico_cabecerauno").val("Con Antencedente de Pre-Eclampsia previa y Glomerulonefritis Mesangioproliferativa que evolucionó a Enfermedad Renal Crónica, con requerimiento de tratamiento Hemodialitico");
+        /*$("#certmedico_cabecerauno").val("Con Antencedente de Pre-Eclampsia previa y Glomerulonefritis Mesangioproliferativa que evolucionó a Enfermedad Renal Crónica, con requerimiento de tratamiento Hemodialitico");
         $("#certmedico_cabecerados").val("Al momento el paciente se encuentra estable, realiza sus sesiones de dialisis en la Unidad de hemodialisis José E. Gutiérrez M.en turno mañana los dias Martes, Jueves y Sabado, maquina Hemodiafiltración seronegativa, 4 horas a travez de");
         $("#certmedico_cabeceratres").val("QB 450 ml/min, QD 540 ml/min, UF controlada, buffer bicarbonato");
-        $("#certmedico_cabeceracuatro").val("Triage COVID 19 negativo");
+        $("#certmedico_cabeceracuatro").val("Triage COVID 19 negativo");*/
+        $("#certmedico_cabecerauno").val("");
+        $("#certmedico_cabecerados").val("");
+        $("#certmedico_cabeceratres").val("");
+        $("#certmedico_cabeceracuatro").val("");
         //$("#certmedico_medicacion").val("");
     }
     $("#certmedico_medicacion").val("");
@@ -550,7 +554,7 @@ function registrar_certmedico()
     let certmedico_cabecerauno = document.getElementById("certmedico_cabecerauno").value;
     let certmedico_cabecerados = document.getElementById("certmedico_cabecerados").value;
     let certmedico_cabeceratres = document.getElementById("certmedico_cabeceratres").value;
-    let certmedico_cabeceracuatro = document.getElementById("certmedico_cabeceracuatro").value;
+    let certmedico_cabeceracuatro = CKEDITOR.instances.certmedico_cabeceracuatro.getData();
     let certmedico_diagnostico = CKEDITOR.instances.certmedico_diagnostico.getData();
     let certmedico_medicacion = document.getElementById("certmedico_medicacion").value;
     let certmedico_fecha = document.getElementById("certmedico_fecha").value;
@@ -616,7 +620,7 @@ function modificar_certmedico()
     let certmedico_cabecerauno = document.getElementById("certmedico_cabeceraunomodif").value;
     let certmedico_cabecerados = document.getElementById("certmedico_cabeceradosmodif").value;
     let certmedico_cabeceratres = document.getElementById("certmedico_cabeceratresmodif").value;
-    let certmedico_cabeceracuatro = document.getElementById("certmedico_cabeceracuatromodif").value;
+    let certmedico_cabeceracuatro = CKEDITOR.instances.certmedico_cabeceracuatromodif.getData();
     let certmedico_diagnostico = CKEDITOR.instances.certmedico_diagnosticomodif.getData();
     let certmedico_medicacion = document.getElementById("certmedico_medicacionmodif").value;
     let certmedico_fecha = document.getElementById("certmedico_fechamodif").value;
@@ -643,7 +647,7 @@ function modificar_certmedico()
 }
 
 function eliminar_tratamiento(tratamiento_id){
-    let confirmacion =  confirm('Esta seguro que quiere eliminiar a este Tratamiento del sistema?\n Nota.- esta operacion es irreversible!.')
+    let confirmacion =  confirm('Esta seguro que quiere eliminar este Tratamiento del sistema?\nNota.- esta operacion es irreversible!.\nse perdera toda la información de sus sesiones!.')
     if(confirmacion == true){
         let base_url = document.getElementById('base_url').value;
         dir_url = base_url+"tratamiento/remove/"+tratamiento_id;
@@ -687,15 +691,15 @@ function cargarmodal_nueva_anemiaglicemia(tratamiento_id, elmes, gestion)
     });
 }
 
-/* regsitra el informe clinico mensual de anemia/glicemia */
+/* registra el informe clinico mensual de anemia/glicemia */
 function registrar_infanemiaglicemia()
 {
     let anemiaglic_titulo = document.getElementById("anemiaglic_titulo").value;
-    let anemiaglic_enfermedad = document.getElementById("anemiaglic_enfermedad").value;
-    let anemiaglic_diagnostico = document.getElementById("anemiaglic_diagnostico").value;
+    let anemiaglic_enfermedad = CKEDITOR.instances.anemiaglic_enfermedad.getData();
+    let anemiaglic_diagnostico = CKEDITOR.instances.anemiaglic_diagnostico.getData();
     let anemiaglic_hemoglobina = document.getElementById("anemiaglic_hemoglobina").value;
     let anemiaglic_hematocrito = document.getElementById("anemiaglic_hematocrito").value;
-    let anemiaglic_administra = document.getElementById("anemiaglic_administra").value;
+    let anemiaglic_administra = CKEDITOR.instances.anemiaglic_administra.getData();
     let anemiaglic_fecha = document.getElementById("anemiaglic_fecha").value;
     let tratamiento_id = document.getElementById("tratamiento_idag").value;
     
@@ -750,11 +754,11 @@ function cargarmodal_modificar_anemiaglicemia(anemiaglic_id)
 function modificar_infanemiaglicemia()
 {
     let anemiaglic_titulo = document.getElementById("anemiaglic_titulomodif").value;
-    let anemiaglic_enfermedad = document.getElementById("anemiaglic_enfermedadmodif").value;
-    let anemiaglic_diagnostico = document.getElementById("anemiaglic_diagnosticomodif").value;
+    let anemiaglic_enfermedad  = CKEDITOR.instances.anemiaglic_enfermedadmodif.getData();
+    let anemiaglic_diagnostico = CKEDITOR.instances.anemiaglic_diagnosticomodif.getData();
     let anemiaglic_hemoglobina = document.getElementById("anemiaglic_hemoglobinamodif").value;
     let anemiaglic_hematocrito = document.getElementById("anemiaglic_hematocritomodif").value;
-    let anemiaglic_administra = document.getElementById("anemiaglic_administramodif").value;
+    let anemiaglic_administra  = CKEDITOR.instances.anemiaglic_administramodif.getData();
     let anemiaglic_fecha = document.getElementById("anemiaglic_fechamodif").value;
     let anemiaglic_id = document.getElementById("anemiaglic_id").value;
     

@@ -136,7 +136,7 @@ class Sesion extends CI_Controller{
                                     'sesion_omeprazol' => 2,
                                     'sesion_acidofolico' => 2,
                                     'sesion_calcio' => 8,
-                                    'sesion_amlodipina' => 4,
+                                    //'sesion_amlodipina' => 4,
                                     'sesion_complejob' => 2,
                                 );
                             }elseif($dia == 5){
@@ -145,7 +145,7 @@ class Sesion extends CI_Controller{
                                     'sesion_omeprazol' => 3,
                                     'sesion_acidofolico' => 3,
                                     'sesion_calcio' => 12,
-                                    'sesion_amlodipina' => 6,
+                                    //'sesion_amlodipina' => 6,
                                     'sesion_complejob' => 3,
                                 );
                             }
@@ -156,7 +156,7 @@ class Sesion extends CI_Controller{
                                     'sesion_omeprazol' => 2,
                                     'sesion_acidofolico' => 2,
                                     'sesion_calcio' => 8,
-                                    'sesion_amlodipina' => 4,
+                                    //'sesion_amlodipina' => 4,
                                     'sesion_complejob' => 2,
                                 );
                             }elseif($dia == 6){
@@ -165,7 +165,7 @@ class Sesion extends CI_Controller{
                                     'sesion_omeprazol' => 3,
                                     'sesion_acidofolico' => 3,
                                     'sesion_calcio' => 12,
-                                    'sesion_amlodipina' => 6,
+                                    //'sesion_amlodipina' => 6,
                                     'sesion_complejob' => 3,
                                 );
                             }

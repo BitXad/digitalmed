@@ -243,7 +243,7 @@ function detalle_acceso()
 }
 
 function eliminar_registro(registro_id){
-    let confirmacion =  confirm('Esta seguro que quiere eliminiar a este Registro del sistema?\n Nota.- esta operacion es irreversible!.')
+    let confirmacion =  confirm('Esta seguro que quiere eliminar este Registro del sistema?\nNota.- esta operacion es irreversible!.')
     if(confirmacion == true){
         let base_url = document.getElementById('base_url').value;
         dir_url = base_url+"registro/remove/"+registro_id;
