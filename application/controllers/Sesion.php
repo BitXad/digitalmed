@@ -91,9 +91,13 @@ class Sesion extends CI_Controller{
                         $num_reg    = ($numero_registro+$i);
                         $num_filtro = ($registro_filtro+$cont);
                         $cont++;
-                        if($num_filtro == 12){
+                        if($num_filtro >= 12){
                             $registro_filtro = 0;
                             $cont = 1;
+                            if($num_filtro > 12){
+                                $num_filtro = 1;
+                                $cont = 2;
+                            }
                         }
                         
                         $params = array(
@@ -818,6 +822,137 @@ class Sesion extends CI_Controller{
         }
         else
             show_error('La Sesion que intentas eliminar no existe!....');
+    }
+    
+    public function reajustar_numerosesion()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $sesnumero_hd = $this->input->post('sesnumero_hd');
+                $registro_id = $this->input->post('registro_id');
+                $sesion_id = $this->input->post('sesion_id');
+                $las_sesiones = $this->Sesion_model->get_sesionesmayores_asesion($registro_id,$sesion_id);
+                foreach ($las_sesiones as $sesion) {
+                    $params = array(
+                        'sesion_numerosesionhd'=> $sesnumero_hd,
+                    );
+                    $medicacion_id= $this->Sesion_model->update_sesion($sesion["sesion_id"],$params);
+                    $sesnumero_hd++;
+                }
+                $paramsr = array(
+                    'registro_numerosesion'=> ($sesnumero_hd-1),
+                );
+                $this->Registro_model->update_registro($registro_id,$paramsr);
+                $lasesion = $this->Sesion_model->get_sesion($sesion_id);
+                echo json_encode($lasesion["sesion_numerosesionhd"]);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
+    }
+    
+    public function cambiar_numeromaquina()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_nummaquina = $this->input->post('sesion_nummaquina');
+                $registro_id = $this->input->post('registro_id');
+                $sesion_id = $this->input->post('sesion_id');
+                $uno_omas = $this->input->post('uno_omas');
+                // si uno_omas es 1, entonces solo cambia en esa sesion,
+                // caso contrario cambia en todas las sesiones posteriores
+                if($uno_omas == 1){
+                    $params = array(
+                        'sesion_nummaquina'=> $sesion_nummaquina,
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                }else{
+                    $las_sesiones = $this->Sesion_model->get_sesionesmayores_asesion($registro_id,$sesion_id);
+                    foreach ($las_sesiones as $sesion){
+                        $params = array(
+                            'sesion_nummaquina'=> $sesion_nummaquina,
+                        );
+                        $this->Sesion_model->update_sesion($sesion["sesion_id"],$params);
+                    }
+                    $paramsr = array(
+                        'registro_numaquina'=> $sesion_nummaquina,
+                    );
+                    $this->Registro_model->update_registro($registro_id,$paramsr);
+                }
+                
+                $lasesion = $this->Sesion_model->get_sesion($sesion_id);
+                echo json_encode($lasesion["sesion_nummaquina"]);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
+    }
+    
+    public function cambiar_reutfiltro()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_reutlizacionfiltro = $this->input->post('sesion_reutlizacionfiltro');
+                $registro_id = $this->input->post('registro_id');
+                $sesion_id = $this->input->post('sesion_id');
+                
+                $las_sesiones = $this->Sesion_model->get_sesionesmayores_asesion($registro_id,$sesion_id);
+                /* elimina el medicamento 28-->FILTRO HPS F8/DIACAP/ELISIO 21 H */
+                $medicamento_id = 28;
+                foreach ($las_sesiones as $sesion){
+                    $resultado  = $this->Medicacion_model->delete_medicacionsesion($sesion["sesion_id"], $medicamento_id);
+                }
+                $registro_filtro = ($sesion_reutlizacionfiltro-1);
+                $num_filtro = 0;
+                $cont = 1;
+                foreach ($las_sesiones as $sesion){
+                    $num_filtro = ($registro_filtro+$cont);
+                    $cont++;
+                    if($num_filtro >= 12){
+                        $registro_filtro = 0;
+                        $cont = 1;
+                        if($num_filtro > 12){
+                            $num_filtro = 1;
+                            $cont = 2;
+                        }
+                    }
+                    
+                    $params = array(
+                        'sesion_reutlizacionfiltro'=> $num_filtro,
+                        'sesion_lineasav'=> $num_filtro,
+                    );
+                    $this->Sesion_model->update_sesion($sesion["sesion_id"],$params);
+                    
+                    if($num_filtro == 1){
+                        $medicamento_id = 28; // "FILTRO HPS F8/DIACAP/ELISIO 21 H"
+                        $cantidad = 1; // es uno porque es al regla del negocio
+                        $params = array(
+                            'sesion_id'=> $sesion["sesion_id"],
+                            'medicamento_id'=> $medicamento_id,
+                            'estado_id'=> 1,
+                            'medicacion_cantidad'=> $cantidad,
+                        );
+                        $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                    }
+                }
+                
+                $paramsr = array(
+                    'registro_filtro'=> $num_filtro,
+                );
+                $this->Registro_model->update_registro($registro_id,$paramsr);
+                
+                $lasesion = $this->Sesion_model->get_sesion($sesion_id);
+                echo json_encode($lasesion["sesion_reutlizacionfiltro"]);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
     }
     
  }

@@ -242,4 +242,27 @@ class Sesion_model extends CI_Model
         }  
     }
     
+    /*
+     * Get all sesiones >= a sesion_id
+    */
+    function get_sesionesmayores_asesion($registro_id, $sesion_id)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    s.sesion_id 
+                FROM
+                    sesion s
+                left join tratamiento t on s.tratamiento_id = t.tratamiento_id
+                left join registro r on t.registro_id = r.registro_id
+                WHERE
+                    r.registro_id = $registro_id and
+                    s.sesion_id >= $sesion_id
+            ")->result_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }
+    }
+    
  }

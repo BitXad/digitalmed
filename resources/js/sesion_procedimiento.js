@@ -248,12 +248,117 @@ function eliminar_registrohora(detallehora_id)
     }
 }
 
-/*
-function eliminar_registrohora(detallehora_id){
-    let confirmacion =  confirm('Esta seguro que quiere eliminiar este Registro Hora del sistema?\n Nota.- esta operacion es irreversible!.')
-    if(confirmacion == true){
-        let base_url = document.getElementById('base_url').value;
-        dir_url = base_url+"detalle_hora/remove/"+detallehora_id;
-        location.href =dir_url;
+/* carga el modal para reajustar el numero de sesion Hemodialisis */
+function mostrarmodal_cambionumsesion(registro_id, sesion_id, sesion_numerosesionhd)
+{
+    document.getElementById('loadercambionumsesion').style.display = 'none';
+    $("#reajustar_sesnumero_hd").val(sesion_numerosesionhd);
+    $("#reajustar_registro_id").val(registro_id);
+    $("#reajustar_sesion_id").val(sesion_id);
+    $('#modal_cambionumsesion').on('shown.bs.modal', function (e) {
+        $('#reajustar_sesnumero_hd').focus();
+        $('#reajustar_sesnumero_hd').select();
+    });
+}
+
+function reajustar_numerosesionhd()
+{
+    let sesnumero_hd = document.getElementById("reajustar_sesnumero_hd").value;
+    let registro_id = document.getElementById("reajustar_registro_id").value;
+    let sesion_id = document.getElementById("reajustar_sesion_id").value;
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'sesion/reajustar_numerosesion';
+    document.getElementById('loadercambionumsesion').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{sesnumero_hd:sesnumero_hd, registro_id:registro_id, sesion_id:sesion_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                $('#sesion_numerosesionhd').val(res);
+                alert("Reajuste del número de sesion realizado correctamente");
+                $('#boton_cerrarmodalreajustar').click();
+                //mostrar_tablastratamiento();
+            },
+    });
+}
+
+/* carga el modal para cambiar el numero de maquina */
+function mostrarmodal_cambionummaquina(registro_id, sesion_id, sesion_nummaquina)
+{
+    document.getElementById('loadercambionummaquina').style.display = 'none';
+    $("#cambiar_sesion_nummaquina").val(sesion_nummaquina);
+    $("#cambiar_registro_id").val(registro_id);
+    $("#cambiar_sesion_id").val(sesion_id);
+    $('#modal_cambionummaquina').on('shown.bs.modal', function (e) {
+        $('#cambiar_sesion_nummaquina').focus();
+        $('#cambiar_sesion_nummaquina').select();
+    });
+}
+
+function cambiar_numerodemaquina(uno_omas)
+{
+    let sesion_nummaquina = document.getElementById("cambiar_sesion_nummaquina").value;
+    let registro_id = document.getElementById("cambiar_registro_id").value;
+    let sesion_id = document.getElementById("cambiar_sesion_id").value;
+    var base_url = document.getElementById('base_url').value;
+    
+    var controlador = base_url+'sesion/cambiar_numeromaquina';
+    document.getElementById('loadercambionummaquina').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{sesion_nummaquina:sesion_nummaquina, registro_id:registro_id, sesion_id:sesion_id, uno_omas:uno_omas
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                $('#sesion_nummaquina').val(res);
+                alert("El cambio del número de maquinia se realizo correctamente");
+                $('#boton_cerrarmodalcambiar').click();
+                //mostrar_tablastratamiento();
+            },
+    });
+}
+
+/* carga el modal para cambiar el numero de reutilizacion del filtro */
+function mostrarmodal_cambioreutlizacionfiltro(registro_id, sesion_id, sesion_reutlizacionfiltro)
+{
+    document.getElementById('loadercambioreutlizacionfiltro').style.display = 'none';
+    $("#cambiar_sesion_reutlizacionfiltro").val(sesion_reutlizacionfiltro);
+    $("#reutfiltro_registro_id").val(registro_id);
+    $("#reutfiltro_sesion_id").val(sesion_id);
+    $('#modal_cambioreutlizacionfiltro').on('shown.bs.modal', function (e) {
+        $('#cambiar_sesion_reutlizacionfiltro').focus();
+        $('#cambiar_sesion_reutlizacionfiltro').select();
+    });
+}
+
+function cambiar_reutfiltro()
+{
+    let sesion_reutlizacionfiltro = document.getElementById("cambiar_sesion_reutlizacionfiltro").value;
+    if(sesion_reutlizacionfiltro >= 1 && sesion_reutlizacionfiltro <= 12){
+        let registro_id = document.getElementById("reutfiltro_registro_id").value;
+        let sesion_id = document.getElementById("reutfiltro_sesion_id").value;
+        var base_url = document.getElementById('base_url').value;
+
+        var controlador = base_url+'sesion/cambiar_reutfiltro';
+        document.getElementById('loadercambioreutlizacionfiltro').style.display = 'block';
+        $.ajax({url:controlador,
+                type:"POST",
+                async: false,
+                data:{sesion_reutlizacionfiltro:sesion_reutlizacionfiltro, registro_id:registro_id, sesion_id:sesion_id
+                },
+                success:function(result){
+                    res = JSON.parse(result);
+                    $('#sesion_reutlizacionfiltro').val(res);
+                    $('#sesion_lineasav').val(res);
+                    alert("El cambio del número de reutilizacion de filtro fue realizado correctamente");
+                    $('#boton_cerrarmodalreutfiltro').click();
+                    //mostrar_tablastratamiento();
+                },
+        });
+    }else{
+        alert("Por favor solo poner numeros que esten entre los valores 1 al 12");
     }
-}*/
+}

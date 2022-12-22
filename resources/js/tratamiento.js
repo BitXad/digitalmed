@@ -111,12 +111,12 @@ function mostrar_tablastratamiento()
                             html += "<a class='btn btn-dropbox btn-xs' data-toggle='modal' data-target='#modal_modificarinfmensual' onclick='cargarmodal_modificarinfmensual("+tratamientos[i]["infmensual_id"]+")' title='Modificar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                             html += "<a href='"+base_url+"reportes/informecmensual/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='Informe clinico mensual'><span class='fa fa-calendar'></span></a>";
-                            html += "<a href='"+base_url+"reportes/medinsumos/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='medicamentos e insumos medicos otorgados y autorizados'><span class='fa fa-list-ol'></span></a>";
                         }else{
                             // nuevo informe mensual
                             html += "<a class='btn btn-dropbox btn-xs' data-toggle='modal' data-target='#modal_nuevoinfmensual' onclick='cargarmodal_nuevoinfmensual("+tratamientos[i]["tratamiento_id"]+", "+JSON.stringify(tratamientos[i]["tratamiento_mes"])+", "+tratamientos[i]["tratamiento_gestion"]+")' title='Registrar informe mensual'>";
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                         }
+                        html += "<a href='"+base_url+"reportes/medinsumos/"+tratamientos[i]['tratamiento_id']+"' target='_blank' class='btn btn-dropbox btn-xs' title='medicamentos e insumos medicos otorgados y autorizados'><span class='fa fa-list-ol'></span></a>";
                         if(hay_certmedico >0){
                             if(tratamientos[i]['certmedico_id'] >0){
                                 html += "<a class='btn btn-google btn-xs' data-toggle='modal' data-target='#modal_modificarcertmedico' onclick='cargarmodal_modificarcertmedico("+tratamientos[i]["certmedico_id"]+")' title='Modificar certificado medico'>";
@@ -246,7 +246,7 @@ function cargarmodal_nuevoinfmensual(tratamiento_id, elmes, gestion)
         $("#infmensual_firmante").val("");
         
         
-        $("#infmensual_conclusion").val("Conclusiones Paciente debe cumplir restriccion hidrica, adedmaas de continuar tratamiento hemodialitico. es cuanto iniormo para los fines consiguientes");
+        $("#infmensual_conclusion").val("Conclusiones Paciente debe cumplir restricción hidrica, además de continuar tratamiento hemodialítico. Es cuanto informo para los fines consiguientes.");
     }
     /*let elfirmante = $("#elfirmante_nombre").val();
     if(elfirmante != "" && elfirmante != null){

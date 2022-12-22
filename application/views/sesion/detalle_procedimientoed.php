@@ -42,7 +42,10 @@
                             <div class="col-md-2">
                                 <label for="sesion_numerosesionhd" class="control-label">  <span class="text-danger"></span>N° Ses HD</label>
                                 <div class="form-group">
-                                    <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_complejobampolla" readonly />
+                                    <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_numerosesionhd" readonly />
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionumsesion" onclick="mostrarmodal_cambionumsesion(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_numerosesionhd']; ?>)" title="Cambiar el número de sesión de HD">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
                                     <span class="text-danger"><?php echo form_error('sesion_numerosesionhd');?></span>
                                 </div>
                             </div>
@@ -90,8 +93,11 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_nummaquina" class="control-label">  <span class="text-danger"></span>MAQUINA N°</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <input type="number" min="0" name="sesion_nummaquina" value="<?php echo ($this->input->post('sesion_nummaquina') ? $this->input->post('sesion_nummaquina') : $sesion['sesion_nummaquina']); ?>" class="form-control" id="sesion_nummaquina" readonly="true" />
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionummaquina" onclick="mostrarmodal_cambionummaquina(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_nummaquina']; ?>)" title="Cambiar el número de maquina">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
                                     <span class="text-danger"><?php echo form_error('sesion_nummaquina');?></span>
                                 </div>
                             </div>
@@ -364,3 +370,71 @@
     </div>
 </div>
 <!------------------------ F I N  modal para modifcar hora de sesiones ------------------->
+
+<!------------------------ INICIO modal para registrar el cambio denumero de sesiones ------------------->
+<div class="modal fade" id="modal_cambionumsesion" tabindex="-1" role="dialog" aria-labelledby="modal_cambionumsesionlabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">REAJUSTAR EL NUMERO DE SESION DE HEMODIALISIS</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambionumsesion" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="reajustar_sesnumero_hd" class="control-label">N° Ses HD</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="reajustar_sesnumero_hd" class="form-control" id="reajustar_sesnumero_hd" onclick="this.select();" />
+                        <input type="hidden" name="reajustar_registro_id" class="form-control" id="reajustar_registro_id" />
+                        <input type="hidden" name="reajustar_sesion_id" class="form-control" id="reajustar_sesion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="reajustar_numerosesionhd()"><fa class="fa fa-floppy-o"></fa> Reajustar</button>
+                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalreajustar"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio denumero de sesiones ------------------->
+
+<!------------------------ INICIO modal para registrar el cambio de numero de maquina ------------------->
+<div class="modal fade" id="modal_cambionummaquina" tabindex="-1" role="dialog" aria-labelledby="modal_cambionummaquinalabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR EL NUMERO DE MAQUINA</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambionummaquina" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_nummaquina" class="control-label">Maquina N°</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="cambiar_sesion_nummaquina" class="form-control" id="cambiar_sesion_nummaquina" onclick="this.select();" />
+                        <input type="hidden" name="cambiar_registro_id" class="form-control" id="cambiar_registro_id" />
+                        <input type="hidden" name="cambiar_sesion_id" class="form-control" id="cambiar_sesion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_numerodemaquina(1)"><fa class="fa fa-floppy-o"></fa> Cambiar en esta Sesion</button>
+                    <button type="button" class="btn btn-success" onclick="cambiar_numerodemaquina(2)"><fa class="fa fa-floppy-o"></fa> Cambiar Todo</button>
+                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiar"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de numero de maquina ------------------->
+
