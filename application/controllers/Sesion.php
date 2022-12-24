@@ -576,6 +576,7 @@ class Sesion extends CI_Controller{
                         'sesion_fistula'=> $this->input->post('sesion_fistula'),
                         'sesion_evaluacionclinica'=> $this->input->post('sesion_evaluacionclinica'),
                         'sesion_tratamiento'=> $this->input->post('sesion_tratamiento'),
+                        'sesion_medicamentosextra'=> $this->input->post('sesion_medicamentosextra'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
@@ -689,6 +690,7 @@ class Sesion extends CI_Controller{
                         'sesion_fistula'=> $this->input->post('sesion_fistula'),
                         'sesion_evaluacionclinica'=> $this->input->post('sesion_evaluacionclinica'),
                         'sesion_tratamiento'=> $this->input->post('sesion_tratamiento'),
+                        'sesion_medicamentosextra'=> $this->input->post('sesion_medicamentosextra'),
                     );
                     $this->Sesion_model->update_sesion($sesion_id,$params);
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
@@ -947,6 +949,36 @@ class Sesion extends CI_Controller{
                 
                 $lasesion = $this->Sesion_model->get_sesion($sesion_id);
                 echo json_encode($lasesion["sesion_reutlizacionfiltro"]);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error in edit function - ' . $ex);
+        }
+    }
+    
+    public function cambiar_tipofiltro()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_tipofiltro = $this->input->post('sesion_tipofiltro');
+                $registro_id = $this->input->post('registro_id');
+                $sesion_id = $this->input->post('sesion_id');
+                
+                $las_sesiones = $this->Sesion_model->get_sesionesmayores_asesion($registro_id,$sesion_id);
+                foreach ($las_sesiones as $sesion){
+                    $params = array(
+                        'sesion_tipofiltro'=> $sesion_tipofiltro,
+                    );
+                    $this->Sesion_model->update_sesion($sesion["sesion_id"],$params);
+                }
+                $paramsr = array(
+                    'registro_tipofiltro'=> $sesion_tipofiltro,
+                );
+                $this->Registro_model->update_registro($registro_id,$paramsr);
+                
+                $lasesion = $this->Sesion_model->get_sesion($sesion_id);
+                echo json_encode($lasesion["sesion_tipofiltro"]);
             }else{                 
                 show_404();
             }

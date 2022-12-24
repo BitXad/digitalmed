@@ -111,8 +111,11 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" readonly="true" />
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambiotipofiltro" onclick="mostrarmodal_cambiotipofiltro(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,'<?php echo $sesion['sesion_tipofiltro']; ?>')" title="Cambiar el tipo de filtro">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
                                     <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
                                 </div>
                             </div>
@@ -294,7 +297,7 @@
             <div class="modal-footer" style="text-align: center">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-success" onclick="registrar_hora()"><fa class="fa fa-floppy-o"></fa> Registrar hora</button>
-                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodal"><fa class="fa fa-times"></fa> Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodal"><fa class="fa fa-times"></fa> Cerrar</button>
                 </div>
             </div>
         </div>
@@ -400,7 +403,7 @@
             <div class="modal-footer" style="text-align: center">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-success" onclick="reajustar_numerosesionhd()"><fa class="fa fa-floppy-o"></fa> Reajustar</button>
-                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalreajustar"><fa class="fa fa-times"></fa> Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalreajustar"><fa class="fa fa-times"></fa> Cerrar</button>
                 </div>
             </div>
         </div>
@@ -434,7 +437,7 @@
                 <div class="col-md-12">
                     <button type="button" class="btn btn-success" onclick="cambiar_numerodemaquina(1)"><fa class="fa fa-floppy-o"></fa> Cambiar en esta Sesion</button>
                     <button type="button" class="btn btn-success" onclick="cambiar_numerodemaquina(2)"><fa class="fa fa-floppy-o"></fa> Cambiar Todo</button>
-                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiar"><fa class="fa fa-times"></fa> Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiar"><fa class="fa fa-times"></fa> Cerrar</button>
                 </div>
             </div>
         </div>
@@ -467,7 +470,7 @@
             <div class="modal-footer" style="text-align: center">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-success" onclick="cambiar_reutfiltro()"><fa class="fa fa-floppy-o"></fa> Cambiar Reutilizacion Filtro</button>
-                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalreutfiltro"><fa class="fa fa-times"></fa> Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalreutfiltro"><fa class="fa fa-times"></fa> Cerrar</button>
                 </div>
             </div>
         </div>
@@ -475,3 +478,38 @@
 </div>
 <!------------------------ F I N  modal para registrar el cambio de reutilizacion filtro ------------------->
 
+<!------------------------ INICIO modal para registrar el cambio de tipo de filtro ------------------->
+<div class="modal fade" id="modal_cambiotipofiltro" tabindex="-1" role="dialog" aria-labelledby="modal_cambiotipofiltrolabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR EL TIPO DE FILTRO</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambiotipofiltro" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_tipofiltro" class="control-label">TIPO DE FILTRO</label>
+                    <div class="form-group">
+                        <select class="form-control" name="cambiar_sesion_tipofiltro" id="cambiar_sesion_tipofiltro">
+                            <option value="F8HPS">F8HPS</option>
+                            <option value="FX100">FX100</option>
+                        </select>
+                        <input type="hidden" name="cambiartfiltro_registro_id" class="form-control" id="cambiartfiltro_registro_id" />
+                        <input type="hidden" name="cambiartfiltro_sesion_id" class="form-control" id="cambiartfiltro_sesion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_tipofiltro()"><fa class="fa fa-floppy-o"></fa> Cambiar Tipo de Filtro</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiartipofiltro"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de tipo de filtro ------------------->

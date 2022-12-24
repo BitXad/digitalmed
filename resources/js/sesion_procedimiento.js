@@ -362,3 +362,40 @@ function cambiar_reutfiltro()
         alert("Por favor solo poner numeros que esten entre los valores 1 al 12");
     }
 }
+
+/* carga el modal para cambiar el tipo de filtro */
+function mostrarmodal_cambiotipofiltro(registro_id, sesion_id, sesion_tipofiltro)
+{
+    document.getElementById('loadercambiotipofiltro').style.display = 'none';
+    $("#cambiar_sesion_tipofiltro").val(sesion_tipofiltro);
+    $("#cambiartfiltro_registro_id").val(registro_id);
+    $("#cambiartfiltro_sesion_id").val(sesion_id);
+    
+    $('#modal_cambiotipofiltro').on('shown.bs.modal', function (e) {
+        $('#cambiar_sesion_tipofiltro').focus();
+    });
+}
+
+function cambiar_tipofiltro()
+{
+    let sesion_tipofiltro = document.getElementById("cambiar_sesion_tipofiltro").value;
+    let registro_id = document.getElementById("cambiartfiltro_registro_id").value;
+    let sesion_id = document.getElementById("cambiartfiltro_sesion_id").value;
+    var base_url = document.getElementById('base_url').value;
+    
+    var controlador = base_url+'sesion/cambiar_tipofiltro';
+    document.getElementById('loadercambiotipofiltro').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{sesion_tipofiltro:sesion_tipofiltro, registro_id:registro_id, sesion_id:sesion_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                $('#sesion_tipofiltro').val(res);
+                alert("El cambio del tipo de filtro se realizo correctamente");
+                $('#boton_cerrarmodalcambiartipofiltro').click();
+                //mostrar_tablastratamiento();
+            },
+    });
+}
