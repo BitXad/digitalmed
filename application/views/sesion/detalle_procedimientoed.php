@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_numerosesionhd" class="control-label">  <span class="text-danger"></span>N° Ses HD</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_numerosesionhd" readonly />
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionumsesion" onclick="mostrarmodal_cambionumsesion(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_numerosesionhd']; ?>)" title="Cambiar el número de sesión de HD">
                                         <span class="fa fa-pencil-square-o"></span>
@@ -124,8 +124,11 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_reutlizacionfiltro" class="control-label">  <span class="text-danger"></span>REUTILIZACION FILTRO</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <input type="text" name="sesion_reutlizacionfiltro" value="<?php echo ($this->input->post('sesion_reutlizacionfiltro') ? $this->input->post('sesion_reutlizacionfiltro') : $sesion['sesion_reutlizacionfiltro']); ?>" class="form-control" id="sesion_reutlizacionfiltro" readonly="true" />
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambioreutlizacionfiltro" onclick="mostrarmodal_cambioreutlizacionfiltro(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_reutlizacionfiltro']; ?>)" title="Cambiar el número de reutilización de filtro">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
                                     <span class="text-danger"><?php echo form_error('sesion_reutlizacionfiltro');?></span>
                                 </div>
                             </div>
@@ -208,6 +211,13 @@
                                 <div class="form-group">
                                     <textarea class="form-control" name="sesion_tratamiento" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_tratamiento']; ?></textarea>
                                     <span class="text-danger"><?php echo form_error('sesion_tratamiento');?></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="sesion_medicamentosextra" class="control-label">  <span class="text-danger"></span>MEDICAMENTOS EXTRA</label>
+                                <div class="form-group">
+                                    <input type="text" name="sesion_medicamentosextra" value="<?php echo ($this->input->post('sesion_medicamentosextra') ? $this->input->post('sesion_medicamentosextra') : $sesion['sesion_medicamentosextra']); ?>" class="form-control" id="sesion_medicamentosextra" />
+                                    <span class="text-danger"><?php echo form_error('sesion_medicamentosextra');?></span>
                                 </div>
                             </div>
                         </div>
@@ -438,3 +448,35 @@
 </div>
 <!------------------------ F I N  modal para registrar el cambio de numero de maquina ------------------->
 
+<!------------------------ INICIO modal para registrar el cambio de reutilizacion filtro ------------------->
+<div class="modal fade" id="modal_cambioreutlizacionfiltro" tabindex="-1" role="dialog" aria-labelledby="modal_cambioreutlizacionfiltrolabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR EL NUMERO DE REUTILIZACION DE FILTRO</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambioreutlizacionfiltro" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_reutlizacionfiltro" class="control-label">Reutilización Filtro (1... 12)</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="cambiar_sesion_reutlizacionfiltro" class="form-control" id="cambiar_sesion_reutlizacionfiltro" onclick="this.select();" />
+                        <input type="hidden" name="reutfiltro_registro_id" class="form-control" id="reutfiltro_registro_id" />
+                        <input type="hidden" name="reutfiltro_sesion_id" class="form-control" id="reutfiltro_sesion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_reutfiltro()"><fa class="fa fa-floppy-o"></fa> Cambiar Reutilizacion Filtro</button>
+                    <butto]n type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalreutfiltro"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de reutilizacion filtro ------------------->

@@ -367,9 +367,13 @@ class Tratamiento extends CI_Controller{
                         $num_reg    = ($numero_registro+$i);
                         $num_filtro = ($registro_filtro+$cont);
                         $cont++;
-                        if($num_filtro == 12){
+                        if($num_filtro >= 12){
                             $registro_filtro = 0;
                             $cont = 1;
+                            if($num_filtro > 12){
+                                $num_filtro = 1;
+                                $cont = 2;
+                            }
                         }
                         
                         $params = array(
@@ -412,7 +416,7 @@ class Tratamiento extends CI_Controller{
                                     'sesion_omeprazol' => 2,
                                     'sesion_acidofolico' => 2,
                                     'sesion_calcio' => 8,
-                                    'sesion_amlodipina' => 4,
+                                    //'sesion_amlodipina' => 4,
                                     'sesion_complejob' => 2,
                                 );
                             }elseif($dia == 5){
@@ -421,7 +425,7 @@ class Tratamiento extends CI_Controller{
                                     'sesion_omeprazol' => 3,
                                     'sesion_acidofolico' => 3,
                                     'sesion_calcio' => 12,
-                                    'sesion_amlodipina' => 6,
+                                    //'sesion_amlodipina' => 6,
                                     'sesion_complejob' => 3,
                                 );
                             }
@@ -432,7 +436,7 @@ class Tratamiento extends CI_Controller{
                                     'sesion_omeprazol' => 2,
                                     'sesion_acidofolico' => 2,
                                     'sesion_calcio' => 8,
-                                    'sesion_amlodipina' => 4,
+                                    //'sesion_amlodipina' => 4,
                                     'sesion_complejob' => 2,
                                 );
                             }elseif($dia == 6){
@@ -441,7 +445,7 @@ class Tratamiento extends CI_Controller{
                                     'sesion_omeprazol' => 3,
                                     'sesion_acidofolico' => 3,
                                     'sesion_calcio' => 12,
-                                    'sesion_amlodipina' => 6,
+                                    //'sesion_amlodipina' => 6,
                                     'sesion_complejob' => 3,
                                 );
                             }

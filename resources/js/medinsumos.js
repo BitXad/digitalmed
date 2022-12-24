@@ -15,9 +15,12 @@ function mostrar_tablamedicamentoinsumo()
     for(var i = 0; i < n ; i++){
         html += "<tr style='font-size: 6.6px'>";
         html += "<td class='borde text-center' style='padding-left: 1px; padding-right: 1px'>"+med_insumo[i]['medicamento_id']+"</td>";
-        let tamanio_nombre = "";
+        let tamanio_nombre = "font-size: 7.5px";
         if(med_insumo[i]['medicamento_id'] == 8 || med_insumo[i]['medicamento_id'] == 11){
             tamanio_nombre = "font-size: 6.3px";
+        }
+        if(med_insumo[i]['medicamento_id'] == 17 || med_insumo[i]['medicamento_id'] == 18 || med_insumo[i]['medicamento_id'] == 19){
+            tamanio_nombre = "font-size: 7px";
         }
         if(med_insumo[i]['medicamento_id'] == 27){
             tamanio_nombre = "font-size: 4.8px";

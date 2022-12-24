@@ -207,6 +207,13 @@
                                     <span class="text-danger"><?php echo form_error('sesion_tratamiento');?></span>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <label for="sesion_medicamentosextra" class="control-label">  <span class="text-danger"></span>MEDICAMENTOS EXTRA</label>
+                                <div class="form-group">
+                                    <input type="text" name="sesion_medicamentosextra" value="<?php echo ($this->input->post('sesion_medicamentosextra') ? $this->input->post('sesion_medicamentosextra') : $sesion['sesion_medicamentosextra']); ?>" class="form-control" id="sesion_medicamentosextra" />
+                                    <span class="text-danger"><?php echo form_error('sesion_medicamentosextra');?></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="box-footer">
@@ -435,7 +442,7 @@
 </div>
 <!------------------------ F I N  modal para registrar el cambio de numero de maquina ------------------->
 
-<!------------------------ INICIO modal para registrar el cambio de numero de maquina ------------------->
+<!------------------------ INICIO modal para registrar el cambio de reutilizacion filtro ------------------->
 <div class="modal fade" id="modal_cambioreutlizacionfiltro" tabindex="-1" role="dialog" aria-labelledby="modal_cambioreutlizacionfiltrolabel" style="font-family: Arial; font-size: 10pt;">
     <div class="modal-dialog" role="document">
         <br><br>
@@ -466,5 +473,5 @@
         </div>
     </div>
 </div>
-<!------------------------ F I N  modal para registrar el cambio de numero de maquina ------------------->
+<!------------------------ F I N  modal para registrar el cambio de reutilizacion filtro ------------------->
 

@@ -147,32 +147,6 @@ class Medicacion_model extends CI_Model {
                     where
                         sesion_id = $sesion_id and
                         medicamento_id = $medicamento_id ");
-            /*return "delete From medicacion
-                    where
-                        sesion_id = $sesion_id and
-                        medicacion_id = $medicacion_id";*/
-
-            /*$this->db->delete('medicacion', array('medicacion_id' => $medicacion_id, 'sesion_id' => $sesion_id));
-            
-            $result= $this->db->delete('student');
-            return $result;
-            */
-            /*$this->db->where('sesion_id', $sesion_id);
-            $this->db->where('medicacion_id', $medicacion_id);
-            $result = $this->db->delete('medicacion');
-            return $result;
-            /*$medicamento = $this->db->query("
-            delete from medicacion
-                where
-                    sesion_id = $sesion_id and
-                    medicacion_id = $medicacion_id
-        ");*/
-            
-            /*$this->db->query($sql);
-        return $this->db->insert_id();
-            */
-            
-        //return $medicamento;
         } catch (Exception $ex) {
             throw new Exception('Medicacion_model model : Error in delete_medicacion function - ' . $ex);
         }
