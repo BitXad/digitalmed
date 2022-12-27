@@ -357,7 +357,7 @@ function modificar_infmensual()
     let infmensual_paratohormona = CKEDITOR.instances.infmensual_paratohormonamodif.getData();
     //let infmensual_laboratorio = document.getElementById("cke_infmensual_laboratoriomodif").value;
     let infmensual_glucemia = CKEDITOR.instances.infmensual_glucemiamodif.getData();
-    let infmensual_firmante = document.getElementById("infmensual_firmantenmodif").value;
+    let infmensual_firmante = document.getElementById("infmensual_firmantemodif").value;
     let infmensual_conclusion = CKEDITOR.instances.infmensual_conclusionmodif.getData();
     let infmensual_fecha = document.getElementById("infmensual_fechamodif").value;
     let infmensual_id = document.getElementById("infmensual_id").value;

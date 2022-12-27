@@ -381,9 +381,9 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <label for="infmensual_firmantenmodif" class="control-label">Firmante</label>
+                    <label for="infmensual_firmantemodif" class="control-label">Firmante</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="infmensual_firmantenmodif" id="infmensual_firmantenmodif"></textarea>
+                        <textarea class="form-control" name="infmensual_firmantemodif" id="infmensual_firmantemodif"></textarea>
                     </div>
                 </div>
                 <div class="col-md-9">
