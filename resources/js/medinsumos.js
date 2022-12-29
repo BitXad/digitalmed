@@ -58,6 +58,12 @@ function mostrar_tablamedicamentoinsumo()
                     totalmed = Number(Number(totalmed)+Number(lacant_medicamento));
                     cant_medicamento = lacant_medicamento;
                 }
+            }else if(med_insumo[i]['medicamento_id'] == 32){
+                lacant_medicamento = sesiones[j]["sesion_asa"];
+                if(lacant_medicamento > 0){
+                    totalmed = Number(Number(totalmed)+Number(lacant_medicamento));
+                    cant_medicamento = lacant_medicamento;
+                }
             }else if(med_insumo[i]['medicamento_id'] == 34){
                 lacant_medicamento = sesiones[j]["sesion_acidofolico"];
                 if(lacant_medicamento > 0){
