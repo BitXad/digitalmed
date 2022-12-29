@@ -221,20 +221,23 @@ class Sesion_model extends CI_Model
     }
     
     /*
-     * Obtiene la sesion (anterior o posterior) en base al tratamiento y numeo de sesion
+     * Obtiene la sesion (anterior o posterior) en base al tratamiento y una numeracion dada!..
     */ 
     function get_otrasesion($tratamiento_id, $sesion_numero)
     {
         try{
             $sesion = $this->db->query("
-                SELECT
-                    s.*
-                FROM
-                    sesion s
-                WHERE
-                    s.tratamiento_id = $tratamiento_id
-                    and s.sesion_numero = $sesion_numero
-                    and s.estado_id != 7
+                SELECT t.*
+                FROM(
+                    SELECT
+                        @numero:=@numero+1 AS `numeracion`, s.*
+                    FROM
+                        sesion s
+                    JOIN (SELECT @numero := 0) r
+                    WHERE
+                        s.tratamiento_id = $tratamiento_id
+                        and s.estado_id != 7) as t
+                where numeracion = $sesion_numero
             ")->row_array();
             return $sesion;
         } catch (Exception $ex) {
@@ -263,6 +266,28 @@ class Sesion_model extends CI_Model
         } catch (Exception $ex) {
             throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
         }
+    }
+    /*
+     * Obtiene todas las sesiones de un tratamiento enumeradas en la consulta!..
+    */ 
+    function get_sesionesnumeradas($tratamiento_id)
+    {
+        try{
+            $sesion = $this->db->query("
+                SELECT
+                    @numero:=@numero+1 AS `numeracion`, s.*
+                FROM
+                    sesion s
+                JOIN (SELECT @numero := 0) r
+                WHERE
+                    s.tratamiento_id = $tratamiento_id
+                    and s.estado_id != 7
+                    order by s.sesion_id
+            ")->result_array();
+            return $sesion;
+        } catch (Exception $ex) {
+            throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
+        }  
     }
     
  }

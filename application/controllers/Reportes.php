@@ -79,7 +79,14 @@ class Reportes extends CI_Controller{
         $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($sesion['tratamiento_id']);
         
         $cantidad = $this->Sesion_model->getcount_sesiontratamiento($eltratamiento_id);
-        $sesion_numero = $sesion["sesion_numero"];
+        $total_sesiones = $this->Sesion_model->get_sesionesnumeradas($eltratamiento_id);
+        foreach ($total_sesiones as $lasesion){
+            if($lasesion["sesion_id"] == $sesion_id){
+                $sesion_numero = $lasesion["numeracion"];
+                break;
+            }
+        }
+        //$sesion_numero = $sesion["sesion_numero"];
         
         if($sesion_numero % 2 == 0){ //numero de sesion es par
             $data['sesion'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero-1));

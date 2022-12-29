@@ -135,6 +135,7 @@ class Medicacion_model extends CI_Model {
             WHERE
                 m.sesion_id = $sesion_id
                 and m.medicamento_id = $medicamento_id
+                and m.estado_id = 1
         ")->row_array();
         return $medicamento;
     }
