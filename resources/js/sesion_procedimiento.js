@@ -25,7 +25,7 @@ function mostrar_modalhora()
     $("#detallehora_flujosangre").val("");
     $("#detallehora_pv").val("");
     $("#detallehora_ptm").val("");
-    $("#detallehora_conductividad").val("");
+    $("#detallehora_conductividad").val("14");
     $('#modal_horasesion').on('shown.bs.modal', function (e) {
     $('#detallehora_pa').focus();
     });

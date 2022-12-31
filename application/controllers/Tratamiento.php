@@ -393,6 +393,7 @@ class Tratamiento extends CI_Controller{
                             'avascular_id' => $acceso_vascular["avascular_id"],
                             'sesion_reutlizacionfiltro' => $num_filtro,
                             'sesion_lineasav' => $num_filtro,
+                            'sesion_devolucion' => 300,
                             'sesion_heparina' => 5000,
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
@@ -415,7 +416,7 @@ class Tratamiento extends CI_Controller{
                                 $paramsok = array(
                                     'sesion_omeprazol' => 2,
                                     'sesion_acidofolico' => 2,
-                                    'sesion_calcio' => 8,
+                                    'sesion_calcio' => 4,
                                     //'sesion_amlodipina' => 4,
                                     'sesion_complejob' => 2,
                                 );
@@ -424,7 +425,7 @@ class Tratamiento extends CI_Controller{
                                 $paramsok = array(
                                     'sesion_omeprazol' => 3,
                                     'sesion_acidofolico' => 3,
-                                    'sesion_calcio' => 12,
+                                    'sesion_calcio' => 6,
                                     //'sesion_amlodipina' => 6,
                                     'sesion_complejob' => 3,
                                 );
@@ -435,7 +436,7 @@ class Tratamiento extends CI_Controller{
                                 $paramsok = array(
                                     'sesion_omeprazol' => 2,
                                     'sesion_acidofolico' => 2,
-                                    'sesion_calcio' => 8,
+                                    'sesion_calcio' => 4,
                                     //'sesion_amlodipina' => 4,
                                     'sesion_complejob' => 2,
                                 );
@@ -444,7 +445,7 @@ class Tratamiento extends CI_Controller{
                                 $paramsok = array(
                                     'sesion_omeprazol' => 3,
                                     'sesion_acidofolico' => 3,
-                                    'sesion_calcio' => 12,
+                                    'sesion_calcio' => 6,
                                     //'sesion_amlodipina' => 6,
                                     'sesion_complejob' => 3,
                                 );
