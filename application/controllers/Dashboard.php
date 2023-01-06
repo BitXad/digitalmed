@@ -24,7 +24,6 @@ class Dashboard extends CI_Controller{
             $session_data = $this->session->userdata('logged_in');
 
             //if($session_data['tipousuario_id']==1){        
-                $data['rol'] = $this->session_data['rol'];
                 $usuario_id = $session_data['usuario_id'];
                 
                 $data['empresa'] = $this->Empresa_model->get_empresa(1);
