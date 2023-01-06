@@ -4,6 +4,7 @@
  www.manuigniter.com
 */
 class Tratamiento extends CI_Controller{
+    private $session_data = "";
      function __construct()
     {
         parent::__construct();
@@ -17,6 +18,21 @@ class Tratamiento extends CI_Controller{
         
         $this->load->model('Acceso_vascular_model');
         $this->load->model('Medicacion_model');
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
     }
     
     /*
@@ -24,15 +40,18 @@ class Tratamiento extends CI_Controller{
     */
     public function tratamientos($registro_id)
     {
-        try{
-            //obtiene los tratamientos de un determinado registro
-            $data['registro'] = $this->Registro_model->get_registro($registro_id);
-            $data['paciente'] = $this->Tratamiento_model->get_pacienteregistro($registro_id);
-            
-            $data['_view'] = 'tratamiento/tratamientos';
-            $this->load->view('layouts/main',$data);
-        } catch (Exception $ex) {
-            throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+        if($this->acceso(19)){
+            try{
+                $data["rol"] = $this->session_data['rol'];
+                //obtiene los tratamientos de un determinado registro
+                $data['registro'] = $this->Registro_model->get_registro($registro_id);
+                $data['paciente'] = $this->Tratamiento_model->get_pacienteregistro($registro_id);
+
+                $data['_view'] = 'tratamiento/tratamientos';
+                $this->load->view('layouts/main',$data);
+            } catch (Exception $ex) {
+                throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+            }
         }
     }
     
@@ -271,11 +290,13 @@ class Tratamiento extends CI_Controller{
     */
     public function lostratamientos()
     {
-        try{
-            $data['_view'] = 'tratamiento/lostratamientos';
-            $this->load->view('layouts/main',$data);
-        } catch (Exception $ex) {
-            throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+        if($this->acceso(46)){
+            try{
+                $data['_view'] = 'tratamiento/lostratamientos';
+                $this->load->view('layouts/main',$data);
+            } catch (Exception $ex) {
+                throw new Exception('Tratamiento Controller : Error in index function - ' . $ex);
+            }
         }
     }
     

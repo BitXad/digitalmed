@@ -6,44 +6,49 @@ function inicio(){
 /* carga modal de nuevo registro */
 function cargarmodal_nuevoregistro()
 {
-    document.getElementById('loaderregistro').style.display = 'none';
-    $("#registro_fecha").val(moment(Date()).format("YYYY-MM-DD"));
-    $("#registro_hora").val(moment(Date()).format("HH:mm:ss"));
-    const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
-    html = "<select name='registro_mes' id='registro_mes' class='form-control'>";
-    let fecha = new Date();
-    let elmes = fecha.getMonth()+1;
-    for (var i = 0; i < 12; i++) {
-        selected = "";
-        if((i+1) == elmes){
-            selected = "selected";
+    let nuevo_registro = document.getElementById("nuevo_registro").value;
+    if(nuevo_registro == 1){
+        document.getElementById('loaderregistro').style.display = 'none';
+        $("#registro_fecha").val(moment(Date()).format("YYYY-MM-DD"));
+        $("#registro_hora").val(moment(Date()).format("HH:mm:ss"));
+        const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+        html = "<select name='registro_mes' id='registro_mes' class='form-control'>";
+        let fecha = new Date();
+        let elmes = fecha.getMonth()+1;
+        for (var i = 0; i < 12; i++) {
+            selected = "";
+            if((i+1) == elmes){
+                selected = "selected";
+            }
+            html += "<option value='"+mes[i]+"' "+selected+">"+mes[i]+"</option>";
         }
-        html += "<option value='"+mes[i]+"' "+selected+">"+mes[i]+"</option>";
-    }
-    html += "</select>";
-    $("#elmes").html(html);
-    let elanio = fecha.getFullYear();
-    //let elaniook = fecha.getFullYear();
-    elanio = (elanio-6);
-    let elaniook = (elanio+17);
-    html2 = "<select name='registro_gestion' id='registro_gestion' class='form-control'>";
-    for(var j = elanio; j < elaniook; j++) {
-        selected = "";
-        if((elanio+6) == j){
-            selected = "selected";
+        html += "</select>";
+        $("#elmes").html(html);
+        let elanio = fecha.getFullYear();
+        //let elaniook = fecha.getFullYear();
+        elanio = (elanio-6);
+        let elaniook = (elanio+17);
+        html2 = "<select name='registro_gestion' id='registro_gestion' class='form-control'>";
+        for(var j = elanio; j < elaniook; j++) {
+            selected = "";
+            if((elanio+6) == j){
+                selected = "selected";
+            }
+            html2 += "<option value='"+(j)+"' "+selected+">"+(j)+"</option>";
         }
-        html2 += "<option value='"+(j)+"' "+selected+">"+(j)+"</option>";
+        html2 += "</select>";
+        $("#lagestion").html(html2);
+        $("#registro_numaquina").val(1);
+        $("#registro_numerosesion").val(0);
+        $("#registro_iniciohemodialisis").val(moment(Date()).format("YYYY-MM-DD"));
+        $("#registro_filtro").val(0);
+        $("#registro_diagnostico").val("");
+        $('#modal_nuevoregistro').on('shown.bs.modal', function (e) {
+            $('#registro_fecha').focus();
+        });
+    }else{
+        alert("Usted no tiene permisos para crear Nuevos Registros.\n por favor consulte con su Administrador!.");
     }
-    html2 += "</select>";
-    $("#lagestion").html(html2);
-    $("#registro_numaquina").val(1);
-    $("#registro_numerosesion").val(0);
-    $("#registro_iniciohemodialisis").val(moment(Date()).format("YYYY-MM-DD"));
-    $("#registro_filtro").val(0);
-    $("#registro_diagnostico").val("");
-    $('#modal_nuevoregistro').on('shown.bs.modal', function (e) {
-        $('#registro_fecha').focus();
-    });
 }
 
 function registrar_registro()
@@ -101,6 +106,11 @@ function mostrar_tablasregistro()
             success:function(respuesta){
                var registros =  JSON.parse(respuesta);
                if (registros != null){
+                    let modificar_elregistro = document.getElementById("modificar_elregistro").value;
+                    let data_target = "";
+                    if(modificar_elregistro == 1){
+                        data_target = 'data-target="#modal_modificarregistro"';
+                    }
                     let n = registros.length;
                     $("#encontrados").html(n);
                     let html = "";
@@ -114,7 +124,7 @@ function mostrar_tablasregistro()
                         html += "<td class='text-center'>"+registros[i]['registro_gestion']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['registro_diagnostico']+"</td>";
                         html += "<td class='text-center'>";
-                        html += "<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modal_modificarregistro' onclick='cargarmodal_modificarregistro("+JSON.stringify(registros[i])+")'>";
+                        html += "<a class='btn btn-info btn-xs' data-toggle='modal' "+data_target+" onclick='cargarmodal_modificarregistro("+JSON.stringify(registros[i])+")'>";
                         html += "<span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"tratamiento/tratamientos/"+registros[i]['registro_id']+"' class='btn btn-facebook btn-xs' title='Tratamientos de un registro'><span class='fa fa-file-text'></span></a>";
                         html += "<a onclick='eliminar_registro("+registros[i]['registro_id']+")' class='btn btn-danger btn-xs' title='Eliminar registro del sistema'><span class='fa fa-trash'></span></a>";
@@ -140,46 +150,51 @@ function mostrar_tablasregistro()
 /* carga modal para modificar registro */
 function cargarmodal_modificarregistro(registro)
 {
-    document.getElementById('loaderregistromodif').style.display = 'none';
-    $("#registro_idmodif").val(registro["registro_id"]);
-    $("#registro_fechamodif").val(registro["registro_fecha"]);
-    $("#registro_horamodif").val(registro["registro_hora"]);
-    const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
-    html = "<select name='registro_mesmodif' id='registro_mesmodif' class='form-control'>";
-    let fecha = new Date();
-    //let elmes = fecha.getMonth()+1;
-    for (var i = 0; i < 12; i++) {
-        selected = "";
-        if(mes[i] == registro["registro_mes"]){
-            selected = "selected";
+    let modificar_elregistro = document.getElementById("modificar_elregistro").value;
+    if(modificar_elregistro == 1){
+        document.getElementById('loaderregistromodif').style.display = 'none';
+        $("#registro_idmodif").val(registro["registro_id"]);
+        $("#registro_fechamodif").val(registro["registro_fecha"]);
+        $("#registro_horamodif").val(registro["registro_hora"]);
+        const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+        html = "<select name='registro_mesmodif' id='registro_mesmodif' class='form-control'>";
+        let fecha = new Date();
+        //let elmes = fecha.getMonth()+1;
+        for (var i = 0; i < 12; i++) {
+            selected = "";
+            if(mes[i] == registro["registro_mes"]){
+                selected = "selected";
+            }
+            html += "<option value='"+mes[i]+"' "+selected+">"+mes[i]+"</option>";
         }
-        html += "<option value='"+mes[i]+"' "+selected+">"+mes[i]+"</option>";
-    }
-    html += "</select>";
-    $("#elmesmodif").html(html);
-    let elanio = registro["registro_gestion"];
-    //let elaniook = fecha.getFullYear();
-    elanio = (elanio-15);
-    let elaniook = (elanio+50);
-    html2 = "<select name='registro_gestionmodif' id='registro_gestionmodif' class='form-control'>";
-    for(var j = elanio; j < elaniook; j++) {
-        selected = "";
-        if((elanio+15) == j){
-            selected = "selected";
+        html += "</select>";
+        $("#elmesmodif").html(html);
+        let elanio = registro["registro_gestion"];
+        //let elaniook = fecha.getFullYear();
+        elanio = (elanio-15);
+        let elaniook = (elanio+50);
+        html2 = "<select name='registro_gestionmodif' id='registro_gestionmodif' class='form-control'>";
+        for(var j = elanio; j < elaniook; j++) {
+            selected = "";
+            if((elanio+15) == j){
+                selected = "selected";
+            }
+            html2 += "<option value='"+(j)+"' "+selected+">"+(j)+"</option>";
         }
-        html2 += "<option value='"+(j)+"' "+selected+">"+(j)+"</option>";
+        html2 += "</select>";
+        $("#lagestionmodif").html(html2);
+        $("#registro_iniciohemodialisismodif").val(registro["registro_iniciohemodialisis"]);
+        $("#registro_numaquinamodif").val(registro["registro_numaquina"]);
+        $("#registro_tipofiltromodif").val(registro["registro_tipofiltro"]);
+        $("#registro_numerosesionmodif").val(registro["registro_numerosesion"]);
+        $("#registro_filtromodif").val(registro["registro_filtro"]);
+        $("#registro_diagnosticomodif").val(registro["registro_diagnostico"]);
+        $('#modal_modificarregistro').on('shown.bs.modal', function (e) {
+            $('#registro_fechamodif').focus();
+        });
+    }else{
+        alert("Usted no tiene permisos para modificar los Registros.\n por favor consulte con su Administrador!.");
     }
-    html2 += "</select>";
-    $("#lagestionmodif").html(html2);
-    $("#registro_iniciohemodialisismodif").val(registro["registro_iniciohemodialisis"]);
-    $("#registro_numaquinamodif").val(registro["registro_numaquina"]);
-    $("#registro_tipofiltromodif").val(registro["registro_tipofiltro"]);
-    $("#registro_numerosesionmodif").val(registro["registro_numerosesion"]);
-    $("#registro_filtromodif").val(registro["registro_filtro"]);
-    $("#registro_diagnosticomodif").val(registro["registro_diagnostico"]);
-    $('#modal_modificarregistro').on('shown.bs.modal', function (e) {
-        $('#registro_fechamodif').focus();
-    });
 }
 
 function modificar_registro()

@@ -8,6 +8,15 @@
 <!--<input type="hidden" name="elfirmante_nombre" id="elfirmante_nombre" value="<?php /*echo $paciente["paciente_nombrefirmante"]; ?>" />
 <input type="hidden" name="elfirmante_ci" id="elfirmante_ci" value="<?php echo $paciente["paciente_cifirmante"];*/ ?>" />-->
 <input type="hidden" name="rinicio_hemodialisis" id="rinicio_hemodialisis" value="<?php echo $registro["registro_iniciohemodialisis"]; ?>" />
+<input type="hidden" name="nuevo_tratamiento" id="nuevo_tratamiento" value='<?php echo $rol[20-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="modificar_eltratamiento" id="modificar_eltratamiento" value='<?php echo $rol[21-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="eliminar_eltratamiento" id="eliminar_eltratamiento" value='<?php echo $rol[22-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="reg_infmensual" id="reg_infmensual" value='<?php echo $rol[38-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="modif_infmensual" id="modif_infmensual" value='<?php echo $rol[39-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="reg_certmedico" id="reg_certmedico" value='<?php echo $rol[41-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="modif_certmedico" id="modif_certmedico" value='<?php echo $rol[42-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="reg_angli" id="reg_angli" value='<?php echo $rol[44-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="modif_angli" id="modif_angli" value='<?php echo $rol[45-1]['rolusuario_asignado']; ?>' />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
@@ -28,7 +37,13 @@
     </div>
     <font size='2' face='Arial'>Registros Encontrados: <span id="encontrados"></span></font>
     <div class="box-tools no-print">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevotratamiento" onclick="cargarmodal_nuevotratamiento()">
+        <?php
+        $data_target = "";
+        if($rol[20-1]['rolusuario_asignado'] == 1){
+            $data_target = 'data-target="#modal_nuevotratamiento"';
+        }
+        ?>
+        <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?> onclick="cargarmodal_nuevotratamiento()">
             <span class="fa fa-pencil-square-o"></span> Nuevo Tratamiento </a>
     </div>
 </div>

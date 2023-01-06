@@ -1,4 +1,6 @@
 <script src="<?php echo base_url('resources/js/sesion.js'); ?>" type="text/javascript"></script>
+<input type="hidden" name="nueva_sesion" id="nueva_sesion" value='<?php echo $rol[24-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="eliminar_sesion" id="eliminar_sesion" value='<?php echo $rol[27-1]['rolusuario_asignado']; ?>' />
 
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="tratamiento_id" id="tratamiento_id" value="<?php echo $tratamiento_id; ?>" />
@@ -8,9 +10,17 @@
 <!-- ---------------------------------------------------- -->
 
 <div class="box-header">
-    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></span>
+    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></span><br>
+    <span><b>Mes: </b><?php echo $paciente["tratamiento_mes"]; ?></span>&nbsp;&nbsp;&nbsp;
+    <span><b>Gestion: </b><?php echo $paciente["tratamiento_gestion"]; ?></span>
     <div class="box-tools" id="nuevas_sesiones" style="display: none;">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevasesion" onclick="cargarmodal_nuevasesion()">
+        <?php
+        $data_target = "";
+        if($rol[24-1]['rolusuario_asignado'] == 1){
+            $data_target = 'data-target="#modal_nuevasesion"';
+        }
+        ?>
+        <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?> onclick="cargarmodal_nuevasesion()">
             <span class="fa fa-pencil-square-o"></span> Nuevas Sesiones </a>
     </div>
 </div>

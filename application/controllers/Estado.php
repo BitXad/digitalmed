@@ -41,7 +41,7 @@ class Estado extends CI_Controller{
         /************************** CABECERA SESSION ************************************/ 
                 
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        if($this->acceso(122)){
+        if($this->acceso(57)){
         $data['page_title'] = "Estado";
         $data['estado'] = $this->Estado_model->get_all_estado();
         
@@ -74,7 +74,7 @@ class Estado extends CI_Controller{
         /************************** CABECERA SESSION ************************************/         
        
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        if($this->acceso(122)){
+        if($this->acceso(57)){
             $data['page_title'] = "Estado";
         $this->load->library('form_validation');
 
@@ -123,7 +123,7 @@ class Estado extends CI_Controller{
         /************************** CABECERA SESSION ************************************/ 
                 
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        if($this->acceso(122)){
+        if($this->acceso(57)){
             $data['page_title'] = "Estado";
         // check if the estado exists before trying to edit it
         $data['estado'] = $this->Estado_model->get_estado($estado_id);
@@ -179,7 +179,7 @@ class Estado extends CI_Controller{
         /************************** CABECERA SESSION ************************************/ 
                 
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        if($this->acceso(122)){
+        if($this->acceso(57)){
         $estado = $this->Estado_model->get_estado($estado_id);
 
         // check if the estado exists before trying to delete it
@@ -216,7 +216,7 @@ class Estado extends CI_Controller{
         /************************** CABECERA SESSION ************************************/ 
                 
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        if($this->acceso(122)){
+        if($this->acceso(57)){
         $all_tabla = $this->Estado_model->get_all_tabla();
 
         foreach ($all_tabla as $tabla) {

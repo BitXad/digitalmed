@@ -4,31 +4,50 @@
  www.manuigniter.com
 */
 class Registro extends CI_Controller{
+    private $session_data = "";
     function __construct()
     {
         parent::__construct();
         $this->load->model('Registro_model');
         $this->load->model('Paciente_model');
         $this->load->model('Acceso_vascular_model');
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
     }
     
     /* Registros de un paciente!. */
     public function registros($paciente_id)
     {
-        try{
-            $data['paciente_id'] = $paciente_id;
-            $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
-            
-            $data['_view'] = 'registro/registros';
-            $this->load->view('layouts/main',$data);
-        }catch (Exception $ex) {
-            throw new Exception('Registro Controller : Error in index function - ' . $ex);
+        if($this->acceso(13)){
+            try{
+                $data["rol"] = $this->session_data['rol'];
+                $data['paciente_id'] = $paciente_id;
+                $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
+
+                $data['_view'] = 'registro/registros';
+                $this->load->view('layouts/main',$data);
+            }catch (Exception $ex) {
+                throw new Exception('Registro Controller : Error in index function - ' . $ex);
+            }
         }
     }
     function registrar_registro(){
         try{
             if($this->input->is_ajax_request()){
-                $usuario_id = 1;
+                $usuario_id = $this->session_data['usuario_id'];
                 $estado_id = 1; // 1 ==> ACTIVO
                 $params = array(
                     'usuario_id' => $usuario_id,
@@ -80,7 +99,7 @@ class Registro extends CI_Controller{
     function modificar_registro(){
         try{
             if($this->input->is_ajax_request()){
-                $usuario_id = 1;
+                //$usuario_id = $this->session_data['usuario_id'];
                 $params = array(
                     'registro_fecha' => $this->input->post('registro_fecha'),
                     'registro_hora' => $this->input->post('registro_hora'),
@@ -108,17 +127,19 @@ class Registro extends CI_Controller{
      */
     function remove($registro_id)
     {
-        $registro = $this->Registro_model->get_registro($registro_id);
-        
-        // check if the registro exists before trying to delete it
-        if(isset($registro['registro_id']))
-        {
-            $paciente_id = $registro['paciente_id'];
-            $this->Registro_model->delete_registro($registro_id);
-            redirect('registro/registros/'.$paciente_id);
+        if($this->acceso(16)){
+            $registro = $this->Registro_model->get_registro($registro_id);
+
+            // check if the registro exists before trying to delete it
+            if(isset($registro['registro_id']))
+            {
+                $paciente_id = $registro['paciente_id'];
+                $this->Registro_model->delete_registro($registro_id);
+                redirect('registro/registros/'.$paciente_id);
+            }
+            else
+                show_error('El registro que intentas eliminar no existe!....');
         }
-        else
-            show_error('El registro que intentas eliminar no existe!....');
     }
     
  }

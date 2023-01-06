@@ -56,3 +56,7 @@ function registrar_acceso()
     }
             
 }
+
+function sin_permiso(){
+    alert("Usted no tiene permisos para Registrar Nuevos Accesos.\n por favor consulte con su Administrador!.");
+}

@@ -12,7 +12,7 @@
                 <div class="text-center">
                 <h3 class="text-center box-title text-bold">DETALLE DE PROCEDIMIENTO DE HEMODIALISIS</h3><br>
                 </div>
-                <h2 class="box-title">PACIENTE: <?php echo $paciente["paciente_nombre"]; ?></h2>
+                <h2 class="box-title">PACIENTE: <?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"]; ?></h2>
                 <?php echo form_open('sesion/detalle_procedimiento/'.$sesion['sesion_id']); ?>
                 <div class="col-md-12 text-center" id="loader" style="display:none;">
                     <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
@@ -37,9 +37,15 @@
                                 <label for="sesion_numerosesionhd" class="control-label">  <span class="text-danger"></span>N° Ses HD</label>
                                 <div class="input-group">
                                     <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_numerosesionhd" readonly />
+                                    <?php
+                                    if($rol[28-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionumsesion" onclick="mostrarmodal_cambionumsesion(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_numerosesionhd']; ?>)" title="Cambiar el número de sesión de HD">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_numerosesionhd');?></span>
                                 </div>
                             </div>
@@ -89,9 +95,15 @@
                                 <label for="sesion_nummaquina" class="control-label">  <span class="text-danger"></span>MAQUINA N°</label>
                                 <div class="input-group">
                                     <input type="number" min="0" name="sesion_nummaquina" value="<?php echo ($this->input->post('sesion_nummaquina') ? $this->input->post('sesion_nummaquina') : $sesion['sesion_nummaquina']); ?>" class="form-control" id="sesion_nummaquina" readonly="true" />
+                                    <?php
+                                    if($rol[29-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionummaquina" onclick="mostrarmodal_cambionummaquina(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_nummaquina']; ?>)" title="Cambiar el número de maquina">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_nummaquina');?></span>
                                 </div>
                             </div>
@@ -113,9 +125,15 @@
                                 <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
                                 <div class="input-group">
                                     <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" readonly="true" />
+                                    <?php
+                                    if($rol[30-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambiotipofiltro" onclick="mostrarmodal_cambiotipofiltro(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,'<?php echo $sesion['sesion_tipofiltro']; ?>')" title="Cambiar el tipo de filtro">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
                                 </div>
                             </div>
@@ -123,9 +141,15 @@
                                 <label for="sesion_reutlizacionfiltro" class="control-label">  <span class="text-danger"></span>REUTILIZACION FILTRO</label>
                                 <div class="input-group">
                                     <input type="text" name="sesion_reutlizacionfiltro" value="<?php echo ($this->input->post('sesion_reutlizacionfiltro') ? $this->input->post('sesion_reutlizacionfiltro') : $sesion['sesion_reutlizacionfiltro']); ?>" class="form-control" id="sesion_reutlizacionfiltro" readonly="true" />
+                                    <?php
+                                    if($rol[31-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambioreutlizacionfiltro" onclick="mostrarmodal_cambioreutlizacionfiltro(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_reutlizacionfiltro']; ?>)" title="Cambiar el número de reutilización de filtro">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_reutlizacionfiltro');?></span>
                                 </div>
                             </div>

@@ -21,7 +21,7 @@ class Usuario extends CI_Controller
         }
     }
 
-private function acceso($id_rol){
+    private function acceso($id_rol){
         $rolusuario = $this->session_data['rol'];
         if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
             return true;
@@ -35,7 +35,7 @@ private function acceso($id_rol){
      */
     function index($a = null)
     {
-        if($this->acceso(148)){
+        if($this->acceso(59)){
 
                 /*$data = array(
                     'usuario_login' => $session_data['usuario_login'],
@@ -76,7 +76,7 @@ private function acceso($id_rol){
      */
     function add()
     {
-        if($this->acceso(148)){
+        if($this->acceso(60)){
 
                /* $data = array(
                     'usuario_login' => $session_data['usuario_login'],
@@ -186,7 +186,7 @@ private function acceso($id_rol){
 
     function editar($usuario_id){
 
-        if($this->acceso(148)){
+        if($this->acceso(61)){
 
 
                 /*$data = array(
@@ -222,7 +222,7 @@ private function acceso($id_rol){
      */
     function edit($usuario_id)
     {
-        if($this->acceso(148)){
+        if($this->acceso(61)){
         $original_value = $this->db->query("SELECT usuario_login FROM usuario WHERE usuario_id = " . $usuario_id)->row()->usuario_login;
 
         if ($this->input->post('usuario_login') != $original_value) {
@@ -342,7 +342,7 @@ private function acceso($id_rol){
     function password($usuario_id)
     {
         // check if the usuario exists before trying to edit it
-        if($this->acceso(148)){
+        if($this->acceso(63)){
         $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
 
         if (isset($data['usuario']['usuario_id'])) {
@@ -402,7 +402,7 @@ private function acceso($id_rol){
      */
     function remove($usuario_id)
     {
-        if($this->acceso(148)){
+        if($this->acceso(59)){
         $usuario = $this->Usuario_model->get_usuario($usuario_id);
 
         // check if the usuario exists before trying to delete it
@@ -434,7 +434,7 @@ private function acceso($id_rol){
 
     function set()
     {
-        if($this->acceso(148)){
+        if($this->acceso(59)){
 
                 $this->form_validation->set_rules('usuario_nombre', 'Nombre', 'trim|required|min_length[3]|max_length[150]');
                 //$this->form_validation->set_rules('usuario_email', 'Email', 'trim|required|valid_email|min_length[5]|max_length[250]|callback_hay_email2');//OJO
@@ -592,7 +592,7 @@ private function acceso($id_rol){
     
     function nueva_clave($usuario_id)
     {
-        if($this->acceso(148)){
+        if($this->acceso(59)){
         $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
 
         if(isset($data['usuario']['usuario_id'])){

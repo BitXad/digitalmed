@@ -18,7 +18,7 @@
                 <div class="text-center">
                 <h3 class="text-center box-title text-bold">DETALLE DE PROCEDIMIENTO DE HEMODIALISIS</h3><br>
                 </div>
-                <h2 class="box-title">PACIENTE: <?php echo $paciente["paciente_nombre"]; ?></h2>
+                <h2 class="box-title">PACIENTE: <?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"]; ?></h2>
                 <?php echo form_open('sesion/detalle_procedimientoed/'.$sesion['sesion_id']); ?>
                 <div class="col-md-12 text-center" id="loader" style="display:none;">
                     <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />

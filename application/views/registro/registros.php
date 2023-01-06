@@ -1,6 +1,8 @@
 <script src="<?php echo base_url('resources/js/registro.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente_id; ?>" />
+<input type="hidden" name="nuevo_registro" id="nuevo_registro" value='<?php echo $rol[14-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="modificar_elregistro" id="modificar_elregistro" value='<?php echo $rol[15-1]['rolusuario_asignado']; ?>' />
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
@@ -13,7 +15,13 @@
     </div>
         <font size='2' face='Arial'>Registros Encontrados: <span id="encontrados"></span></font>
     <div class="box-tools no-print">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevoregistro" onclick="cargarmodal_nuevoregistro()">
+        <?php
+        $data_target = "";
+        if($rol[14-1]['rolusuario_asignado'] == 1){
+            $data_target = 'data-target="#modal_nuevoregistro"';
+        }
+        ?>
+        <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?> onclick="cargarmodal_nuevoregistro()">
             <span class="fa fa-pencil-square-o"></span> Nuevo Registro </a>
     </div>
 </div>

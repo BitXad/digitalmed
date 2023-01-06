@@ -31,7 +31,7 @@ class Rol extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(145)){
+        if($this->acceso(64)){
             $data['all_rolpadre'] = $this->Rol_model->get_allrol_padre();
             $data['all_rolhijo'] = $this->Rol_model->get_allrol_hijo();
             $data['page_title'] = "Rol";
@@ -45,7 +45,7 @@ class Rol extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(145)){
+        if($this->acceso(64)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('rol_nombre','Rol Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
             if($this->form_validation->run())     
@@ -76,7 +76,7 @@ class Rol extends CI_Controller{
      */
     function edit($rol_id)
     {
-        if($this->acceso(145)){
+        if($this->acceso(64)){
             // check if the rol exists before trying to edit it
             $data['rol'] = $this->Rol_model->get_rol($rol_id);
 
@@ -117,7 +117,7 @@ class Rol extends CI_Controller{
      */
     function remove($rol_id)
     {
-        if($this->acceso(145)){
+        if($this->acceso(64)){
             $rol = $this->Rol_model->get_rol($rol_id);
 
             // check if the rol exists before trying to delete it

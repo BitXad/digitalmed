@@ -17,6 +17,10 @@
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="sesion_id" id="sesion_id" value="<?php echo $sesion["sesion_id"]; ?>" />
 <input type="hidden" name="los_medicamentos" id="los_medicamentos" value='<?php echo json_encode($medicamentos); ?>' />
+<input type="hidden" name="asignar_insumo" id="asignar_insumo" value='<?php echo $rol[33-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="modificar_insumo" id="modificar_insumo" value='<?php echo $rol[34-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="dardebaja" id="dardebaja" value='<?php echo $rol[35-1]['rolusuario_asignado']; ?>' />
+<input type="hidden" name="dardealta" id="dardealta" value='<?php echo $rol[36-1]['rolusuario_asignado']; ?>' />
 <!-- ---------------- ESTILO DE LAS TABLAS --------------- -->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-- ---------------------------------------------------- -->
@@ -24,12 +28,18 @@
 <div class="box-header text-center">
     <span class="box-title"><b>MEDICAMENTOS USADOS</b></span>
     <div class="box-tools">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_asignarmedicamento" onclick="cargarmodal_asignarmedicamento()">
+        <?php
+        $data_target = "";
+        if($rol[33-1]['rolusuario_asignado'] == 1){
+            $data_target = 'data-target="#modal_asignarmedicamento"';
+        }
+        ?>
+        <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?> onclick="cargarmodal_asignarmedicamento()">
             <span class="fa fa-pencil-square-o"></span> Medicamentos / Insumos </a>
     </div>
 </div>
 <div class="box-header">
-    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></span>
+    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"] ?></span>
     <br>
     <span style="font-size:15px"><b>Gestión: </b><?php echo $tratamiento["tratamiento_gestion"] ?></span>&nbsp;&nbsp;
     <span style="font-size:15px"><b>Mes: </b><?php echo $tratamiento["tratamiento_mes"] ?></span>&nbsp;&nbsp;

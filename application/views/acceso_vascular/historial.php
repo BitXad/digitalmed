@@ -24,7 +24,13 @@
     <div class="text-center"><font size='3' face='Arial'><b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></b></font></div>
     <font size='2' face='Arial'>Registros Encontrados: <?php echo sizeof($acceso_vascular); ?></font>
     <div class="box-tools no-print">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_nuevoacceso">
+        <?php
+        $data_target = 'onclick ="sin_permiso()"';
+        if($rol[18-1]['rolusuario_asignado'] == 1){
+            $data_target = 'data-target="#modal_nuevoacceso"';
+        }
+        ?>
+        <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?>>
             <span class="fa fa-pencil-square-o"></span> Nuevo Acceso </a>
     </div>
 </div>

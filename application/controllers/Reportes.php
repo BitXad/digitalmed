@@ -67,48 +67,48 @@ class Reportes extends CI_Controller{
      */
     function detalle_procedimiento($sesion_id)
     {
-        //if($this->acceso(141)){
-        $this->load->model('Parametro_model');
-        $data['parametro'] = $this->Parametro_model->get_parametros();
-        $this->load->model('Detalle_hora_model');
-        $data['page_title'] = "Detalle Procedimiento";
-        
-        $this->load->model('Sesion_model');
-        $sesion = $this->Sesion_model->get_sesion($sesion_id);
-        $eltratamiento_id = $sesion["tratamiento_id"];
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($sesion['tratamiento_id']);
-        
-        $cantidad = $this->Sesion_model->getcount_sesiontratamiento($eltratamiento_id);
-        $total_sesiones = $this->Sesion_model->get_sesionesnumeradas($eltratamiento_id);
-        foreach ($total_sesiones as $lasesion){
-            if($lasesion["sesion_id"] == $sesion_id){
-                $sesion_numero = $lasesion["numeracion"];
-                break;
+        if($this->acceso(54)){
+            $this->load->model('Parametro_model');
+            $data['parametro'] = $this->Parametro_model->get_parametros();
+            $this->load->model('Detalle_hora_model');
+            $data['page_title'] = "Detalle Procedimiento";
+
+            $this->load->model('Sesion_model');
+            $sesion = $this->Sesion_model->get_sesion($sesion_id);
+            $eltratamiento_id = $sesion["tratamiento_id"];
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($sesion['tratamiento_id']);
+
+            $cantidad = $this->Sesion_model->getcount_sesiontratamiento($eltratamiento_id);
+            $total_sesiones = $this->Sesion_model->get_sesionesnumeradas($eltratamiento_id);
+            foreach ($total_sesiones as $lasesion){
+                if($lasesion["sesion_id"] == $sesion_id){
+                    $sesion_numero = $lasesion["numeracion"];
+                    break;
+                }
             }
-        }
-        //$sesion_numero = $sesion["sesion_numero"];
-        
-        if($sesion_numero % 2 == 0){ //numero de sesion es par
-            $data['sesion'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero-1));
-            $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($data['sesion']['sesion_id']);
-            $data['sesion2'] =  $sesion;
-            $data['detalle_hora2'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
-            $data['_view'] = 'reportes/detalle_procedimiento';
-        }else{ //numero de sesion es impar
-            $data['sesion'] =  $sesion;
-            if($sesion_numero == $cantidad){
-                $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
-                $data['_view'] = 'reportes/detalle_pultimoimpar';
-            }else{
-                $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
-                $data['sesion2'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero+1));
-                $data['detalle_hora2'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($data['sesion2']['sesion_id']);
+            //$sesion_numero = $sesion["sesion_numero"];
+
+            if($sesion_numero % 2 == 0){ //numero de sesion es par
+                $data['sesion'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero-1));
+                $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($data['sesion']['sesion_id']);
+                $data['sesion2'] =  $sesion;
+                $data['detalle_hora2'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
                 $data['_view'] = 'reportes/detalle_procedimiento';
+            }else{ //numero de sesion es impar
+                $data['sesion'] =  $sesion;
+                if($sesion_numero == $cantidad){
+                    $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
+                    $data['_view'] = 'reportes/detalle_pultimoimpar';
+                }else{
+                    $data['detalle_hora'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($sesion_id);
+                    $data['sesion2'] = $this->Sesion_model->get_otrasesion($eltratamiento_id, ($sesion_numero+1));
+                    $data['detalle_hora2'] = $this->Detalle_hora_model->get_detalle_horasesionactivas($data['sesion2']['sesion_id']);
+                    $data['_view'] = 'reportes/detalle_procedimiento';
+                }
             }
+
+            $this->load->view('layouts/main',$data);
         }
-        
-        $this->load->view('layouts/main',$data);
-        //}
     }
     
     /*
@@ -116,35 +116,35 @@ class Reportes extends CI_Controller{
      */
     function reportesesiones($tratamiento_id)
     {
-        //if($this->acceso(141)){
-        $this->load->model('Sesion_model');
-        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
-        
-        $total_sesion = sizeof($data['sesiones']);
-        $acceso_vascular = "";
-        if($total_sesion > 0){
-            $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
-            $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
-            if($sesion_cateter != "" && $sesion_cateter != null){
-                $acceso_vascular = "CATETER - ".$sesion_cateter;
-            }
-            if($sesion_fistula != "" && $sesion_fistula != null){
-                $acceso_vascular = "FISTULA ARTERIO VENOSA - ".$sesion_fistula;
-            }
-        }
-        
-        $data['acceso_vascular'] = $acceso_vascular;
-        
-        $this->load->model('Parametro_model');
-        $data['parametro'] = $this->Parametro_model->get_parametros();
-        
-        $data['page_title'] = "Reporte de sesiones";
-        $data['_view'] = 'reportes/reportesesiones';
+        if($this->acceso(50)){
+            $this->load->model('Sesion_model');
+            $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+            $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
 
-        $this->load->view('layouts/main',$data);
-        //}
+            $total_sesion = sizeof($data['sesiones']);
+            $acceso_vascular = "";
+            if($total_sesion > 0){
+                $sesion_cateter = $data['sesiones'][$total_sesion-1]["sesion_cateter"];
+                $sesion_fistula = $data['sesiones'][$total_sesion-1]["sesion_fistula"];
+                if($sesion_cateter != "" && $sesion_cateter != null){
+                    $acceso_vascular = "CATETER - ".$sesion_cateter;
+                }
+                if($sesion_fistula != "" && $sesion_fistula != null){
+                    $acceso_vascular = "FISTULA ARTERIO VENOSA - ".$sesion_fistula;
+                }
+            }
+
+            $data['acceso_vascular'] = $acceso_vascular;
+
+            $this->load->model('Parametro_model');
+            $data['parametro'] = $this->Parametro_model->get_parametros();
+
+            $data['page_title'] = "Reporte de sesiones";
+            $data['_view'] = 'reportes/reportesesiones';
+
+            $this->load->view('layouts/main',$data);
+        }
     }
     
     /*
@@ -152,58 +152,58 @@ class Reportes extends CI_Controller{
      */
     function informecmensual($tratamiento_id)
     {
-        //if($this->acceso(141)){
-        $this->load->model('Sesion_model');
-        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
-        $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
-        
-        $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
-        
-        $peso_seco = "";
-        $total_sesion = sizeof($data['sesiones']);
-        if($total_sesion > 0){
-            $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
-        }
-        $data['peso_seco'] = $peso_seco;
-        $this->load->model('Parametro_model');
-        $data['parametro'] = $this->Parametro_model->get_parametros();
-        
-        $data['page_title'] = "Informe clinico mensual";
-        $data['_view'] = 'reportes/informecmensual';
+        if($this->acceso(51)){
+            $this->load->model('Sesion_model');
+            $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+            $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+            $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
 
-        $this->load->view('layouts/main',$data);
-        //}
+            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+
+            $peso_seco = "";
+            $total_sesion = sizeof($data['sesiones']);
+            if($total_sesion > 0){
+                $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
+            }
+            $data['peso_seco'] = $peso_seco;
+            $this->load->model('Parametro_model');
+            $data['parametro'] = $this->Parametro_model->get_parametros();
+
+            $data['page_title'] = "Informe clinico mensual";
+            $data['_view'] = 'reportes/informecmensual';
+
+            $this->load->view('layouts/main',$data);
+        }
     }
     /*
      * Reporte del Informe Clinico Mensual
      */
     function medinsumos($tratamiento_id)
     {
-        //if($this->acceso(141)){
-        $this->load->model('Sesion_model');
-        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-        $data['registro'] = $this->Registro_model->get_registro($data['tratamiento']["registro_id"]);
-        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
-        $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
-        $data['medicamento_insumo'] = $this->Medicamento_model->get_all_medicamentoid();
-        
-        if(isset($data['sesiones'][0]["avascular_id"])){
-            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($data['sesiones'][0]["avascular_id"]);
-        }else{
-            $data['acceso_vascular'] = "";
-        }
-        
-        $this->load->model('Parametro_model');
-        $data['parametro'] = $this->Parametro_model->get_parametros();
-        
-        $data['page_title'] = "Medicamentos e insumos medicos otorgados y autorizados";
-        $data['_view'] = 'reportes/medinsumos';
+        if($this->acceso(55)){
+            $this->load->model('Sesion_model');
+            $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+            $data['registro'] = $this->Registro_model->get_registro($data['tratamiento']["registro_id"]);
+            $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+            $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+            $data['medicamento_insumo'] = $this->Medicamento_model->get_all_medicamentoid();
 
-        $this->load->view('layouts/main',$data);
-        //}
+            if(isset($data['sesiones'][0]["avascular_id"])){
+                $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($data['sesiones'][0]["avascular_id"]);
+            }else{
+                $data['acceso_vascular'] = "";
+            }
+
+            $this->load->model('Parametro_model');
+            $data['parametro'] = $this->Parametro_model->get_parametros();
+
+            $data['page_title'] = "Medicamentos e insumos medicos otorgados y autorizados";
+            $data['_view'] = 'reportes/medinsumos';
+
+            $this->load->view('layouts/main',$data);
+        }
     }
     
     /* obtiene el ultimo informe mensual de un tratamiento */
@@ -227,64 +227,64 @@ class Reportes extends CI_Controller{
      */
     function certificadomedico($certmedico_id)
     {
-        //if($this->acceso(141)){
-        $this->load->model('Sesion_model');
-        $data['certificado_medico'] = $this->Certificado_medico_model->get_certificado_medico($certmedico_id);
-        $tratamiento_id = $data['certificado_medico']['tratamiento_id'];
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
-        $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
-        
-        
-        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-        $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
-        
-        $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
-        
-        $peso_seco = "";
-        $total_sesion = sizeof($data['sesiones']);
-        if($total_sesion > 0){
-            $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
-        }
-        $data['peso_seco'] = $peso_seco;
-        $this->load->model('Parametro_model');
-        $data['parametro'] = $this->Parametro_model->get_parametros();
-        
-        $data['page_title'] = "Informe clinico mensual";
-        $data['_view'] = 'reportes/certificadomedico';
+        if($this->acceso(53)){
+            $this->load->model('Sesion_model');
+            $data['certificado_medico'] = $this->Certificado_medico_model->get_certificado_medico($certmedico_id);
+            $tratamiento_id = $data['certificado_medico']['tratamiento_id'];
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+            $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
 
-        $this->load->view('layouts/main',$data);
-        //}
+
+            $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+            $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+
+            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+
+            $peso_seco = "";
+            $total_sesion = sizeof($data['sesiones']);
+            if($total_sesion > 0){
+                $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
+            }
+            $data['peso_seco'] = $peso_seco;
+            $this->load->model('Parametro_model');
+            $data['parametro'] = $this->Parametro_model->get_parametros();
+
+            $data['page_title'] = "Informe clinico mensual";
+            $data['_view'] = 'reportes/certificadomedico';
+
+            $this->load->view('layouts/main',$data);
+        }
     }
     /*
      * Informe de Anemia y Glicemia
      */
     function infanemiaglicemia($tratamiento_id)
     {
-        //if($this->acceso(141)){
+        if($this->acceso(52)){
         $this->load->model('Sesion_model');
-        $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
-        //$data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
-        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
-        $data['anemia_glicemia'] = $this->Anemia_glicemia_model->getall_anemia_glicemiatratamiento($tratamiento_id);
-        //$data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
-        
-        /*$data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
-        
-        $peso_seco = "";
-        $total_sesion = sizeof($data['sesiones']);
-        if($total_sesion > 0){
-            $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
-        }
-        $data['peso_seco'] = $peso_seco;
-        */
-        $this->load->model('Parametro_model');
-        $data['parametro'] = $this->Parametro_model->get_parametros();
-        
-        $data['page_title'] = "Informe clinico mensual";
-        $data['_view'] = 'reportes/infanemiaglicemia';
+            $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+            //$data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+            $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+            $data['anemia_glicemia'] = $this->Anemia_glicemia_model->getall_anemia_glicemiatratamiento($tratamiento_id);
+            //$data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
 
-        $this->load->view('layouts/main',$data);
-        //}
+            /*$data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+
+            $peso_seco = "";
+            $total_sesion = sizeof($data['sesiones']);
+            if($total_sesion > 0){
+                $peso_seco = $data['sesiones'][$total_sesion-1]["sesion_pesoseco"];
+            }
+            $data['peso_seco'] = $peso_seco;
+            */
+            $this->load->model('Parametro_model');
+            $data['parametro'] = $this->Parametro_model->get_parametros();
+
+            $data['page_title'] = "Informe clinico mensual";
+            $data['_view'] = 'reportes/infanemiaglicemia';
+
+            $this->load->view('layouts/main',$data);
+        }
     }
     
     
@@ -1617,11 +1617,13 @@ function torta3($anio,$mes)
     */
     public function losreportes()
     {
-        try{
-            $data['_view'] = 'reportes/losreportes';
-            $this->load->view('layouts/main',$data);
-        } catch (Exception $ex) {
-            throw new Exception('Reporte Controller : Error in index function - ' . $ex);
+        if($this->acceso(49)){
+            try{
+                $data['_view'] = 'reportes/losreportes';
+                $this->load->view('layouts/main',$data);
+            } catch (Exception $ex) {
+                throw new Exception('Reporte Controller : Error in index function - ' . $ex);
+            }
         }
     }
     

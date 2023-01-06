@@ -4,25 +4,43 @@
   www.manuigniter.com
  */
 class Acceso_vascular extends CI_Controller {
+    private $session_data = "";
     function __construct() {
         parent::__construct();
         $this->load->model('Acceso_vascular_model');
         $this->load->model('Paciente_model');
         $this->load->model('Registro_model');
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
     }
-    
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
     /*
      * Muestrs todo el acceso_vascular de un determinado registro!.
      */
     public function historial($paciente_id = 0) {
-        try {
-            $data['registro'] = $this->Registro_model->getlast_registropaciente($paciente_id);
-            $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
-            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_historialacceso($paciente_id);
-            $data['_view'] = 'acceso_vascular/historial';
-            $this->load->view('layouts/main', $data);
-        } catch (Exception $ex) {
-            throw new Exception('Acceso vascular Controller : Error in index function - ' . $ex);
+        if($this->acceso(17)){
+            try {
+                $data["rol"] = $this->session_data['rol'];
+                $data['registro'] = $this->Registro_model->getlast_registropaciente($paciente_id);
+                $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
+                $data['acceso_vascular'] = $this->Acceso_vascular_model->get_historialacceso($paciente_id);
+                $data['_view'] = 'acceso_vascular/historial';
+                $this->load->view('layouts/main', $data);
+            } catch (Exception $ex) {
+                throw new Exception('Acceso vascular Controller : Error in index function - ' . $ex);
+            }
         }
     }
     
@@ -45,86 +63,4 @@ class Acceso_vascular extends CI_Controller {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-     * Listing of acceso_vascular
-     */
-    public function index() {
-        try {
-            $data['noof_page'] = 0;
-            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_all_acceso_vascular();
-            $data['_view'] = 'acceso_vascular/index';
-            $this->load->view('layouts/main', $data);
-        } catch (Exception $ex) {
-            throw new Exception('Acceso vascular Controller : Error in index function - ' . $ex);
-        }
-    }
-
-    /*
-     * Adding a new acceso_vascular
-     */
-    function add() {
-        try {
-            $params = array(
-                'acceso_vascular_codigo' => $this->input->post('acceso_vascular_codigo'),
-                'acceso_vascular_nombre' => $this->input->post('acceso_vascular_nombre'),
-                'acceso_vascular_forma' => $this->input->post('acceso_vascular_forma'),
-                'acceso_vascular_concentracion' => $this->input->post('acceso_vascular_concentracion'),
-                //'acceso_vascular_cantidad' => $this->input->post('acceso_vascular_cantidad'),
-            );
-            $this->load->library('upload');
-            $this->load->library('form_validation');
-            if (isset($_POST) && count($_POST) > 0) {
-                $acceso_vascular_id = $this->Acceso_vascular_model->add_acceso_vascular($params);
-                //$this->session->set_flashdata('alert_msg', '<div class="alert alert-success text-center">Succesfully added.</div>');
-                redirect('acceso_vascular/index');
-            } else {
-                $data['all_forma'] = $this->Forma_model->get_all_forma();
-                $data['_view'] = 'acceso_vascular/add';
-                $this->load->view('layouts/main', $data);
-            }
-        } catch (Exception $ex) {
-            throw new Exception('Acceso vascular Controller : Error in add function - ' . $ex);
-        }
-    }
-
-    /*
-     * Editing a acceso_vascular
-     */
-    public function edit($acceso_vascular_id) {
-        try {
-            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_acceso_vascular($acceso_vascular_id);
-            $this->load->library('upload');
-            $this->load->library('form_validation');
-            if (isset($data['acceso_vascular']['acceso_vascular_id'])) {
-                $params = array(
-                    'acceso_vascular_codigo' => $this->input->post('acceso_vascular_codigo'),
-                    'acceso_vascular_nombre' => $this->input->post('acceso_vascular_nombre'),
-                    'acceso_vascular_forma' => $this->input->post('acceso_vascular_forma'),
-                    'acceso_vascular_concentracion' => $this->input->post('acceso_vascular_concentracion'),
-                    //'acceso_vascular_cantidad' => $this->input->post('acceso_vascular_cantidad'),
-                );
-                if (isset($_POST) && count($_POST) > 0) {
-                    $this->Acceso_vascular_model->update_acceso_vascular($acceso_vascular_id, $params);
-                    $this->session->set_flashdata('alert_msg', '<div class="alert alert-success text-center">Succesfully updated.</div>');
-                    redirect('acceso_vascular/index');
-                } else {
-                    $data['all_forma'] = $this->Forma_model->get_all_forma();
-                    $data['_view'] = 'acceso_vascular/edit';
-                    $this->load->view('layouts/main', $data);
-                }
-            } else
-                show_error('The acceso_vascular you are trying to edit does not exist.');
-        } catch (Exception $ex) {
-            throw new Exception('Acceso vascular Controller : Error in edit function - ' . $ex);
-        }
-    }
 }

@@ -6,16 +6,21 @@ function inicio(){
 /* carga modal de nueva sesion  en limpio */
 function cargarmodal_nuevasesion()
 {
-    document.getElementById('loadernuevo').style.display = 'none';
-    $("#sesion_numero").val(0);
-    $("#sesion_fechainicio").val(moment(Date()).format("YYYY-MM-DD"));
-    $("#sesion_hierroev").val("100 Mg.");
-    $("#sesion_complejobampolla").val("1 AMPOLLA");
-    $("#sesion_costosesion").val("713");
-    $('#modal_nuevasesion').on('shown.bs.modal', function (e) {
-        $('#sesion_numero').focus();
-        $('#sesion_numero').select();
-    });
+    let nueva_sesion = document.getElementById("nueva_sesion").value;
+    if(nueva_sesion == 1){
+        document.getElementById('loadernuevo').style.display = 'none';
+        $("#sesion_numero").val(0);
+        $("#sesion_fechainicio").val(moment(Date()).format("YYYY-MM-DD"));
+        $("#sesion_hierroev").val("100 Mg.");
+        $("#sesion_complejobampolla").val("1 AMPOLLA");
+        $("#sesion_costosesion").val("713");
+        $('#modal_nuevasesion').on('shown.bs.modal', function (e) {
+            $('#sesion_numero').focus();
+            $('#sesion_numero').select();
+        });
+    }else{
+        alert("Usted no tiene permisos para generar nuevas Sesiones.\n por favor consulte con su Administrador!.");
+    }
 }
 
 function generar_sesiones()
@@ -141,11 +146,16 @@ function mostrar_tablas()
 }
 
 function eliminar_sesion(sesion_id){
-    let confirmacion =  confirm('Esta seguro que quiere eliminar esta Sesion del sistema?\n Nota.- esta operacion es irreversible!.')
-    if(confirmacion == true){
-        let base_url = document.getElementById('base_url').value;
-        dir_url = base_url+"sesion/remove/"+sesion_id;
-        location.href =dir_url;
+    let eliminar_sesion = document.getElementById("eliminar_sesion").value;
+    if(eliminar_sesion == 1){
+        let confirmacion =  confirm('Esta seguro que quiere eliminar esta Sesion del sistema?\n Nota.- esta operacion es irreversible!.')
+        if(confirmacion == true){
+            let base_url = document.getElementById('base_url').value;
+            dir_url = base_url+"sesion/remove/"+sesion_id;
+            location.href =dir_url;
+        }
+    }else{
+        alert("Usted no tiene permisos para eliminar Sesiones.\n por favor consulte con su Administrador!.");
     }
     
 }
