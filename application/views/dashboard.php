@@ -107,7 +107,7 @@
                 </script>
                 
                 
-                <h3><b><?php echo $pacientes[0]["cantidad"]; ?><sup style="font-size: 20px"></sup></b></h3>
+                <h4><b><?php echo $pacientes[0]["cantidad"]; ?></b></h4>
 
               <p><?php echo "Pacientes"; ?></p>
             </div>
@@ -122,9 +122,9 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-                <h3><b><?php echo "&nbsp;"; ?></b></h3>
+                <h4><b><?php echo "Programación"; ?></b></h4>
 
-              <p>Programación sesiones</p>
+              <p>Tratamientos Mensuales</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -137,9 +137,9 @@
           <!-- small box -->
           <div class="small-box bg-blue-active">
             <div class="inner">
-                <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
+                <h4><b><?php echo "Registro"; //$ingresos[0]["ingresos"]; ?></b></h4>
 
-              <p>Registro detalle de sesiones</p>
+              <p>Detalle de sesiones</p>
             </div>
             <div class="icon">
               <i class="fa fa-edit"></i>
@@ -151,9 +151,9 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-                <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
+                <h4><b><?php echo "Modificar"; //$ingresos[0]["ingresos"]; ?></b></h4>
 
-              <p>Modificar medicacion de pacientes</p>
+              <p>Medicación de pacientes</p>
             </div>
             <div class="icon">
               <i class="fa fa-edit"></i>
@@ -165,9 +165,9 @@
           <!-- small box -->
           <div class="small-box bg-gray-active">
             <div class="inner">
-                <h3><b><?php echo "&nbsp;"; //$ingresos[0]["ingresos"]; ?></b></h3>
+                <h4><b><?php echo "Reportes"; //$ingresos[0]["ingresos"]; ?></b></h4>
 
-              <p>Reportes</p>
+              <p>&nbsp;</p>
             </div>
             <div class="icon">
               <i class="fa fa-file-text-o"></i>
@@ -177,71 +177,6 @@
         </div>
         <!-- ./col -->
       </div>
-      
-<!--      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-           small box 
-          <div class="small-box bg-fuchsia">
-            <div class="inner">
-                <h4><b><?php echo number_format($ventas[0]['total_ventas'],2,'.',',')." ".$parametro[0]["moneda_descripcion"]; ?></b></h4>
-
-              <p><?php echo "En ".$ventas[0]['cantidad_ventas']." ventas"; ?></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-book"></i>
-            </div>
-            <a href="<?php echo base_url('venta'); ?>" class="small-box-footer">Ventas del Dia <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-         ./col 
-        <div class="col-lg-3 col-xs-6">
-           small box 
-          <div class="small-box bg-blue-active">
-            <div class="inner">
-                <h4><b><?php echo number_format($pedidos[0]['total_pedidos'],2,'.',',')." ".$parametro[0]["moneda_descripcion"]; ?><sup style="font-size: 20px"></sup></b></h4>
-
-              <p><?php echo "En ".$pedidos[0]['cantidad_pedidos']." inventario"; ?></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-cubes"></i>
-            </div>
-            <a href="<?php echo base_url('inventario'); ?>" class="small-box-footer">Inventario <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-         ./col 
-        <div class="col-lg-3 col-xs-6">
-           small box 
-          <div class="small-box bg-purple">
-            <div class="inner">
-                <h4><b><?php echo $clientes[0]['total_clientes']; ?></b></h4>
-
-              <p>Reporte de Caja</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-book"></i>
-            </div>
-            <a href="<?php echo base_url('reporte'); ?>" class="small-box-footer">Reporte de Caja <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-         ./col 
-        <div class="col-lg-3 col-xs-6">
-           small box 
-          <div class="small-box bg-lime-active">
-            <div class="inner">
-                <h4><b><?php echo number_format($ventas[0]['total_ventas'],2,'.',',')." ".$parametro[0]["moneda_descripcion"]; ?></b></h4>
-
-              <p><?php echo "Movimiento Diario"; ?></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-money"></i>
-            </div>
-            <a href="<?php echo base_url('reportes'); ?>" class="small-box-footer">Movimiento Diario <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-         ./col 
-      </div>-->
-      <!-- /.row -->
-      
       
  </section>     
 <section class="col-lg-12 connectedSortable hidden">

@@ -78,6 +78,7 @@ function mostrar_tablastratamiento()
     let base_url = document.getElementById('base_url').value;
     let registro_id = document.getElementById('registro_id').value;
     let fechainicio_hemodialisis = document.getElementById('rinicio_hemodialisis').value;
+    let tipousuario_id = document.getElementById('tipousuario_id').value;
     
     let fecha_hemodialisis = new Date(fechainicio_hemodialisis);
     let fecha_tope = new Date('2019-02-28');
@@ -135,13 +136,15 @@ function mostrar_tablastratamiento()
                     let html = "";
                     for(var i = 0; i < n ; i++){
                         //html += "<tr style='background-color: #"+tratamientos[i]['estado_color']+"'>"; 
-                        html += "<tr>";
+                        html += "<tr style='background-color: #"+tratamientos[i]['estado_color']+"'>";
                         html += "<td class='text-center'>"+(i+1)+"</td>";
                         html += "<td class='text-center'>"+tratamientos[i]['tratamiento_mes']+"</td>";
                         html += "<td class='text-center'>"+tratamientos[i]['tratamiento_gestion']+"</td>";
                         html += "<td class='text-center'>"+moment(tratamientos[i]["tratamiento_fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td class='text-center'>"+tratamientos[i]['tratamiento_hora']+"</td>";
+                        html += "<td class='text-center'>"+tratamientos[i]['estado_descripcion']+"</td>";
                         html += "<td class='text-center'>"; 
+                        if(tratamientos[i]['estado_id'] != 5 || tipousuario_id == 1){
                         html += "<a class='btn btn-info btn-xs' data-toggle='modal' "+data_target+" onclick='cargarmodal_modificartratamiento("+JSON.stringify(tratamientos[i])+")' title='Modificar registro'>";
                         html += "<span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"sesion/sesiones/"+tratamientos[i]['tratamiento_id']+"' class='btn btn-yahoo btn-xs' title='Sesiones'><span class='fa fa-list'></span></a>";
@@ -178,6 +181,10 @@ function mostrar_tablastratamiento()
                             html += "<span class='fa fa-pencil-square-o'></span></a>";
                         }
                         html += "<a onclick='eliminar_tratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-danger btn-xs' title='Eliminar tratamiento del sistema'><span class='fa fa-trash'></span></a>";
+                        if(tipousuario_id == 1){
+                            html += "<a onclick='cambiar_estadotratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-success btn-xs' title='Finalizar tratamiento'><span class='fa fa-check-circle-o'></span></a>";
+                        }
+                    }
                         html += "</td>";
                         html += "</tr>";
                     }
@@ -733,12 +740,24 @@ function cargarmodal_nueva_anemiaglicemia(tratamiento_id, elmes, gestion)
     let reg_angli = document.getElementById("reg_angli").value;
     if(reg_angli == 1){
         document.getElementById('loaderanemiaglicemia').style.display = 'none';
-        $("#anemiaglic_titulo").val("ANEMIA");
-        $("#anemiaglic_enfermedad").val("");
-        $("#anemiaglic_diagnostico").val("");
-        $("#anemiaglic_hemoglobina").val("");
-        $("#anemiaglic_hematocrito").val("");
-        $("#anemiaglic_administra").val("");
+        let registro_id = document.getElementById("registro_id").value;
+        elinf_anemiagl = ultimo_infanemiaglicemia(registro_id);
+        if(elinf_anemiagl != ""){
+            $("#anemiaglic_titulo").val(elinf_anemiagl["anemiaglic_titulo"]);
+            $("#anemiaglic_enfermedad").val(elinf_anemiagl["anemiaglic_enfermedad"]);
+            $("#anemiaglic_diagnostico").val(elinf_anemiagl["anemiaglic_diagnostico"]);
+            $("#anemiaglic_hemoglobina").val(elinf_anemiagl["anemiaglic_hemoglobina"]);
+            $("#anemiaglic_hematocrito").val(elinf_anemiagl["anemiaglic_hematocrito"]);
+            $("#anemiaglic_administra").val(elinf_anemiagl["anemiaglic_administra"]);
+        }else{
+            $("#anemiaglic_titulo").val("ANEMIA");
+            $("#anemiaglic_enfermedad").val("");
+            $("#anemiaglic_diagnostico").val("");
+            $("#anemiaglic_hemoglobina").val("");
+            $("#anemiaglic_hematocrito").val("");
+            $("#anemiaglic_administra").val("");
+        }
+        
 
         let num_mes = "";
         const mes =["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
@@ -765,6 +784,28 @@ function cargarmodal_nueva_anemiaglicemia(tratamiento_id, elmes, gestion)
     }else{
         alert("Usted no tiene permisos para Registrar Informes de Anemia/Glicemia.\n por favor consulte con su Administrador!.");
     }
+}
+
+/* busca el ultimo informe de anemia/glicemia en el registro de un paciente */
+function ultimo_infanemiaglicemia(registro_id)
+{
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'tratamiento/ultimoinf_anemiaglicemia';
+    //document.getElementById('loaderanemiaglicemia').style.display = 'block';
+    let elres =  "";
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{registro_id:registro_id
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                if(res != null){
+                    elres = res;
+                }
+            },
+    });
+    return elres;
 }
 
 /* registra el informe clinico mensual de anemia/glicemia */
@@ -860,4 +901,20 @@ function modificar_infanemiaglicemia()
                     mostrar_tablastratamiento();
             },
     });            
+}
+
+function cambiar_estadotratamiento(tratamiento_id){
+    
+    //let eliminar_eltratamiento = document.getElementById("eliminar_eltratamiento").value;
+    //if(eliminar_eltratamiento == 1){
+        let confirmacion =  confirm('Esta seguro que quiere dar por terminado este Tratamiento?')
+        if(confirmacion == true){
+            let base_url = document.getElementById('base_url').value;
+            dir_url = base_url+"tratamiento/tratamiento_terminado/"+tratamiento_id;
+            location.href =dir_url;
+        }
+    /*}else{
+        alert("Usted no tiene permisos para eliminar los Tratamientos.\n por favor consulte con su Administrador!.");
+    }*/
+    
 }

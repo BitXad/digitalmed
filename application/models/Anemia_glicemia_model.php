@@ -84,7 +84,31 @@ class Anemia_glicemia_model extends CI_Model
                 left join registro r on r.registro_id = t.registro_id
                 WHERE
                     r.paciente_id = $paciente_id
-                order by im.anemiaglic_id desc
+                order by ag.anemiaglic_id desc
+            ")->row_array();
+            
+            return $infmensual;
+        }catch (Exception $ex){
+            throw new Exception('Anemia_glicemia_model model : Error in getall_anemia_glicemiatratamiento function - ' . $ex);
+        }  
+    }
+    
+    /*
+    * Get ultimo anemia_glicemia de un registro que pertenece a un paciente
+    */ 
+    function getlast_informeanemiaglicemia($registro_id)
+    {
+        try{
+            $infmensual = $this->db->query("
+                SELECT
+                    ag.*
+                FROM
+                    `anemia_glicemia` ag
+                left join tratamiento t on ag.tratamiento_id = t.tratamiento_id
+                left join registro r on t.registro_id = r.registro_id
+                WHERE
+                    t.registro_id = $registro_id
+                order by ag.anemiaglic_id desc
             ")->row_array();
             
             return $infmensual;

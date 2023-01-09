@@ -10,7 +10,7 @@
 <!-- ---------------------------------------------------- -->
 
 <div class="box-header">
-    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></span><br>
+    <span class="box-title"><b>Paciente: </b><?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"] ?></span><br>
     <span><b>Mes: </b><?php echo $paciente["tratamiento_mes"]; ?></span>&nbsp;&nbsp;&nbsp;
     <span><b>Gestion: </b><?php echo $paciente["tratamiento_gestion"]; ?></span>
     <div class="box-tools" id="nuevas_sesiones" style="display: none;">

@@ -137,17 +137,19 @@ function este_asociado(paciente)
                             html += "        <th>GESTION</th>";
                             html += "        <th>FECHA</th>";
                             html += "        <th>HORA</th>";
+                            html += "        <th>ESTADO</th>";
                             html += "    </tr>";
                             html += "</thead>";
                             html += "<tbody class='buscar'>";
                             for(var i = 0; i < n ; i++){
                                 //html += "<tr style='background-color: #"+tratamientos[i]['estado_color']+"'>"; 
-                                html += "<tr>";
+                                html += "<tr style='background-color: #"+tratamientos[i]['estado_color']+"'>";
                                 html += "<td class='text-center'>"+(i+1)+"</td>";
                                 html += "<td class='text-center'>"+tratamientos[i]['tratamiento_mes']+"</td>";
                                 html += "<td class='text-center'>"+tratamientos[i]['tratamiento_gestion']+"</td>";
                                 html += "<td class='text-center'>"+moment(tratamientos[i]["tratamiento_fecha"]).format("DD/MM/YYYY")+"</td>";
                                 html += "<td class='text-center'>"+tratamientos[i]['tratamiento_hora']+"</td>";
+                                html += "<td class='text-center'>"+tratamientos[i]['estado_descripcion']+"</td>";
                                 html += "</tr>";
                             }
                             html += "</tbody>";

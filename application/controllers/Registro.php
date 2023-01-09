@@ -52,7 +52,7 @@ class Registro extends CI_Controller{
                 $params = array(
                     'usuario_id' => $usuario_id,
                     'paciente_id' => $this->input->post('paciente_id'),
-                    'estado_id' => $this->input->post('estado_id'),
+                    'estado_id' => $estado_id,
                     'registro_fecha' => $this->input->post('registro_fecha'),
                     'registro_hora' => $this->input->post('registro_hora'),
                     'registro_mes' => $this->input->post('registro_mes'),

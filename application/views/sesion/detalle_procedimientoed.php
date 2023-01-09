@@ -212,7 +212,7 @@
                             <div class="col-md-12">
                                 <label for="sesion_tratamiento" class="control-label">  <span class="text-danger"></span>TRATAMIENTO Y/O RECOMENDACIONES</label>
                                 <div class="form-group">
-                                    <textarea class="form-control" name="sesion_tratamiento" id="sesion_evaluacionclinica" rows="5"><?php echo $sesion['sesion_tratamiento']; ?></textarea>
+                                    <textarea class="form-control" name="sesion_tratamiento" id="sesion_tratamiento" rows="5"><?php echo $sesion['sesion_tratamiento']; ?></textarea>
                                     <span class="text-danger"><?php echo form_error('sesion_tratamiento');?></span>
                                 </div>
                             </div>

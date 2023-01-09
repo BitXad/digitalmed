@@ -43,6 +43,7 @@ class Tratamiento extends CI_Controller{
         if($this->acceso(19)){
             try{
                 $data["rol"] = $this->session_data['rol'];
+                $data["tipousuario_id"] = $this->session_data['tipousuario_id'];
                 //obtiene los tratamientos de un determinado registro
                 $data['registro'] = $this->Registro_model->get_registro($registro_id);
                 $data['paciente'] = $this->Tratamiento_model->get_pacienteregistro($registro_id);
@@ -58,8 +59,10 @@ class Tratamiento extends CI_Controller{
     function registrar_tratamiento(){
         try{
             if($this->input->is_ajax_request()){
+                $estado_id = 3; // 4 = PENDIENTE
                 $params = array(
                     'registro_id' => $this->input->post('registro_id'),
+                    'estado_id' => $estado_id,
                     'tratamiento_mes' => $this->input->post('tratamiento_mes'),
                     'tratamiento_gestion' => $this->input->post('tratamiento_gestion'),
                     'tratamiento_fecha' => $this->input->post('tratamiento_fecha'),
@@ -352,9 +355,11 @@ class Tratamiento extends CI_Controller{
                 // 0=>Domingo, 1=>Lunes, 2=>Martes, 3=>Miercoles, 4=>Jueves, 5=>Viernes, 6=>Sabado
                 $dia = date("w", strtotime($sesion_fechainicio));
                 if($dia >0){
-                    
+                    $registro_id = $this->input->post('registro_id');
+                    $esteestado_id = 4; // 4 = EN PROCESO
                     $params = array(
-                        'registro_id' => $this->input->post('registro_id'),
+                        'registro_id' => $registro_id,
+                        'estado_id' => $esteestado_id,
                         'tratamiento_mes' => $this->input->post('tratamiento_mes'),
                         'tratamiento_gestion' => $this->input->post('tratamiento_gestion'),
                         'tratamiento_fecha' => $this->input->post('tratamiento_fecha'),
@@ -363,6 +368,16 @@ class Tratamiento extends CI_Controller{
                     $tratamiento_id = $this->Tratamiento_model->add_tratamiento($params);
                     
                     $registro = $this->Registro_model->get_registro_detratamiento($tratamiento_id);
+                    $ultimasesion= $this->Registro_model->get_ultimasesion_registro($registro_id);
+                    $sesion_evaluacionenfermeria = "";
+                    $sesion_evaluacionclinica = "";
+                    $sesion_tratamiento = "";
+                    if(isset($ultimasesion)){
+                        $sesion_evaluacionenfermeria = $ultimasesion["sesion_evaluacionenfermeria"];
+                        $sesion_evaluacionclinica = $ultimasesion["sesion_evaluacionclinica"];
+                        $sesion_tratamiento = $ultimasesion["sesion_tratamiento"];
+                    }
+                    
                     $numero_registro = $registro["registro_numerosesion"];
                     $registro_numaquina = $registro["registro_numaquina"];
                     $registro_tipofiltro = $registro["registro_tipofiltro"];
@@ -416,6 +431,9 @@ class Tratamiento extends CI_Controller{
                             'sesion_lineasav' => $num_filtro,
                             'sesion_devolucion' => 300,
                             'sesion_heparina' => 5000,
+                            'sesion_evaluacionenfermeria' => $sesion_evaluacionenfermeria,
+                            'sesion_evaluacionclinica' => $sesion_evaluacionclinica,
+                            'sesion_tratamiento' => $sesion_tratamiento,
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
                         
@@ -832,5 +850,37 @@ class Tratamiento extends CI_Controller{
         }catch (Exception $e){
             echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
+    }
+    
+    /* Obtiene el ultimo informe mensual de Anemia/glicemia de un registro */
+    function ultimoinf_anemiaglicemia(){
+        try{
+            if($this->input->is_ajax_request()){
+                $registro_id = $this->input->post('registro_id');
+                $datos = $this->Anemia_glicemia_model->getlast_informeanemiaglicemia($registro_id);
+            echo json_encode($datos);
+            }else{
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+    }
+    function tratamiento_terminado($tratamiento_id)
+    {
+        $tratamiento = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        
+        // check if the tratamiento exists before trying to delete it
+        if(isset($tratamiento['tratamiento_id']))
+        {
+            $registro_id = $tratamiento['registro_id'];
+            $params = array(
+                'estado_id' => 5,
+            );
+            $this->Tratamiento_model->update_tratamiento($tratamiento_id,$params);
+            redirect('tratamiento/tratamientos/'.$registro_id);
+        }
+        else
+            show_error('El Tratamiento que intentas dar por terminado no existe!....');
     }
  }

@@ -132,4 +132,25 @@ class Registro_model extends CI_Model
         $this->db->delete('acceso_vascular',array('registro_id'=>$registro_id));
         return $this->db->delete('registro',array('registro_id'=>$registro_id));
     }
+    
+    /* get ultima sesion de un registro */
+    function get_ultimasesion_registro($registro_id)
+    {
+        try{
+            $lasesion = $this->db->query("
+                select
+                    s.*
+                from
+                    sesion s
+                left join tratamiento t on s.tratamiento_id = t.tratamiento_id
+                left join registro r on t.registro_id = r.registro_id
+                where r.registro_id = $registro_id
+                order by s.sesion_id  desc limit 1
+            ")->row_array();
+            
+            return $lasesion;
+        }catch (Exception $ex) {
+            throw new Exception('Registro_model model : Error in la ultima sesion function - ' . $ex);
+        }  
+    }
  }

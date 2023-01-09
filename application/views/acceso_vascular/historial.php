@@ -21,7 +21,7 @@
 </script>
 <div class="box-header">
     <font size='3' face='Arial'><b>Historial de</b></font>
-    <div class="text-center"><font size='3' face='Arial'><b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"] ?></b></font></div>
+    <div class="text-center"><font size='3' face='Arial'><b><?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"] ?></b></font></div>
     <font size='2' face='Arial'>Registros Encontrados: <?php echo sizeof($acceso_vascular); ?></font>
     <div class="box-tools no-print">
         <?php

@@ -83,6 +83,17 @@ class Sesion extends CI_Controller{
                 if($dia >0){
                     $tratamiento_id = $this->input->post('tratamiento_id');
                     $registro = $this->Registro_model->get_registro_detratamiento($tratamiento_id);
+                    $registro_id = $registro["registro_id"];
+                    $ultimasesion= $this->Registro_model->get_ultimasesion_registro($registro_id);
+                    $sesion_evaluacionenfermeria = "";
+                    $sesion_evaluacionclinica = "";
+                    $sesion_tratamiento = "";
+                    if(isset($ultimasesion)){
+                        $sesion_evaluacionenfermeria = $ultimasesion["sesion_evaluacionenfermeria"];
+                        $sesion_evaluacionclinica = $ultimasesion["sesion_evaluacionclinica"];
+                        $sesion_tratamiento = $ultimasesion["sesion_tratamiento"];
+                    }
+                    
                     $numero_registro = $registro["registro_numerosesion"];
                     $registro_numaquina = $registro["registro_numaquina"];
                     $registro_tipofiltro = $registro["registro_tipofiltro"];
@@ -136,6 +147,9 @@ class Sesion extends CI_Controller{
                             'sesion_lineasav' => $num_filtro,
                             'sesion_devolucion' => 300,
                             'sesion_heparina' => 5000,
+                            'sesion_evaluacionenfermeria' => $sesion_evaluacionenfermeria,
+                            'sesion_evaluacionclinica' => $sesion_evaluacionclinica,
+                            'sesion_tratamiento' => $sesion_tratamiento,
                         );
                         $sesion_id = $this->Sesion_model->add_sesion($params);
                         
@@ -462,6 +476,11 @@ class Sesion extends CI_Controller{
                         'registro_filtro' => $num_filtro,
                     );
                     $this->Registro_model->update_registro($registro["registro_id"], $params);
+                    
+                    $params = array(
+                        'estado_id' => 4, // 4 EN PROCESO
+                    );
+                    $this->Tratamiento_model->update_tratamiento($tratamiento_id, $params);
                     
                     echo json_encode("ok");
                 }else{

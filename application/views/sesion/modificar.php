@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Modificar Registro de <?php echo $paciente["paciente_nombre"]; ?></h3>
+                <h3 class="box-title">Modificar Registro de <?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"]; ?></h3>
                 <?php echo form_open('sesion/modificar/'.$sesion['sesion_id']); ?>
                     <div class="box-body">
                         <div class="row clearfix">

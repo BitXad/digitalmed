@@ -4,6 +4,7 @@
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="registro_id" id="registro_id" value="<?php echo $registro["registro_id"]; ?>" />
 <input type="hidden" name="paciente_id" id="paciente_id" value="<?php echo $paciente["paciente_id"]; ?>" />
+<input type="hidden" name="tipousuario_id" id="tipousuario_id" value="<?php echo $tipousuario_id; ?>" />
 <!--<input type="hidden" name="paciente_fechanac" id="paciente_fechanac" value="<?php //echo $paciente["paciente_fechanac"]; ?>" />-->
 <!--<input type="hidden" name="elfirmante_nombre" id="elfirmante_nombre" value="<?php /*echo $paciente["paciente_nombrefirmante"]; ?>" />
 <input type="hidden" name="elfirmante_ci" id="elfirmante_ci" value="<?php echo $paciente["paciente_cifirmante"];*/ ?>" />-->
@@ -33,7 +34,7 @@
 <div class="box-header">
     <font size='3' face='Arial'><b>TRATAMIENTOS DEL PACIENTE</b></font>
     <div class="text-center">
-        <font size='3' face='Arial'><b><?php echo $paciente["paciente_nombre"]." ".$paciente["paciente_apellido"]; ?></b></font>
+        <font size='3' face='Arial'><b><?php echo $paciente["paciente_apellido"]." ".$paciente["paciente_nombre"]; ?></b></font>
     </div>
     <font size='2' face='Arial'>Registros Encontrados: <span id="encontrados"></span></font>
     <div class="box-tools no-print">
@@ -62,6 +63,7 @@
                             <th>GESTION</th>
                             <th>FECHA</th>
                             <th>HORA</th>
+                            <th>ESTADO</th>
                             <th></th>
                         </tr>
                     </thead>

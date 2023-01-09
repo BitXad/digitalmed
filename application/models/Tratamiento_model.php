@@ -18,12 +18,14 @@ class Tratamiento_model extends CI_Model
         try{
             $tratamiento = $this->db->query("
                 SELECT
-                    t.*, im.infmensual_id, cm.certmedico_id, ag.anemiaglic_id
+                    t.*, im.infmensual_id, cm.certmedico_id, ag.anemiaglic_id,
+                    e.estado_color, e.estado_descripcion
                 FROM
                     `tratamiento` t
                 left join informe_mensual im on t.tratamiento_id = im.tratamiento_id
                 left join certificado_medico cm on t.tratamiento_id = cm.tratamiento_id
                 left join anemia_glicemia ag on t.tratamiento_id = ag.tratamiento_id
+                left join estado e on t.estado_id = e.estado_id
                 WHERE
                     registro_id = $registro_id
                 order by t.tratamiento_id desc
@@ -32,7 +34,7 @@ class Tratamiento_model extends CI_Model
             return $tratamiento;
         }catch (Exception $ex){
             throw new Exception('Tratamiento_model model : Error in getall_tratamientoregistro function - ' . $ex);
-        }  
+        }
     }
     
     /*
@@ -103,11 +105,12 @@ class Tratamiento_model extends CI_Model
         try{
             $tratamiento = $this->db->query("
                 SELECT
-                    t.*
+                    t.*, e.estado_color, e.estado_descripcion
                 FROM
                     `paciente` p
                 left join registro r on p.paciente_id = r.paciente_id
                 left join tratamiento t on r.registro_id = t.registro_id
+                left join estado e on t.estado_id = e.estado_id
                 WHERE
                     p.paciente_id = $paciente_id
                 order by t.tratamiento_id desc
