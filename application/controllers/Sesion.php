@@ -1036,4 +1036,74 @@ class Sesion extends CI_Controller{
         }
     }
     
+    public function cambiar_devol()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_devolucion = $this->input->post('sesion_devolucion');
+                $registro_id = $this->input->post('registro_id');
+                $sesion_id = $this->input->post('sesion_id');
+                $uno_omas = $this->input->post('uno_omas');
+                // si uno_omas es 1, entonces solo cambia en esa sesion,
+                // caso contrario cambia en todas las sesiones posteriores
+                if($uno_omas == 1){
+                    $params = array(
+                        'sesion_devolucion'=> $sesion_devolucion,
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                }else{
+                    $las_sesiones = $this->Sesion_model->get_sesionesmayores_asesion($registro_id,$sesion_id);
+                    foreach ($las_sesiones as $sesion){
+                        $params = array(
+                            'sesion_devolucion'=> $sesion_devolucion,
+                        );
+                        $this->Sesion_model->update_sesion($sesion["sesion_id"],$params);
+                    }
+                }
+                
+                $lasesion = $this->Sesion_model->get_sesion($sesion_id);
+                echo json_encode($lasesion["sesion_devolucion"]);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error al modificar la devolucion - ' . $ex);
+        }
+    }
+    
+    public function cambiar_heparina()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $sesion_heparina = $this->input->post('sesion_heparina');
+                $registro_id = $this->input->post('registro_id');
+                $sesion_id = $this->input->post('sesion_id');
+                $uno_omas = $this->input->post('uno_omas');
+                // si uno_omas es 1, entonces solo cambia en esa sesion,
+                // caso contrario cambia en todas las sesiones posteriores
+                if($uno_omas == 1){
+                    $params = array(
+                        'sesion_heparina'=> $sesion_heparina,
+                    );
+                    $this->Sesion_model->update_sesion($sesion_id,$params);
+                }else{
+                    $las_sesiones = $this->Sesion_model->get_sesionesmayores_asesion($registro_id,$sesion_id);
+                    foreach ($las_sesiones as $sesion){
+                        $params = array(
+                            'sesion_heparina'=> $sesion_heparina,
+                        );
+                        $this->Sesion_model->update_sesion($sesion["sesion_id"],$params);
+                    }
+                }
+                
+                $lasesion = $this->Sesion_model->get_sesion($sesion_id);
+                echo json_encode($lasesion["sesion_heparina"]);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $ex) {
+            throw new Exception('Sesion Controller : Error al modificar la heparina - ' . $ex);
+        }
+    }
+    
  }

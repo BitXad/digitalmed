@@ -162,15 +162,33 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_devolucion" class="control-label">  <span class="text-danger"></span>DEVOL. (ml)</label>
-                                <div class="form-group">
-                                    <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" />
+                                <div class="input-group">
+                                    <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" readonly />
+                                    <?php
+                                    //if($rol[30-1]['rolusuario_asignado'] == 1){
+                                    ?>
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambiodevol" onclick="mostrarmodal_cambiodevol(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,'<?php echo $sesion['sesion_devolucion']; ?>')" title="Cambiar devol.">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
+                                    <?php
+                                    //}
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_devolucion');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_heparina" class="control-label">  <span class="text-danger"></span>HEPARINA (UI)</label>
-                                <div class="form-group">
-                                    <input type="text" name="sesion_heparina" value="<?php echo ($this->input->post('sesion_heparina') ? $this->input->post('sesion_heparina') : $sesion['sesion_heparina']); ?>" class="form-control" id="sesion_heparina" />
+                                <div class="input-group">
+                                    <input type="text" name="sesion_heparina" value="<?php echo ($this->input->post('sesion_heparina') ? $this->input->post('sesion_heparina') : $sesion['sesion_heparina']); ?>" class="form-control" id="sesion_heparina" readonly />
+                                    <?php
+                                    //if($rol[30-1]['rolusuario_asignado'] == 1){
+                                    ?>
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambioheparina" onclick="mostrarmodal_cambioheparina(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,'<?php echo $sesion['sesion_heparina']; ?>')" title="Cambiar heparina">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
+                                    <?php
+                                    //}
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_heparina');?></span>
                                 </div>
                             </div>
@@ -537,3 +555,71 @@
     </div>
 </div>
 <!------------------------ F I N  modal para registrar el cambio de tipo de filtro ------------------->
+
+<!------------------------ INICIO modal para registrar el cambio de devol. ------------------->
+<div class="modal fade" id="modal_cambiodevol" tabindex="-1" role="dialog" aria-labelledby="modal_cambiodevollabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR DEVOLUCION</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambiodevol" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_devolucion" class="control-label">Devol.</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="cambiar_sesion_devolucion" class="form-control" id="cambiar_sesion_devolucion" />
+                        <input type="hidden" name="cambiardevol_sesion_id" class="form-control" id="cambiardevol_sesion_id" />
+                        <input type="hidden" name="cambiardevol_registro_id" class="form-control" id="cambiardevol_registro_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_devol(1)"><fa class="fa fa-floppy-o"></fa> Cambiar en esta Sesion</button>
+                    <button type="button" class="btn btn-success" onclick="cambiar_devol(2)"><fa class="fa fa-floppy-o"></fa> Cambiar Todo</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiardevol"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de Devol. ------------------->
+
+<!------------------------ INICIO modal para registrar el cambio de heparina ------------------->
+<div class="modal fade" id="modal_cambioheparina" tabindex="-1" role="dialog" aria-labelledby="modal_cambioheparinalabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR HEPARINA</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambioheparina" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_heparina" class="control-label">Heparina</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="cambiar_sesion_heparina" class="form-control" id="cambiar_sesion_heparina" />
+                        <input type="hidden" name="cambiarheparina_registro_id" class="form-control" id="cambiarheparina_registro_id" />
+                        <input type="hidden" name="cambiarheparina_sesion_id" class="form-control" id="cambiarheparina_sesion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_heparina(1)"><fa class="fa fa-floppy-o"></fa> Cambiar en esta Sesion</button>
+                    <button type="button" class="btn btn-success" onclick="cambiar_heparina(2)"><fa class="fa fa-floppy-o"></fa> Cambiar Todo</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiarheparina"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de heparina ------------------->

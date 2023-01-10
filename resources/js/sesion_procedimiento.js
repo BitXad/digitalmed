@@ -399,3 +399,75 @@ function cambiar_tipofiltro()
             },
     });
 }
+
+/* carga el modal para cambiar Devolucion */
+function mostrarmodal_cambiodevol(registro_id, sesion_id, sesion_devolucion)
+{
+    document.getElementById('loadercambiodevol').style.display = 'none';
+    $("#cambiar_sesion_devolucion").val(sesion_devolucion);
+    $("#cambiardevol_registro_id").val(registro_id);
+    $("#cambiardevol_sesion_id").val(sesion_id);
+    
+    $('#modal_cambiodevol').on('shown.bs.modal', function (e) {
+        $('#cambiar_sesion_devolucion').focus();
+    });
+}
+
+function cambiar_devol(uno_omas)
+{
+    let sesion_devolucion = document.getElementById("cambiar_sesion_devolucion").value;
+    let sesion_id = document.getElementById("cambiardevol_sesion_id").value;
+    let registro_id = document.getElementById("cambiardevol_registro_id").value;
+    var base_url = document.getElementById('base_url').value;
+    
+    var controlador = base_url+'sesion/cambiar_devol';
+    document.getElementById('loadercambiodevol').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{sesion_devolucion:sesion_devolucion, sesion_id:sesion_id, registro_id:registro_id, uno_omas:uno_omas
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                $('#sesion_devolucion').val(res);
+                alert("El cambio de Devol. se realizo correctamente");
+                $('#boton_cerrarmodalcambiardevol').click();
+            },
+    });
+}
+
+/* carga el modal para cambiar Heparina */
+function mostrarmodal_cambioheparina(registro_id, sesion_id, sesion_heparina)
+{
+    document.getElementById('loadercambioheparina').style.display = 'none';
+    $("#cambiar_sesion_heparina").val(sesion_heparina);
+    $("#cambiarheparina_registro_id").val(registro_id);
+    $("#cambiarheparina_sesion_id").val(sesion_id);
+    
+    $('#modal_cambioheparina').on('shown.bs.modal', function (e) {
+        $('#cambiar_sesion_heparina').focus();
+    });
+}
+
+function cambiar_heparina(uno_omas)
+{
+    let sesion_heparina = document.getElementById("cambiar_sesion_heparina").value;
+    let sesion_id = document.getElementById("cambiarheparina_sesion_id").value;
+    let registro_id = document.getElementById("cambiarheparina_registro_id").value;
+    var base_url = document.getElementById('base_url').value;
+    
+    var controlador = base_url+'sesion/cambiar_heparina';
+    document.getElementById('loadercambioheparina').style.display = 'block';
+    $.ajax({url:controlador,
+            type:"POST",
+            async: false,
+            data:{sesion_heparina:sesion_heparina, sesion_id:sesion_id, registro_id:registro_id, uno_omas:uno_omas
+            },
+            success:function(result){
+                res = JSON.parse(result);
+                $('#sesion_heparina').val(res);
+                alert("El cambio de Heparina se realizo correctamente");
+                $('#boton_cerrarmodalcambiarheparina').click();
+            },
+    });
+}
