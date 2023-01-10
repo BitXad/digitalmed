@@ -144,15 +144,33 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_devolucion" class="control-label">  <span class="text-danger"></span>DEVOL. (ml)</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" />
+                                    <?php
+                                    //if($rol[30-1]['rolusuario_asignado'] == 1){
+                                    ?>
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambiodevol" onclick="mostrarmodal_cambiodevol(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,'<?php echo $sesion['sesion_devolucion']; ?>')" title="Cambiar devol.">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
+                                    <?php
+                                    //}
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_devolucion');?></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="sesion_heparina" class="control-label">  <span class="text-danger"></span>HEPARINA (UI)</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <input type="text" name="sesion_heparina" value="<?php echo ($this->input->post('sesion_heparina') ? $this->input->post('sesion_heparina') : $sesion['sesion_heparina']); ?>" class="form-control" id="sesion_heparina" />
+                                    <?php
+                                    //if($rol[30-1]['rolusuario_asignado'] == 1){
+                                    ?>
+                                    <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambioheparina" onclick="mostrarmodal_cambioheparina(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,'<?php echo $sesion['sesion_heparina']; ?>')" title="Cambiar heparina">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </a>
+                                    <?php
+                                    //}
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_heparina');?></span>
                                 </div>
                             </div>
