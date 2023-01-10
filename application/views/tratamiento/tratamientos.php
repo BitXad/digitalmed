@@ -823,7 +823,19 @@
 <!------------------------ F I N  modal para Modificar informe mensual de Anemia/Glicemia ------------------->
 
 <div>
+    <?php
+    if($tipousuario_id  == 1){
+    ?>
     <a href="<?php echo base_url("registro/registros/".$paciente["paciente_id"]); ?>" class="btn btn-danger">
         <i class="fa fa-reply"></i> Registros
     </a>
+    <?php
+    }else{
+    ?>
+    <a href="<?php echo base_url("paciente"); ?>" class="btn btn-danger">
+        <i class="fa fa-reply"></i> Registros
+    </a>
+    <?php
+    }
+    ?>
 </div>

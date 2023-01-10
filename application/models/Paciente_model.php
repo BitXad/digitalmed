@@ -83,7 +83,11 @@ class Paciente_model extends CI_Model
         $paciente = $this->db->query("
             SELECT
                 p.*, e.estado_color, e. estado_descripcion, 
-                g.genero_nombre, ex.extencion_descripcion
+                g.genero_nombre, ex.extencion_descripcion,
+                (select max(r.registro_id)
+                 from registro r
+                 where r.`paciente_id` = p.`paciente_id`
+                 order by r.registro_id desc) as registro_id
             FROM
                 `paciente` p
             left join genero g on p.genero_id = g.genero_id
@@ -91,7 +95,7 @@ class Paciente_model extends CI_Model
             left join extencion ex on p.extencion_id = ex.extencion_id
             WHERE
                 1 = 1
-
+            group by p.paciente_id
             ORDER BY p.`paciente_apellido` asc, p.`paciente_nombre` asc
 
         ")->result_array();

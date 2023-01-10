@@ -36,7 +36,8 @@ class Paciente extends CI_Controller{
     function index()
     {
         if($this->acceso(1)){
-            $data['usuario'] = $this->Usuario_model->get_usuario(1);
+            //$data['usuario'] = $this->Usuario_model->get_usuario(1);
+            $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
             $data['paciente'] = $this->Paciente_model->get_all_paciente();
             $data['_view'] = 'paciente/index';
             $this->load->view('layouts/main',$data);

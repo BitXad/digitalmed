@@ -166,7 +166,9 @@ class Sesion_model extends CI_Model
                 left join paciente p on r.paciente_id = p.paciente_id
                 WHERE
                 	(s.estado_id = 3 or s.estado_id = 4) and
+                        (t.estado_id = 3 or t.estado_id = 4) and
                 	p.paciente_id = $paciente_id
+                order by t.tratamiento_id desc
             ")->result_array();
             return $sesion;
         } catch (Exception $ex) {

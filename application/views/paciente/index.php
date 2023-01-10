@@ -145,6 +145,9 @@
                         <td class="text-center"><?php echo $p['paciente_direccion']; ?></td>
                         <td class="text-center"><?php echo $p['estado_descripcion']; ?></td>
                         <td class="text-center">
+                            <?php
+                            if($tipousuario_id == 1){
+                            ?>
                             <a href="<?php echo site_url('paciente/edit/'.$p['paciente_id']); ?>" class="btn btn-info btn-xs" title="Modificar paciente"><span class="fa fa-pencil"></span></a> 
                             <a href="<?php echo site_url('registro/registros/'.$p['paciente_id']); ?>" class="btn btn-facebook btn-xs" title="Ver registros de pacientes"><span class="fa fa-list-alt"></span></a>
                             <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-warning btn-xs" title="Ver documentos del paciente" target="_blank"><span class="fa fa-file-image-o"></span></a>
@@ -160,6 +163,15 @@
                             }
                             ?>
                             <a onclick="return confirm('Esta seguro que quiere eliminar a este paciente del sistema?\nNota.- esta operacion borrara toda la informacion del paciente y no habra forma de recuperarla.')" href="<?php echo site_url('paciente/remove/'.$p['paciente_id']); ?>" class="btn btn-danger btn-xs" title="Eliminar paciente del sistema"><span class="fa fa-trash"></span></a>
+                            <?php
+                            }elseif($p['registro_id'] != null && $p['registro_id'] != ""){
+                            ?>
+                            <a href="<?php echo site_url('tratamiento/tratamientos/'.$p['registro_id']); ?>" class="btn btn-facebook btn-xs" title="Tratamientos de un registro" style="width: 50px; height: 50px"><span class="fa fa-file-text fa-2x" ></span></a>
+                            <?php
+                            }else{
+                                echo "No tiene Tratamientos";
+                            }
+                            ?>
                         </td>
                     </tr>
                     <?php
