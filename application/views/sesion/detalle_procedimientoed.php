@@ -43,9 +43,15 @@
                                 <label for="sesion_numerosesionhd" class="control-label">  <span class="text-danger"></span>N° Ses HD</label>
                                 <div class="input-group">
                                     <input type="number" min="0" name="sesion_numerosesionhd" value="<?php echo ($this->input->post('sesion_numerosesionhd') ? $this->input->post('sesion_numerosesionhd') : $sesion['sesion_numerosesionhd']); ?>" class="form-control" id="sesion_numerosesionhd" readonly />
+                                    <?php
+                                    if($rol[28-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionumsesion" onclick="mostrarmodal_cambionumsesion(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_numerosesionhd']; ?>)" title="Cambiar el número de sesión de HD">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_numerosesionhd');?></span>
                                 </div>
                             </div>
@@ -95,9 +101,15 @@
                                 <label for="sesion_nummaquina" class="control-label">  <span class="text-danger"></span>MAQUINA N°</label>
                                 <div class="input-group">
                                     <input type="number" min="0" name="sesion_nummaquina" value="<?php echo ($this->input->post('sesion_nummaquina') ? $this->input->post('sesion_nummaquina') : $sesion['sesion_nummaquina']); ?>" class="form-control" id="sesion_nummaquina" readonly="true" />
+                                    <?php
+                                    if($rol[29-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambionummaquina" onclick="mostrarmodal_cambionummaquina(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_nummaquina']; ?>)" title="Cambiar el número de maquina">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_nummaquina');?></span>
                                 </div>
                             </div>
@@ -119,9 +131,15 @@
                                 <label for="sesion_tipofiltro" class="control-label">  <span class="text-danger"></span>TIPO DE FILTRO</label>
                                 <div class="input-group">
                                     <input type="text" name="sesion_tipofiltro" value="<?php echo ($this->input->post('sesion_tipofiltro') ? $this->input->post('sesion_tipofiltro') : $sesion['sesion_tipofiltro']); ?>" class="form-control" id="sesion_tipofiltro" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" readonly="true" />
+                                    <?php
+                                    if($rol[30-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambiotipofiltro" onclick="mostrarmodal_cambiotipofiltro(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_tipofiltro']; ?>)" title="Cambiar el tipo de filtro">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_tipofiltro');?></span>
                                 </div>
                             </div>
@@ -129,9 +147,15 @@
                                 <label for="sesion_reutlizacionfiltro" class="control-label">  <span class="text-danger"></span>REUTILIZACION FILTRO</label>
                                 <div class="input-group">
                                     <input type="text" name="sesion_reutlizacionfiltro" value="<?php echo ($this->input->post('sesion_reutlizacionfiltro') ? $this->input->post('sesion_reutlizacionfiltro') : $sesion['sesion_reutlizacionfiltro']); ?>" class="form-control" id="sesion_reutlizacionfiltro" readonly="true" />
+                                    <?php
+                                    if($rol[31-1]['rolusuario_asignado'] == 1){
+                                    ?>
                                     <a style="border-color: #008d4c; background: #008D4C !important; color: white" class="input-group-addon btn btn-success btn-sm" data-toggle="modal" data-target="#modal_cambioreutlizacionfiltro" onclick="mostrarmodal_cambioreutlizacionfiltro(<?php echo $paciente['registro_id'] ?>,<?php echo $sesion['sesion_id']; ?>,<?php echo $sesion['sesion_reutlizacionfiltro']; ?>)" title="Cambiar el número de reutilización de filtro">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </a>
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="text-danger"><?php echo form_error('sesion_reutlizacionfiltro');?></span>
                                 </div>
                             </div>
@@ -145,7 +169,7 @@
                             <div class="col-md-2">
                                 <label for="sesion_devolucion" class="control-label">  <span class="text-danger"></span>DEVOL. (ml)</label>
                                 <div class="input-group">
-                                    <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" />
+                                    <input type="text" name="sesion_devolucion" value="<?php echo ($this->input->post('sesion_devolucion') ? $this->input->post('sesion_devolucion') : $sesion['sesion_devolucion']); ?>" class="form-control" id="sesion_devolucion" readonly />
                                     <?php
                                     if($rol[65-1]['rolusuario_asignado'] == 1){
                                     ?>
@@ -161,7 +185,7 @@
                             <div class="col-md-2">
                                 <label for="sesion_heparina" class="control-label">  <span class="text-danger"></span>HEPARINA (UI)</label>
                                 <div class="input-group">
-                                    <input type="text" name="sesion_heparina" value="<?php echo ($this->input->post('sesion_heparina') ? $this->input->post('sesion_heparina') : $sesion['sesion_heparina']); ?>" class="form-control" id="sesion_heparina" />
+                                    <input type="text" name="sesion_heparina" value="<?php echo ($this->input->post('sesion_heparina') ? $this->input->post('sesion_heparina') : $sesion['sesion_heparina']); ?>" class="form-control" id="sesion_heparina" readonly />
                                     <?php
                                     if($rol[66-1]['rolusuario_asignado'] == 1){
                                     ?>
@@ -537,3 +561,70 @@
     </div>
 </div>
 <!------------------------ F I N  modal para registrar el cambio de tipo de filtro ------------------->
+<!------------------------ INICIO modal para registrar el cambio de devol. ------------------->
+<div class="modal fade" id="modal_cambiodevol" tabindex="-1" role="dialog" aria-labelledby="modal_cambiodevollabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR DEVOLUCION</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambiodevol" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_devolucion" class="control-label">Devol.</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="cambiar_sesion_devolucion" class="form-control" id="cambiar_sesion_devolucion" />
+                        <input type="hidden" name="cambiardevol_sesion_id" class="form-control" id="cambiardevol_sesion_id" />
+                        <input type="hidden" name="cambiardevol_registro_id" class="form-control" id="cambiardevol_registro_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_devol(1)"><fa class="fa fa-floppy-o"></fa> Cambiar en esta Sesion</button>
+                    <button type="button" class="btn btn-success" onclick="cambiar_devol(2)"><fa class="fa fa-floppy-o"></fa> Cambiar Todo</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiardevol"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de Devol. ------------------->
+
+<!------------------------ INICIO modal para registrar el cambio de heparina ------------------->
+<div class="modal fade" id="modal_cambioheparina" tabindex="-1" role="dialog" aria-labelledby="modal_cambioheparinalabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">CAMBIAR HEPARINA</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadercambioheparina" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <label for="cambiar_sesion_heparina" class="control-label">Heparina</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="cambiar_sesion_heparina" class="form-control" id="cambiar_sesion_heparina" />
+                        <input type="hidden" name="cambiarheparina_registro_id" class="form-control" id="cambiarheparina_registro_id" />
+                        <input type="hidden" name="cambiarheparina_sesion_id" class="form-control" id="cambiarheparina_sesion_id" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="cambiar_heparina(1)"><fa class="fa fa-floppy-o"></fa> Cambiar en esta Sesion</button>
+                    <button type="button" class="btn btn-success" onclick="cambiar_heparina(2)"><fa class="fa fa-floppy-o"></fa> Cambiar Todo</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalcambiarheparina"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para registrar el cambio de heparina ------------------->

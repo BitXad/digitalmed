@@ -743,6 +743,7 @@ class Sesion extends CI_Controller{
                     $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
                     redirect('sesion/lassesiones');
                 }else{
+                    $data["rol"] = $this->session_data['rol'];
                     $data['_view'] = 'sesion/detalle_procedimientoed';
                     $this->load->view('layouts/main',$data);
                 }

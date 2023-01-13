@@ -482,7 +482,7 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
             $("#certmedico_cabecerados").val(ultimo_certmedico["certmedico_cabecerados"]);
             $("#certmedico_cabeceratres").val(ultimo_certmedico["certmedico_cabeceratres"]);
             $("#certmedico_cabeceracuatro").val(ultimo_certmedico["certmedico_cabeceracuatro"]);
-            //$("#certmedico_medicacion").val(ultimo_certmedico["certmedico_medicacion"]);
+            $("#certmedico_diagnostico").val(ultimo_certmedico["certmedico_diagnostico"]);
         }else{
             $("#certmedico_nombre").val("Dr. José Enrique Gutiérrez Méndez");
             $("#certmedico_codigo").val("G-795/G-156");
@@ -494,7 +494,7 @@ function cargarmodal_nuevocertmedico(tratamiento_id, elmes, gestion)
             $("#certmedico_cabecerados").val("");
             $("#certmedico_cabeceratres").val("");
             $("#certmedico_cabeceracuatro").val("");
-            //$("#certmedico_medicacion").val("");
+            $("#certmedico_diagnostico").val("");
         }
         $("#certmedico_medicacion").val("");
         let medicamentos_mes = get_medicamentosmes(tratamiento_id);
