@@ -35,7 +35,7 @@ class Verificar extends CI_Controller
                 $usuario_imagen = "default.jpg";
                 if ($result->usuario_imagen <> null && $result->usuario_imagen <> "") {
                     $thumb = "thumb_".$result->usuario_imagen;
-                    $usuario_imagen = $result->usuario_image;
+                    $usuario_imagen = $result->usuario_imagen;
                 }
                 
                 $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);

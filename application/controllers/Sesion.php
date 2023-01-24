@@ -47,6 +47,7 @@ class Sesion extends CI_Controller{
     {
         if($this->acceso(23)){
             $data["rol"] = $this->session_data['rol'];
+            $data["tipousuario_id"] = $this->session_data['tipousuario_id'];
             $data['tratamiento_id'] = $tratamiento;
             $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento);
             /*$sesion = $this->Sesion_model->get_all_sesion();

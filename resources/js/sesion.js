@@ -85,8 +85,10 @@ function mostrar_tablas()
                     let n = registros.length;
                     if(n >0){
                         document.getElementById('nuevas_sesiones').style.display = 'none';
+                        document.getElementById('una_nuevasesion').style.display = 'block';
                     }else{
                         document.getElementById('nuevas_sesiones').style.display = 'block';
+                        document.getElementById('una_nuevasesion').style.display = 'none';
                     }
                     let html = "";
                     let total_sesion = 0;
@@ -145,6 +147,72 @@ function mostrar_tablas()
     });
 }
 
+/* carga modal de una sola nueva sesion en limpio */
+function cargarmodal_unanuevasesion()
+{
+    let tipousuario_id = document.getElementById("tipousuario_id").value;
+    if(tipousuario_id == 1){
+        document.getElementById('loaderunonuevo').style.display = 'none';
+        $("#una_sesion_numero").val(1);
+        $("#una_sesion_fechainicio").val(moment(Date()).format("YYYY-MM-DD"));
+        $("#una_sesion_hierroev").val("100 Mg.");
+        $("#una_sesion_complejobampolla").val("1 AMPOLLA");
+        $("#una_sesion_costosesion").val("713");
+        $('#modal_unanuevasesion').on('shown.bs.modal', function (e) {
+            $('#una_sesion_numero').focus();
+        });
+    }else{
+        alert("Usted no tiene permisos para generar una nueva Sesion.\n por favor consulte con su Administrador!.");
+    }
+}
+
+function generar_unasesion()
+{
+    var sesion_numero = document.getElementById("una_sesion_numero").value;
+    var sesion_fechainicio = document.getElementById("una_sesion_fechainicio").value;
+    var sesion_eritropoyetina = document.getElementById("una_sesion_eritropoyetina").value;
+    var sesion_hierroev = document.getElementById("una_sesion_hierroev").value;
+    var sesion_complejobampolla = document.getElementById("una_sesion_complejobampolla").value;
+    var sesion_costosesion = document.getElementById("una_sesion_costosesion").value;
+    var tratamiento_id = document.getElementById("tratamiento_id").value;
+    
+    if(sesion_numero > 0){
+        //let d = new Date(sesion_fechainicio);
+        //alert(sesion_fechainicio);
+        //alert(d.getDay());
+        //if(d.getDay() > 0){
+            var base_url = document.getElementById('base_url').value;
+            var controlador = base_url+'sesion/generar_sesion';
+            document.getElementById('loaderunonuevo').style.display = 'block';
+            $.ajax({url:controlador,
+                    type:"POST",
+                    data:{sesion_numero:sesion_numero, sesion_fechainicio:sesion_fechainicio,
+                        sesion_eritropoyetina:sesion_eritropoyetina, sesion_hierroev:sesion_hierroev,
+                        sesion_complejobampolla:sesion_complejobampolla, sesion_costosesion:sesion_costosesion,
+                        tratamiento_id:tratamiento_id
+                    },
+                    success:function(result){
+                        res = JSON.parse(result);
+                        if(res == "no"){
+                            alert("Debe elegir otro dia que no sea Domingo.");
+                            document.getElementById('loaderunonuevo').style.display = 'none';
+                        }else{
+                            alert("Sesion(es) generada(s) correctamente");
+                            $('#boton_cerrarmodaluna').click();
+                            mostrar_tablas();
+                            
+                        }
+                    },
+            });
+            
+        /*}else{
+            alert("Debe elegir otro dia que no sea Domingo.");
+        }*/
+    }else{
+        alert("El Numero de Sesiones debe ser mayor a 0; por favor verifique sus datos!.");
+    }
+}
+
 function eliminar_sesion(sesion_id){
     let eliminar_sesion = document.getElementById("eliminar_sesion").value;
     if(eliminar_sesion == 1){
@@ -157,6 +225,5 @@ function eliminar_sesion(sesion_id){
     }else{
         alert("Usted no tiene permisos para eliminar Sesiones.\n por favor consulte con su Administrador!.");
     }
-    
 }
 

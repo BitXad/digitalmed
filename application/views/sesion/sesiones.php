@@ -3,6 +3,7 @@
 <input type="hidden" name="eliminar_sesion" id="eliminar_sesion" value='<?php echo $rol[27-1]['rolusuario_asignado']; ?>' />
 
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
+<input type="hidden" name="tipousuario_id" id="tipousuario_id" value="<?php echo $tipousuario_id; ?>" />
 <input type="hidden" name="tratamiento_id" id="tratamiento_id" value="<?php echo $tratamiento_id; ?>" />
 
 <!-- ---------------- ESTILO DE LAS TABLAS --------------- -->
@@ -22,6 +23,16 @@
         ?>
         <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?> onclick="cargarmodal_nuevasesion()">
             <span class="fa fa-pencil-square-o"></span> Nuevas Sesiones </a>
+    </div>
+    <div class="box-tools" id="una_nuevasesion" style="display: none;">
+        <?php
+        $data_target = "";
+        if($rol[24-1]['rolusuario_asignado'] == 1){
+            $data_target = 'data-target="#modal_unanuevasesion"';
+        }
+        ?>
+        <a class="btn btn-success btn-sm" data-toggle="modal" <?php echo $data_target; ?> onclick="cargarmodal_unanuevasesion()">
+            <span class="fa fa-pencil-square-o"></span> Una Nueva Sesion </a>
     </div>
 </div>
 <?php echo $this->session->flashdata('alert_msg');?>
@@ -111,6 +122,65 @@
     </div>
 </div>
 <!------------------------ F I N  modal para Generar nuevas sesiones ------------------->
+
+<!------------------------ INICIO modal para Generar uuna nueva sesion ------------------->
+<div class="modal fade" id="modal_unanuevasesion" tabindex="-1" role="dialog" aria-labelledby="modaluunanuevasesionlabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">GENERAR UNA SESION NUEVA</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loaderunonuevo" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div class="col-md-4">
+                    <label for="una_sesion_numero" class="control-label">Nº Sesiones</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="una_sesion_numero" value="0" class="form-control" id="una_sesion_numero" onclick="this.select();" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="una_sesion_fechainicio" class="control-label">Fecha Inicio de Sesion</label>
+                    <div class="form-group">
+                        <input type="date" name="una_sesion_fechainicio" class="form-control" id="una_sesion_fechainicio" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="una_sesion_eritropoyetina" class="control-label">Eritropoyetina</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="una_sesion_eritropoyetina" class="form-control" id="una_sesion_eritropoyetina" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="una_sesion_hierroev" class="control-label">Hierro E.V. (100 Mg)</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="una_sesion_hierroev" class="form-control" id="una_sesion_hierroev" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="una_sesion_complejobampolla" class="control-label">Complejo B</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="una_sesion_complejobampolla" class="form-control" id="una_sesion_complejobampolla" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="una_sesion_costosesion" class="control-label">Costo Sesión</label>
+                    <div class="form-group">
+                        <input type="number" min="0" step="any" name="una_sesion_costosesion" class="form-control" id="una_sesion_costosesion" onclick="this.select();" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-success" onclick="generar_unasesion()"><fa class="fa fa-floppy-o"></fa> Registrar la Sesion</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodaluna"><fa class="fa fa-times"></fa> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Generar una nueva sesion ------------------->
 <div>
     <a href="<?php echo base_url("tratamiento/tratamientos/".$paciente["registro_id"]); ?>" class="btn btn-danger">
         <i class="fa fa-reply"></i> Tratamientos
