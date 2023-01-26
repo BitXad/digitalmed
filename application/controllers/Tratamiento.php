@@ -117,20 +117,26 @@ class Tratamiento extends CI_Controller{
     function registrar_infmensual(){
         try{
             if($this->input->is_ajax_request()){
-                $params = array(
-                    'tratamiento_id' => $this->input->post('tratamiento_id'),
-                    'infmensual_cabecera' => $this->input->post('infmensual_cabecera'),
-                    'infmensual_accesouno' => $this->input->post('infmensual_accesouno'),
-                    'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
-                    'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
-                    'infmensual_paratohormona' => $this->input->post('infmensual_paratohormona'),
-                    'infmensual_glucemia' => $this->input->post('infmensual_glucemia'),
-                    'infmensual_firmante' => $this->input->post('infmensual_firmante'),
-                    'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
-                    'infmensual_fecha' => $this->input->post('infmensual_fecha'),
-                );
-                $infmensual_id = $this->Informe_mensual_model->add_informe_mensual($params);
-            echo json_encode($infmensual_id);
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $infmensual = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
+                if(isset($infmensual)){
+                    echo json_encode("no");
+                }else{
+                    $params = array(
+                        'tratamiento_id' => $tratamiento_id,
+                        'infmensual_cabecera' => $this->input->post('infmensual_cabecera'),
+                        'infmensual_accesouno' => $this->input->post('infmensual_accesouno'),
+                        'infmensual_accesodos' => $this->input->post('infmensual_accesodos'),
+                        'infmensual_laboratorio' => $this->input->post('infmensual_laboratorio'),
+                        'infmensual_paratohormona' => $this->input->post('infmensual_paratohormona'),
+                        'infmensual_glucemia' => $this->input->post('infmensual_glucemia'),
+                        'infmensual_firmante' => $this->input->post('infmensual_firmante'),
+                        'infmensual_conclusion' => $this->input->post('infmensual_conclusion'),
+                        'infmensual_fecha' => $this->input->post('infmensual_fecha'),
+                    );
+                    $infmensual_id = $this->Informe_mensual_model->add_informe_mensual($params);
+                    echo json_encode($infmensual_id);
+                }
             }else{                 
                 show_404();
             }
@@ -212,20 +218,26 @@ class Tratamiento extends CI_Controller{
     function registrar_certmedico(){
         try{
             if($this->input->is_ajax_request()){
-                $params = array(
-                    'certmedico_nombre' => $this->input->post('certmedico_nombre'),
-                    'certmedico_codigo' => $this->input->post('certmedico_codigo'),
-                    'certmedico_cabecerauno' => $this->input->post('certmedico_cabecerauno'),
-                    'certmedico_cabecerados' => $this->input->post('certmedico_cabecerados'),
-                    'certmedico_cabeceratres' => $this->input->post('certmedico_cabeceratres'),
-                    'certmedico_cabeceracuatro' => $this->input->post('certmedico_cabeceracuatro'),
-                    'certmedico_diagnostico' => $this->input->post('certmedico_diagnostico'),
-                    'certmedico_medicacion' => $this->input->post('certmedico_medicacion'),
-                    'certmedico_fecha' => $this->input->post('certmedico_fecha'),
-                    'tratamiento_id' => $this->input->post('tratamiento_id'),
-                );
-                $certmedico_id = $this->Certificado_medico_model->add_certificado_medico($params);
-            echo json_encode($certmedico_id);
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $certmedico = $this->Certificado_medico_model->getall_certificado_medicotratamiento($tratamiento_id);
+                if(isset($certmedico)){
+                    echo json_encode("no");
+                }else{
+                    $params = array(
+                        'certmedico_nombre' => $this->input->post('certmedico_nombre'),
+                        'certmedico_codigo' => $this->input->post('certmedico_codigo'),
+                        'certmedico_cabecerauno' => $this->input->post('certmedico_cabecerauno'),
+                        'certmedico_cabecerados' => $this->input->post('certmedico_cabecerados'),
+                        'certmedico_cabeceratres' => $this->input->post('certmedico_cabeceratres'),
+                        'certmedico_cabeceracuatro' => $this->input->post('certmedico_cabeceracuatro'),
+                        'certmedico_diagnostico' => $this->input->post('certmedico_diagnostico'),
+                        'certmedico_medicacion' => $this->input->post('certmedico_medicacion'),
+                        'certmedico_fecha' => $this->input->post('certmedico_fecha'),
+                        'tratamiento_id' => $this->input->post('tratamiento_id'),
+                    );
+                    $certmedico_id = $this->Certificado_medico_model->add_certificado_medico($params);
+                    echo json_encode($certmedico_id);
+                }
             }else{                 
                 show_404();
             }
@@ -795,18 +807,24 @@ class Tratamiento extends CI_Controller{
     function registrar_infanemiaglicemia(){
         try{
             if($this->input->is_ajax_request()){
-                $params = array(
-                    'tratamiento_id' => $this->input->post('tratamiento_id'),
-                    'anemiaglic_titulo' => $this->input->post('anemiaglic_titulo'),
-                    'anemiaglic_enfermedad' => $this->input->post('anemiaglic_enfermedad'),
-                    'anemiaglic_diagnostico' => $this->input->post('anemiaglic_diagnostico'),
-                    'anemiaglic_hemoglobina' => $this->input->post('anemiaglic_hemoglobina'),
-                    'anemiaglic_hematocrito' => $this->input->post('anemiaglic_hematocrito'),
-                    'anemiaglic_administra' => $this->input->post('anemiaglic_administra'),
-                    'anemiaglic_fecha' => $this->input->post('anemiaglic_fecha'),
-                );
-                $anemiaglic_id = $this->Anemia_glicemia_model->add_anemia_glicemia($params);
-            echo json_encode($anemiaglic_id);
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $anemiaglicemia = $this->Anemia_glicemia_model->getall_anemia_glicemiatratamiento($tratamiento_id);
+                if(isset($anemiaglicemia)){
+                    echo json_encode("no");
+                }else{
+                    $params = array(
+                        'tratamiento_id' => $tratamiento_id,
+                        'anemiaglic_titulo' => $this->input->post('anemiaglic_titulo'),
+                        'anemiaglic_enfermedad' => $this->input->post('anemiaglic_enfermedad'),
+                        'anemiaglic_diagnostico' => $this->input->post('anemiaglic_diagnostico'),
+                        'anemiaglic_hemoglobina' => $this->input->post('anemiaglic_hemoglobina'),
+                        'anemiaglic_hematocrito' => $this->input->post('anemiaglic_hematocrito'),
+                        'anemiaglic_administra' => $this->input->post('anemiaglic_administra'),
+                        'anemiaglic_fecha' => $this->input->post('anemiaglic_fecha'),
+                    );
+                    $anemiaglic_id = $this->Anemia_glicemia_model->add_anemia_glicemia($params);
+                    echo json_encode($anemiaglic_id);
+                }
             }else{                 
                 show_404();
             }
@@ -873,9 +891,41 @@ class Tratamiento extends CI_Controller{
         // check if the tratamiento exists before trying to delete it
         if(isset($tratamiento['tratamiento_id']))
         {
+            $sesiones = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+            foreach ($sesiones as $sesion){
+                $params = array(
+                    'estado_id' => 9, //TERMINADO
+                );
+                $this->Sesion_model->update_sesion($sesion['sesion_id'],$params);
+            }
             $registro_id = $tratamiento['registro_id'];
             $params = array(
                 'estado_id' => 5,
+            );
+            $this->Tratamiento_model->update_tratamiento($tratamiento_id,$params);
+            redirect('tratamiento/tratamientos/'.$registro_id);
+        }
+        else
+            show_error('El Tratamiento que intentas dar por terminado no existe!....');
+    }
+    
+    function tratamiento_enproceso($tratamiento_id)
+    {
+        $tratamiento = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+        
+        // check if the tratamiento exists before trying to delete it
+        if(isset($tratamiento['tratamiento_id']))
+        {
+            $sesiones = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+            foreach ($sesiones as $sesion){
+                $params = array(
+                    'estado_id' => 8, //PENDIENTE
+                );
+                $this->Sesion_model->update_sesion($sesion['sesion_id'],$params);
+            }
+            $registro_id = $tratamiento['registro_id'];
+            $params = array(
+                'estado_id' => 4, //EN PROCESO
             );
             $this->Tratamiento_model->update_tratamiento($tratamiento_id,$params);
             redirect('tratamiento/tratamientos/'.$registro_id);

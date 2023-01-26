@@ -182,7 +182,11 @@ function mostrar_tablastratamiento()
                         }
                         html += "<a onclick='eliminar_tratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-danger btn-xs' title='Eliminar tratamiento del sistema'><span class='fa fa-trash'></span></a>";
                         if(tipousuario_id == 1){
-                            html += "<a onclick='cambiar_estadotratamiento("+tratamientos[i]['tratamiento_id']+")' class='btn btn-success btn-xs' title='Finalizar tratamiento'><span class='fa fa-check-circle-o'></span></a>";
+                            if(tratamientos[i]['estado_id'] == 4){
+                                html += "<a onclick='cambiar_tratamientoterminado("+tratamientos[i]['tratamiento_id']+")' class='btn btn-success btn-xs' title='Finalizar tratamiento'><span class='fa fa-check-circle-o'></span></a>";
+                            }else{
+                                html += "<a onclick='cambiar_tratamientoenproceso("+tratamientos[i]['tratamiento_id']+")' class='btn btn-success btn-xs' title='Tratamiento en proceso'><span class='fa fa-check-square-o'></span></a>";
+                            }
                         }
                     }
                         html += "</td>";
@@ -366,9 +370,13 @@ function registrar_infmensual()
             },
             success:function(result){
                 res = JSON.parse(result);
+                if(res == "no"){
+                    alert("Ya existe un Informe mensual registrado;");
+                }else{
                     alert("Informe mensual registrado con exito!.");
-                    $('#boton_cerrarmodalinfmensual').click();
-                    mostrar_tablastratamiento();
+                }
+                $('#boton_cerrarmodalinfmensual').click();
+                mostrar_tablastratamiento();
             },
     });
 }
@@ -640,9 +648,14 @@ function registrar_certmedico()
             },
             success:function(result){
                 res = JSON.parse(result);
+                if(res = "no"){
+                    alert("Ya existe un Certificado médico!.");
+                }else{
                     alert("Certificado medico registrado con exito!.");
-                    $('#boton_cerrarmodalcertmedico').click();
-                    mostrar_tablastratamiento();
+                }
+                
+                $('#boton_cerrarmodalcertmedico').click();
+                mostrar_tablastratamiento();
             },
     });
 }
@@ -832,9 +845,13 @@ function registrar_infanemiaglicemia()
             },
             success:function(result){
                 res = JSON.parse(result);
+                if(res = "no"){
+                    alert("Ya existe un Informe mensual de Anemia y Glicemia!.");
+                }else{
                     alert("Informe mensual de Anemia y Glicemia registrado con exito!.");
-                    $('#boton_cerrarmodalag').click();
-                    mostrar_tablastratamiento();
+                }
+                $('#boton_cerrarmodalag').click();
+                mostrar_tablastratamiento();
             },
     });
 }
@@ -903,7 +920,7 @@ function modificar_infanemiaglicemia()
     });            
 }
 
-function cambiar_estadotratamiento(tratamiento_id){
+function cambiar_tratamientoterminado(tratamiento_id){
     
     //let eliminar_eltratamiento = document.getElementById("eliminar_eltratamiento").value;
     //if(eliminar_eltratamiento == 1){
@@ -911,6 +928,22 @@ function cambiar_estadotratamiento(tratamiento_id){
         if(confirmacion == true){
             let base_url = document.getElementById('base_url').value;
             dir_url = base_url+"tratamiento/tratamiento_terminado/"+tratamiento_id;
+            location.href =dir_url;
+        }
+    /*}else{
+        alert("Usted no tiene permisos para eliminar los Tratamientos.\n por favor consulte con su Administrador!.");
+    }*/
+    
+}
+
+function cambiar_tratamientoenproceso(tratamiento_id){
+    
+    //let eliminar_eltratamiento = document.getElementById("eliminar_eltratamiento").value;
+    //if(eliminar_eltratamiento == 1){
+        let confirmacion =  confirm('Esta seguro que quiere volver a EN PROCESO este Tratamiento?')
+        if(confirmacion == true){
+            let base_url = document.getElementById('base_url').value;
+            dir_url = base_url+"tratamiento/tratamiento_enproceso/"+tratamiento_id;
             location.href =dir_url;
         }
     /*}else{

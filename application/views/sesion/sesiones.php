@@ -47,13 +47,26 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>FECHA SESION</th>
                         <th>ERITROPOYETINA</th>
                         <th>HIERRO E.V.</th>
                         <th>COMPEJO B</th>
                         <th>COSTO SESION</th>
+                        <th>Omeprazol<br>20 Mg.</th>
+                        <th>Ac. Folico<br>5Mg.</th>
+                        <th>Calcio Carbonato<br>1.5Gr./Calcitrol<br>0.25 mcg.</th>
+                        <th>Amlodipina<br>10 mg</th>
+                        <th>Enalapril<br>10 mg</th>
+                        <th>Losartan<br>50 mg</th>
+                        <th>Atorvastatina<br>10 mg</th>
+                        <th>ASA<br>100 mg</th>
+                        <th>Complejo<br>B</th>
                         <th>ESTADO</th>
-                        <th></th>
+                        <th>FECHA SESION</th>
+                        <th>
+                            <a class="btn btn-info btn-xs" href="<?php echo site_url('sesion/oralendovenosa/'.$tratamiento_id); ?>" title="Modificar Tratamientos Orales y Endovenosos">
+                                <span class="fa fa-pencil"></span>
+                            </a>
+                        </th>
                     </tr>
                     </thead>
                     <tbody class="buscar" id="tablaresultados"></tbody>

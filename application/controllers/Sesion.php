@@ -112,7 +112,7 @@ class Sesion extends CI_Controller{
                     if($dia == 1 || $dia == 3 || $dia == 5){
                         $lmv = 1;
                     }
-                    $estado_id = 3; // estado pendiente
+                    $estado_id = 8; // estado pendiente
                     $num_filtro = 0;
                     $filtro_usado = "";
                     $cont = 1;
@@ -505,7 +505,7 @@ class Sesion extends CI_Controller{
                 //$data['tratamiento_id'] = $tratamiento_id;
                 $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
                 $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
-                $tipo = 2;
+                $tipo = 3;
                 $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
 
                 $this->load->library('upload');
@@ -777,7 +777,7 @@ class Sesion extends CI_Controller{
             //$data['tratamiento_id'] = $tratamiento_id;
             $data['sesion'] = $this->Sesion_model->get_sesion($sesion_id);
             $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($data['sesion']['tratamiento_id']);
-            $tipo = 2;
+            $tipo = 3;
             $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
             
             $this->load->library('upload');
@@ -1105,6 +1105,83 @@ class Sesion extends CI_Controller{
             }
         }catch (Exception $ex) {
             throw new Exception('Sesion Controller : Error al modificar la heparina - ' . $ex);
+        }
+    }
+    /*
+    * muestra planilla Oral y Endovenosa para su modificacion
+    */
+    public function oralendovenosa($tratamiento_id)
+    {
+        if($this->acceso(25)){
+            try{
+                $data['tratamiento'] = $this->Tratamiento_model->get_tratamiento($tratamiento_id);
+                
+                if(isset($data['tratamiento']['tratamiento_id']))
+                {
+                    $data['sesiones'] = $this->Sesion_model->get_all_sesiontratamiento($tratamiento_id);
+                    if(isset($_POST) && count($_POST) > 0)     
+                    {
+                        $las_sesiones = $data['sesiones'];
+                        foreach ($las_sesiones as $sesion){
+                            $params = array(
+                                'sesion_eritropoyetina'=> $this->input->post('sesion_eritropoyetina'.$sesion['sesion_id']),
+                                'sesion_hierroeve'=> $this->input->post('sesion_hierroeve'.$sesion['sesion_id']),
+                                'sesion_complejobampolla'=> $this->input->post('sesion_complejobampolla'.$sesion['sesion_id']),
+                                'sesion_costosesion'=> $this->input->post('sesion_costosesion'.$sesion['sesion_id']),
+                                'sesion_omeprazol'=> $this->input->post('sesion_omeprazol'.$sesion['sesion_id']),
+                                'sesion_acidofolico'=> $this->input->post('sesion_acidofolico'.$sesion['sesion_id']),
+                                'sesion_calcio'=> $this->input->post('sesion_calcio'.$sesion['sesion_id']),
+                                'sesion_amlodipina'=> $this->input->post('sesion_amlodipina'.$sesion['sesion_id']),
+                                'sesion_enalpril'=> $this->input->post('sesion_enalpril'.$sesion['sesion_id']),
+                                'sesion_losartan'=> $this->input->post('sesion_losartan'.$sesion['sesion_id']),
+                                'sesion_atorvastina'=> $this->input->post('sesion_atorvastina'.$sesion['sesion_id']),
+                                'sesion_asa'=> $this->input->post('sesion_asa'.$sesion['sesion_id']),
+                                'sesion_complejob'=> $this->input->post('sesion_complejob'.$sesion['sesion_id']),
+                            );
+                            $this->Sesion_model->update_sesion($sesion['sesion_id'],$params);
+
+                            $medicamento_id = 21; // Jeringa descartable1 ml. c./aguja
+                            $lamedicacion = $this->Medicacion_model->get_medicamento_sesion($sesion['sesion_id'], $medicamento_id);
+                            if($this->input->post('sesion_eritropoyetina'.$sesion['sesion_id']) > 0){
+                                if(isset($lamedicacion)){
+                                    $params = array(
+                                        'medicacion_cantidad'=> $this->input->post('sesion_eritropoyetina'.$sesion['sesion_id']),
+                                        'estado_id'=> 1,
+                                    );
+                                    $this->Medicacion_model->update_medicacion($lamedicacion["medicacion_id"], $params);
+                                }else{
+                                    $params = array(
+                                        'sesion_id'=> $sesion['sesion_id'],
+                                        'medicamento_id'=> 21, // Jeringa descartable1 ml. c./aguja
+                                        'estado_id'=> 1,
+                                        'medicacion_cantidad'=> $this->input->post('sesion_eritropoyetina'.$sesion['sesion_id']),
+                                    );
+                                    $medicacion_id= $this->Medicacion_model->add_medicacion($params);
+                                }
+                            }else{
+                                if(isset($lamedicacion)){
+                                    $params = array(
+                                        'estado_id'=> 2,
+                                    );
+                                    $this->Medicacion_model->update_medicacion($lamedicacion["medicacion_id"], $params);
+                                }
+                            }
+                        }
+                        
+                        $this->session->set_flashdata('alert_msg','<div class="alert alert-success text-center">Información modificada con exito</div>');
+                        redirect('sesion/sesiones/'.$data['tratamiento']['tratamiento_id']);
+                    }else{
+                        $data['tratamiento_id'] = $tratamiento_id;
+                        $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
+                        $data['_view'] = 'sesion/oralendovenosa';
+                        $this->load->view('layouts/main',$data);
+                    }
+                }else{
+                    show_error('el Tratamiento que intentas modifcar no existe!.');
+                }
+            } catch (Exception $ex) {
+                throw new Exception('Sesion Controller : Error en la funcion oralendovenosa - ' . $ex);
+            }
         }
     }
     
