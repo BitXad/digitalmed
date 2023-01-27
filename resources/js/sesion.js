@@ -95,7 +95,7 @@ function mostrar_tablas()
                     let total_hierroev = 0;
                     let total_complejobamp = 0;
                     let total_costosesion = 0;
-                    let total_omeprazol = 0;
+                    /*let total_omeprazol = 0;
                     let total_acidofolico = 0;
                     let total_calcio = 0;
                     let total_amlodipina = 0;
@@ -103,7 +103,7 @@ function mostrar_tablas()
                     let total_losartan = 0;
                     let total_atorvastina = 0;
                     let total_asa = 0;
-                    let total_complejob = 0;
+                    let total_complejob = 0;*/
                     
                     for(var i = 0; i < n ; i++){
                         total_sesion += Number(1);
@@ -115,7 +115,7 @@ function mostrar_tablas()
                         }
                         total_costosesion += Number(registros[i]["sesion_costosesion"]);
                         
-                        if(registros[i]["sesion_omeprazol"] != "" || registros[i]["sesion_omeprazol"] != null){
+                        /*if(registros[i]["sesion_omeprazol"] != "" || registros[i]["sesion_omeprazol"] != null){
                             total_omeprazol += Number(registros[i]["sesion_omeprazol"]);
                         }
                         if(registros[i]["sesion_acidofolico"] != "" || registros[i]["sesion_acidofolico"] != null){
@@ -142,14 +142,15 @@ function mostrar_tablas()
                         if(registros[i]["sesion_complejob"] != "" || registros[i]["sesion_complejob"] != null){
                             total_complejob += Number(registros[i]["sesion_complejob"]);
                         }
-                        
-                        html += "<tr style='background-color: #"+registros[i]['estado_color']+"'>"; 
+                        */
+                        //html += "<tr style='background-color: #"+registros[i]['estado_color']+"'>"; 
+                        html += "<tr>"; 
                         html += "<td class='text-center'>"+(i+1)+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_eritropoyetina']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_hierroeve']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_complejobampolla']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_costosesion']+"</td>";
-                        html += "<td class='text-center'>"+registros[i]['sesion_omeprazol']+"</td>";
+                        /*html += "<td class='text-center'>"+registros[i]['sesion_omeprazol']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_acidofolico']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_calcio']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_amlodipina']+"</td>";
@@ -158,7 +159,8 @@ function mostrar_tablas()
                         html += "<td class='text-center'>"+registros[i]['sesion_atorvastina']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_asa']+"</td>";
                         html += "<td class='text-center'>"+registros[i]['sesion_complejob']+"</td>";
-                        html += "<td class='text-center'>"+registros[i]['estado_descripcion']+"</td>";
+                        */
+                        html += "<td class='text-center' style='background-color: #"+registros[i]['estado_color']+"'>"+registros[i]['estado_descripcion']+"</td>";
                         html += "<td class='text-center'>"+moment(registros[i]["sesion_fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td class='text-center'>";
                         html += "<a href='"+base_url+"sesion/modificar/"+registros[i]['sesion_id']+"' class='btn btn-info btn-xs' title='Modificar medicacion oral y EV'><span class='fa fa-pencil'></span></a>";
@@ -175,7 +177,7 @@ function mostrar_tablas()
                     html += "<td class='text-center'>"+total_hierroev+"</td>"; 
                     html += "<td class='text-center'>"+total_complejobamp+"</td>"; 
                     html += "<td class='text-center'>"+total_costosesion+"</td>";
-                    html += "<td class='text-center'>"+total_omeprazol+"</td>";
+                    /*html += "<td class='text-center'>"+total_omeprazol+"</td>";
                     html += "<td class='text-center'>"+total_acidofolico+"</td>";
                     html += "<td class='text-center'>"+total_calcio+"</td>";
                     html += "<td class='text-center'>"+total_amlodipina+"</td>";
@@ -184,6 +186,7 @@ function mostrar_tablas()
                     html += "<td class='text-center'>"+total_atorvastina+"</td>";
                     html += "<td class='text-center'>"+total_asa+"</td>";
                     html += "<td class='text-center'>"+total_complejob+"</td>";
+                    */
                     html += "<td></td>";
                     
                     html += "<td class='text-center'></td>"; 

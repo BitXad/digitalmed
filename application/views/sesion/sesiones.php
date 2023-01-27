@@ -51,7 +51,7 @@
                         <th>HIERRO E.V.</th>
                         <th>COMPEJO B</th>
                         <th>COSTO SESION</th>
-                        <th>Omeprazol<br>20 Mg.</th>
+                        <!--<th>Omeprazol<br>20 Mg.</th>
                         <th>Ac. Folico<br>5Mg.</th>
                         <th>Calcio Carbonato<br>1.5Gr./Calcitrol<br>0.25 mcg.</th>
                         <th>Amlodipina<br>10 mg</th>
@@ -59,7 +59,7 @@
                         <th>Losartan<br>50 mg</th>
                         <th>Atorvastatina<br>10 mg</th>
                         <th>ASA<br>100 mg</th>
-                        <th>Complejo<br>B</th>
+                        <th>Complejo<br>B</th>-->
                         <th>ESTADO</th>
                         <th>FECHA SESION</th>
                         <th>
