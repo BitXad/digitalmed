@@ -18,7 +18,7 @@
                             <table class="table table-striped" id="mitabla">
                                 <thead>
                                 <tr>
-                                    <th colspan="6">PLANILLA ORAL</th>
+                                    <th colspan="6">PLANILLA ENDOVENOSA</th>
                                 </tr>
                                 <tr>
                                     <th># SESION</th>
@@ -60,7 +60,7 @@
                             <table class="table table-striped" id="mitabla">
                                 <thead>
                                 <tr>
-                                    <th colspan="11">PLANILLA ENDOVENOSA</th>
+                                    <th colspan="11">PLANILLA ORAL</th>
                                 </tr>
                                 <tr>
                                     <th>#</th>
