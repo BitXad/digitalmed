@@ -13,6 +13,7 @@ class Paciente extends CI_Controller{
         $this->load->model('Usuario_model');
         $this->load->model('Registro_model');
         $this->load->model('Acceso_vascular_model');
+        $this->load->model('Tratamiento_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -347,6 +348,25 @@ class Paciente extends CI_Controller{
             );
             $this->Paciente_model->update_paciente($paciente_id,$params);            
             redirect('paciente/index');
+        }
+    }
+    
+    function tratamientos_porfinalizar(){
+        try{
+            if($this->input->is_ajax_request()){
+                $paciente_id = $this->input->post('paciente_id');
+                $all_registro = $this->Registro_model->getall_registropaciente($paciente_id);
+                $estado_id = 4;
+                foreach ($all_registro as $registro) {
+                    $tratamiento[] = $this->Tratamiento_model->getall_tratamientoregistro_estado($registro["registro_id"], $estado_id);
+                }
+                //$tratamiento = $this->Tratamiento_model->getall_tratamientoregistro($registro_id);
+                echo json_encode($tratamiento);
+            }else{                 
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
         }
     }
     

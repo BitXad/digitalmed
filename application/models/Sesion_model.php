@@ -165,7 +165,7 @@ class Sesion_model extends CI_Model
                 left join registro r on t.registro_id = r.registro_id
                 left join paciente p on r.paciente_id = p.paciente_id
                 WHERE
-                	(s.estado_id = 3 or s.estado_id = 4) and
+                	(s.estado_id = 8) and
                         (t.estado_id = 3 or t.estado_id = 4) and
                 	p.paciente_id = $paciente_id
                 order by t.tratamiento_id desc
@@ -292,6 +292,19 @@ class Sesion_model extends CI_Model
         } catch (Exception $ex) {
             throw new Exception('Sesion_model model : Error in get_all_sesion function - ' . $ex);
         }  
+    }
+    
+    /* 
+    * funcion para cambiar las sesiones de un tratamiento
+    */
+    function update_sesiones_deun_tratamiento($tratamiento_id,$params)
+    {
+        try{
+            $this->db->where('tratamiento_id',$tratamiento_id);
+            return $this->db->update('sesion',$params);
+        }catch (Exception $ex){
+            throw new Exception('Sesion_model model : Error in update_sesion function - ' . $ex);
+        }
     }
     
  }

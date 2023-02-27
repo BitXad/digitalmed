@@ -169,4 +169,32 @@ class Tratamiento_model extends CI_Model
         $this->db->delete('sesion',array('tratamiento_id'=>$tratamiento_id));
         return $this->db->delete('tratamiento',array('tratamiento_id'=>$tratamiento_id));
     }
+    
+    /*
+    * Get all tratamiento de un registro determinado y un estado determinado
+    */ 
+    function getall_tratamientoregistro_estado($registro_id, $estado_id)
+    {
+        try{
+            $tratamiento = $this->db->query("
+                SELECT
+                    t.*, im.infmensual_id, cm.certmedico_id, ag.anemiaglic_id,
+                    e.estado_color, e.estado_descripcion
+                FROM
+                    `tratamiento` t
+                left join informe_mensual im on t.tratamiento_id = im.tratamiento_id
+                left join certificado_medico cm on t.tratamiento_id = cm.tratamiento_id
+                left join anemia_glicemia ag on t.tratamiento_id = ag.tratamiento_id
+                left join estado e on t.estado_id = e.estado_id
+                WHERE
+                    registro_id = $registro_id
+                    and t.estado_id = $estado_id
+                order by t.tratamiento_id desc
+            ")->result_array();
+            
+            return $tratamiento;
+        }catch (Exception $ex){
+            throw new Exception('Tratamiento_model model : Error in getall_tratamientoregistro function - ' . $ex);
+        }
+    }
  }

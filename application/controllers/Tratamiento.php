@@ -933,4 +933,31 @@ class Tratamiento extends CI_Controller{
         else
             show_error('El Tratamiento que intentas dar por terminado no existe!....');
     }
+    
+    /* tratamiento terminado desde index de pacientes */
+    function tratamiento_a_terminado()
+    {
+        try{
+            if($this->input->is_ajax_request()){
+                $tratamiento_id = $this->input->post('tratamiento_id');
+                $params = array(
+                    'estado_id' => 9, //TERMINADO
+                );
+                $this->Sesion_model->update_sesiones_deun_tratamiento($tratamiento_id,$params);
+                
+                $params = array(
+                    'estado_id' => 5, //TERMINADO
+                );
+                $this->Tratamiento_model->update_tratamiento($tratamiento_id,$params);
+                
+                echo json_encode("ok");
+            }else{
+                show_404();
+            }
+        }catch (Exception $e){
+            echo 'Ocurrio algo inesperado; revisar datos!. '.$e;
+        }
+        
+    }
  }
+ 

@@ -1,3 +1,5 @@
+<script src="<?php echo base_url('resources/js/paciente.js'); ?>" type="text/javascript"></script>
+<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -147,10 +149,13 @@
                         <td class="text-center">
                             <?php
                             if($tipousuario_id == 1){
+                                $el_nombrepaciente = $p['paciente_apellido']." ".$p['paciente_nombre'];
+                                $el_nombrepaciente = "'".$el_nombrepaciente."'";
                             ?>
                             <a href="<?php echo site_url('paciente/edit/'.$p['paciente_id']); ?>" class="btn btn-info btn-xs" title="Modificar paciente"><span class="fa fa-pencil"></span></a> 
                             <a href="<?php echo site_url('registro/registros/'.$p['paciente_id']); ?>" class="btn btn-facebook btn-xs" title="Ver registros de pacientes"><span class="fa fa-list-alt"></span></a>
                             <a href="<?php echo site_url('documentacion/losdocumentos/'.$p['paciente_id']); ?>" class="btn btn-warning btn-xs" title="Ver documentos del paciente" target="_blank"><span class="fa fa-file-image-o"></span></a>
+                            <a data-toggle="modal" data-target="#modal_finalizartratamiento" class="btn btn-success btn-xs" onclick="cargartratamientos_afinalizar(<?php echo $p['paciente_id']; ?>, <?php echo $el_nombrepaciente; ?>)" title="Finalizar tratamiento"><i class="fa fa-check-square-o"></i></a>
                             <?php
                             if($p['estado_id'] == 1){
                             ?>
@@ -187,3 +192,46 @@
         </div>
     </div>
 </div>
+
+<!------------------------ INICIO modal para Finalizar tratamiento de paciente ------------------->
+<div class="modal fade" id="modal_finalizartratamiento" tabindex="-1" role="dialog" aria-labelledby="modal_finalizartratamientolabel" style="font-family: Arial; font-size: 10pt;">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background: #00ca6d">
+                <b style="color: white;">TRATAMIENTOS POR FINALIZAR</b>
+                <br>de: <span class="text-bold" id="elpaciente"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 text-center" id="loadertratamientofinalizar" style="display:none;">
+                    <img src="<?php echo base_url("resources/images/loader.gif"); ?>" />
+                </div>
+                <div id="encontrados"></div>
+                <div class="box-body table-responsive no-padding">
+                    <table id="mitabla" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>MES</th>
+                                <th>GESTION</th>
+                                <th>FECHA</th>
+                                <th>HORA</th>
+                                <th>ESTADO</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="buscar_trat" id="tratamientos_afinalizar"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <div class="col-md-12">
+                    <!--<button type="button" class="btn btn-success" onclick="modificar_tratamiento()"><fa class="fa fa-floppy-o"></fa> Guardar Tratamiento Modificado</button>-->
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_cerrarmodalmodif"><fa class="fa fa-times"></fa> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ F I N  modal para Finalizar tratamiento de paciente ------------------->
