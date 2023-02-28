@@ -10,8 +10,8 @@ function detalle_acceso()
         html = "<select name='avascular_detalle' id='avascular_detalle' class='form-control'>";
         html += "<option value='P-YSCD'>P-YSCD</option>";
         html += "<option value='P-YSCI'>P-YSCI</option>";
-        html += "<option value='T-YSCD'>P-YSCD</option>";
-        html += "<option value='T-YSCI'>P-YSCI</option>";
+        html += "<option value='T-YSCD'>T-YSCD</option>";
+        html += "<option value='T-YSCI'>T-YSCI</option>";
         html += "<option value='Femoral I'>Femoral I</option>";
         html += "<option value='Femoral D'>Femoral D</option>";
         html += "</select>";
