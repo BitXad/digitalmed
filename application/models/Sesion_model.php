@@ -38,6 +38,7 @@ class Sesion_model extends CI_Model
                 left join estado e on s.estado_id = e.estado_id
                 WHERE
                     s.tratamiento_id = $tratamiento_id
+                order by s.sesion_fecha
             ")->result_array();
             return $sesion;
         } catch (Exception $ex) {
@@ -240,7 +241,8 @@ class Sesion_model extends CI_Model
                     JOIN (SELECT @numero := 0) r
                     WHERE
                         s.tratamiento_id = $tratamiento_id
-                        and s.estado_id != 7) as t
+                        and s.estado_id != 7
+                        order by s.sesion_fecha) as t
                 where numeracion = $sesion_numero
             ")->row_array();
             return $sesion;
@@ -286,7 +288,8 @@ class Sesion_model extends CI_Model
                 WHERE
                     s.tratamiento_id = $tratamiento_id
                     and s.estado_id != 7
-                    order by s.sesion_id
+                    order by s.sesion_fecha
+                    /*order by s.sesion_id*/
             ")->result_array();
             return $sesion;
         } catch (Exception $ex) {
