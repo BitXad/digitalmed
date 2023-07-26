@@ -159,7 +159,7 @@ class Reportes extends CI_Controller{
             $data['paciente'] = $this->Sesion_model->get_pacientetratamiento($tratamiento_id);
             $data['informe_mensual'] = $this->Informe_mensual_model->getall_informe_mensualtratamiento($tratamiento_id);
 
-            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_ultimoa_vascularregistro($data['tratamiento']['registro_id']);
+            $data['acceso_vascular'] = $this->Acceso_vascular_model->get_a_vascularregistro($data['tratamiento']['tratamiento_id']);
 
             $peso_seco = "";
             $total_sesion = sizeof($data['sesiones']);

@@ -107,4 +107,27 @@ class Acceso_vascular_model extends CI_Model
             throw new Exception('Acceso_vascular_model model : Error in get_all_acceso_vascular function - ' . $ex);
         }  
     }
+    
+    /* obtiene el acceso vascular (de la  vista consavascular)
+     * de una sesion para el informe mensual.. dado un tratamiento
+     */
+    function get_a_vascularregistro($tratamiento_id)
+    {
+        try{
+            $avascular = $this->db->query("
+                SELECT
+                    av.*
+                FROM
+                    `consavascular` av
+                WHERE
+                    av.tratamiento_id = $tratamiento_id
+                
+            ")->row_array();
+            
+            return $avascular;
+            
+        }catch (Exception $ex) {
+            throw new Exception('Acceso_vascular_model model : Error in get_all_acceso_vascular function - ' . $ex);
+        }  
+    }
  }
